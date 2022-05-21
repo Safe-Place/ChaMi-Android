@@ -38,8 +38,6 @@ class ChatFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_chat, container, false)
     }
 
-    /// hai kamu nanti ngodingnya disini
-
     companion object {
         /**
          * Use this factory method to create a new instance of
