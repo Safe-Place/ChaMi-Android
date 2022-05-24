@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.chat.ChatFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tbHome"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/purple_500"
+        app:tabTextColor="@color/white"
+        app:tabIndicator="@drawable/custom_underline"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="8dp"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Chat Page" />
+        android:layout_marginTop="60dp"
+        tools:layout_editor_absoluteX="-40dp" />
 
-</FrameLayout>
+</LinearLayout>

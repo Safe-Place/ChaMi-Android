@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_message_receive"
+        android:fontFamily="@font/inter_reguler"
+        android:maxWidth="250dp"
+        android:padding="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="ini adalah pesan" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/tvMessage"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage">
+        <TextView
+            android:id="@+id/tvTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/inter_reguler"
+            android:maxLines="2"
+            android:textColor="#8A8A8A"
+            android:textSize="12sp"
+            tools:text="Just Now" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

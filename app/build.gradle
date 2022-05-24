@@ -136,6 +136,8 @@ dependencies {
     implementation "androidx.paging:paging-rxjava3:$paging_version"
     testImplementation "androidx.paging:paging-common:$paging_version"
 
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
     def idlingEspressoDependencies = [
             idling: "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
     ].values()
