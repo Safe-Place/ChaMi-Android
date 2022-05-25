@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mbahgojol.chami.databinding.ActivityMainBinding
@@ -21,9 +20,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.elevation = 0f
 
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.navHost) as NavHostFragment
+                .findFragmentById(R.id.navHost) as NavHostFragment
         navController = navHostFragment.navController
         binding.apply {
             bottomNavView.setupWithNavController(navController)
