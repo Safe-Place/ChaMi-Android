@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.FragmentChatBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ChatFragment : Fragment() {
     private lateinit var binding: FragmentChatBinding
 
