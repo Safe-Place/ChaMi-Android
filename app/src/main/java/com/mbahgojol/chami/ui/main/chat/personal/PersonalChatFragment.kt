@@ -23,7 +23,8 @@ class PersonalChatFragment : Fragment() {
     lateinit var firestoreModule: FirestoreService
     private val listAdapter by lazy {
         PersonalChatAdapter {
-            Intent(requireActivity(),DetailPersonalChatActivity::class.java).apply {
+            Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
+                putExtra("data", it)
                 startActivity(this)
             }
         }
