@@ -18,6 +18,15 @@
         card_view:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
+    <View
+        android:id="@+id/isOnline"
+        card_view:layout_constraintEnd_toEndOf="@id/avatar"
+        card_view:layout_constraintBottom_toBottomOf="@id/avatar"
+        android:layout_width="15dp"
+        android:background="@drawable/custom_background_last_chat"
+        android:backgroundTint="@color/green"
+        android:layout_height="15dp"/>
+
     <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"

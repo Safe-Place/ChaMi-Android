@@ -1,5 +1,6 @@
 package com.mbahgojol.chami.ui.main.chat.personal
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,11 @@ class PersonalChatFragment : Fragment() {
     @Inject
     lateinit var firestoreModule: FirestoreService
     private val listAdapter by lazy {
-        PersonalChatAdapter()
+        PersonalChatAdapter {
+            Intent(requireActivity(),DetailPersonalChatActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     override fun onCreateView(
