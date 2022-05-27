@@ -29,4 +29,5 @@
     <string name="forgot_pw">Lupa Password</string>
     <string name="asking_signup">Belum punya akun?</string>
     <string name="signup_underline"><u>Signup</u></string>
+    <string name="using_login">Login dengan</string>
 </resources>

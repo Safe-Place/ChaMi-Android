@@ -3,24 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_background_id.xml" value="0.1" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_background_last_chat.xml" value="0.117" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_background_receive.xml" value="0.117" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_background_send.xml" value="0.117" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_input_chat.xml" value="0.117" />
+        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_message_receive.xml" value="0.1" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_message_send.xml" value="0.117" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_rounded_button.xml" value="0.1" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/custom_underline.xml" value="0.117" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.1" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/activity_detail_personal_chat.xml" value="0.22" />
-        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
+        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/activity_signup.xml" value="0.3333333333333333" />
+        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/fragment_challanges.xml" value="0.1796875" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/fragment_chat.xml" value="0.1796875" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/fragment_group_chat.xml" value="0.1796875" />
-        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/fragment_others.xml" value="0.1" />
+        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/fragment_others.xml" value="0.22" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/fragment_personal_chat.xml" value="0.1796875" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/item_chat_personal_receive.xml" value="0.1796875" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/item_chat_personal_send.xml" value="0.5" />
+        <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/item_list_chat.xml" value="0.1796875" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/layout/item_user_chat.xml" value="0.16666666666666666" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/menu/menu_main.xml" value="0.1796875" />
         <entry key="..\:/Bangkit/chami-project/master 1/app/src/main/res/menu/search_view.xml" value="0.1796875" />
