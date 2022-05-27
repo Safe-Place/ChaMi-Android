@@ -1,4 +1,4 @@
-package com.mbahgojol.chami.data
+package com.mbahgojol.chami.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -11,6 +11,7 @@ class ListChatModel {
 @Parcelize
 data class HistoryChatModel(
     val isread: String = "",
+    val roomid: String = "",
     val jabatan: String = "",
     val last_chat: String = "",
     val last_date: String = "",

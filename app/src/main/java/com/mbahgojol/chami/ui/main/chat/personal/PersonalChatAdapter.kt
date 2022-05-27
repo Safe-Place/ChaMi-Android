@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mbahgojol.chami.R
-import com.mbahgojol.chami.data.HistoryChatModel
+import com.mbahgojol.chami.data.model.HistoryChatModel
 import com.mbahgojol.chami.databinding.ItemListChatBinding
 
 class PersonalChatAdapter constructor(

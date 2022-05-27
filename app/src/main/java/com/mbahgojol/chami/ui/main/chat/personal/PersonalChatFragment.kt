@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.toObject
-import com.mbahgojol.chami.data.ListChatModel
+import com.mbahgojol.chami.data.model.ListChatModel
 import com.mbahgojol.chami.databinding.FragmentPersonalChatBinding
 import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject

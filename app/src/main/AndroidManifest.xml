@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ChaMi">
         <activity
             android:theme="@style/FullScreen"
-            android:name=".ui.main.chat.personal.DetailPersonalChatActivity"
+            android:name="com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
