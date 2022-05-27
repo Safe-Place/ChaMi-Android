@@ -2,6 +2,7 @@ package com.mbahgojol.chami
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mbahgojol.chami.databinding.ActivityMainBinding
+import com.mbahgojol.chami.signup.SignupActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -21,6 +23,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val loginPref = LoginPref(this@MainActivity)
+        val isLogin = loginPref.getSession()
+        if (!isLogin) {
+            startActivity(Intent(this, SignupActivity::class.java))
+            finish()
+        }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHost) as NavHostFragment

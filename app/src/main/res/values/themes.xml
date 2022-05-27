@@ -13,4 +13,24 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="inputTextSignup">
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_width">260dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:theme">@style/EditTextTheme</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/purple_500</item>
+        <item name="colorControlHighlight">@color/purple_500</item>
+    </style>
+
+    <style name="linearLayoutSignup">
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
 </resources>

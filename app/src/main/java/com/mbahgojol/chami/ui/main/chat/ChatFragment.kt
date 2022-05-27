@@ -34,7 +34,7 @@ class ChatFragment : Fragment() {
         val fragmentView = requireNotNull(view) {"View should not be null when calling onActivityCreated"}
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager, lifecycle)
-        viewPager = fragmentView.findViewById(R.id.view_pager)
+        viewPager = fragmentView.findViewById(R.id.viewPager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = fragmentView.findViewById(R.id.tbHome)
 
