@@ -10,6 +10,7 @@ import com.mbahgojol.chami.api.ApiConfig
 import com.mbahgojol.chami.response.DataUser
 import com.mbahgojol.chami.response.SignupResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +26,7 @@ class SignupViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun signup(divisi: String, email: String, idPegawai: String, image:MultipartBody.Part, nama:String, password: String, posisi: String, context: Context){
+    fun signup(divisi: RequestBody, email: RequestBody, idPegawai: RequestBody, image:MultipartBody.Part, nama:RequestBody, password: RequestBody, posisi: RequestBody, context: Context){
         _isLoading.value = true
         val client = ApiConfig.getApiService().signupUser(divisi,email,idPegawai,image,nama,password,posisi)
         client.enqueue(object : Callback<SignupResponse> {

@@ -12,9 +12,11 @@ import com.mbahgojol.chami.MainActivity
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.login.LoginActivity
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class SignupActivity : AppCompatActivity() {
@@ -45,35 +47,42 @@ class SignupActivity : AppCompatActivity() {
     private fun signup(){
          val signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
 
-        val name = binding.nama.text.toString()
-        val id = binding.idPegawai.text.toString()
-        val email = binding.email.text.toString()
-        val divisi = binding.divisi.text.toString()
-        val posisi = binding.posisi.text.toString()
-        val password = binding.password.text.toString()
+        val namaPegawai = binding.nama.text.toString()
+        val idPegawai = binding.idPegawai.text.toString()
+        val emailPegawai = binding.email.text.toString()
+        val divPegawai = binding.divisi.text.toString()
+        val posisiPegawai = binding.posisi.text.toString()
+        val passwordPegawai = binding.password.text.toString()
 
         when {
-            name.isEmpty() -> {
+            namaPegawai.isEmpty() -> {
                 binding.nama.error = "Masukkan nama"
             }
-            id.isEmpty() -> {
+            idPegawai.isEmpty() -> {
                 binding.idPegawai.error = "Masukkan Id pegawai"
             }
-            email.isEmpty() -> {
+            emailPegawai.isEmpty() -> {
                 binding.email.error = "Masukkan email"
             }
-            divisi.isEmpty() -> {
+            divPegawai.isEmpty() -> {
                 binding.divisi.error = "Masukkan divisi"
             }
-            posisi.isEmpty() -> {
+            posisiPegawai.isEmpty() -> {
                 binding.posisi.error = "Masukkan posisi"
             }
-            password.isEmpty() -> {
+            passwordPegawai.isEmpty() -> {
                 binding.password.error = "Masukkan password"
             }
             else -> {
                 if(getFile!=null){
                     val file = reduceFileImage(getFile as File)
+
+                    val divisi = divPegawai.toRequestBody("text/plain".toMediaType())
+                    val email = emailPegawai.toRequestBody("text/plain".toMediaType())
+                    val id = idPegawai.toRequestBody("text/plain".toMediaType())
+                    val name = namaPegawai.toRequestBody("text/plain".toMediaType())
+                    val password = passwordPegawai.toRequestBody("text/plain".toMediaType())
+                    val posisi = posisiPegawai.toRequestBody("text/plain".toMediaType())
 
                     val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
                     val image: MultipartBody.Part = MultipartBody.Part.createFormData(
