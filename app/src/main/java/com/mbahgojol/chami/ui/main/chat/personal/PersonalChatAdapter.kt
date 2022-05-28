@@ -32,7 +32,7 @@ class PersonalChatAdapter constructor(
             }
             binding.tvName.text = model.username
             binding.tvLastMessage.text = model.last_chat
-            binding.tvIncomingChat.isVisible = model.isread == "N"
+            binding.tvIncomingChat.isVisible = model.isread == false
 
             if (model.isonline) {
                 binding.isOnline.backgroundTintList =

@@ -24,10 +24,19 @@ class PersonalChatFragment : Fragment() {
     lateinit var firestoreModule: FirestoreService
     private val listAdapter by lazy {
         PersonalChatAdapter {
-            Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
-                putExtra("data", it)
-                startActivity(this)
-            }
+            firestoreModule.getListChatById(it.user_id)
+                .get()
+                .addOnSuccessListener { doc ->
+                    val isInitChat = doc == null
+                    Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
+                        putExtra("data", it)
+                        putExtra("isInit", true)
+                        startActivity(this)
+                    }
+                }
+                .addOnFailureListener { ex ->
+                    Timber.d("get failed with ", ex)
+                }
         }
     }
 
@@ -50,7 +59,7 @@ class PersonalChatFragment : Fragment() {
             }
         }
 
-        firestoreModule.listenListChatById("msqzZHdcpHi6og1uBUmo")
+        firestoreModule.getListChatById("msqzZHdcpHi6og1uBUmo")
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")

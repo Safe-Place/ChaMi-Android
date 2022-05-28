@@ -3,20 +3,20 @@ package com.mbahgojol.chami.data.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-class ListChatModel {
-    val user_id: String = ""
-    val history_chat: MutableList<HistoryChatModel> = mutableListOf()
-}
+data class ListChatModel(
+    var user_id: String = "",
+    var history_chat: MutableList<HistoryChatModel> = mutableListOf()
+)
 
 @Parcelize
 data class HistoryChatModel(
-    val isread: String = "",
-    val roomid: String = "",
-    val jabatan: String = "",
-    val last_chat: String = "",
-    val last_date: String = "",
-    val profile_url: String = "",
-    val user_id: String = "",
-    val username: String = "",
-    val isonline: Boolean = false
+    var isread: Boolean = false,
+    var roomid: String = "",
+    var jabatan: String = "",
+    var last_chat: String = "",
+    var last_date: String = "",
+    var profile_url: String = "",
+    var user_id: String = "",
+    var username: String = "",
+    var isonline: Boolean = false
 ) : Parcelable
