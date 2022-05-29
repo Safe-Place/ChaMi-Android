@@ -54,7 +54,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
                 val msg = binding.etPesan.text.toString()
                 val data = ChatLog(
-                    model.user_id,
+                    model.receiver_id,
                     user?.username ?: "anonym",
                     currentDate,
                     0,
@@ -66,7 +66,8 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
                 service.addChat(data, model.roomid)
                     .addOnSuccessListener {
-                        service.getRoomChat(model.user_id, model.roomid)
+                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
+                        service.getRoomChat(model.receiver_id, model.roomid)
                             .get()
                             .addOnSuccessListener {
                                 val chatRoom = it.toObject<ChatRoom>()
@@ -78,7 +79,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                 }
 
                                 service.updateChatDetail(
-                                    model.user_id, model.roomid,
+                                    model.receiver_id, model.roomid,
                                     Detail(msg, currentDate, chatRoom?.inRoom ?: false)
                                 )
                             }.addOnFailureListener {
@@ -88,17 +89,19 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                     }
             }
 
-            listAdapter = DetailChatAdapter(model.user_id) {
+            listAdapter = DetailChatAdapter(model.receiver_id) {
 
             }
 
             binding.apply {
                 rvChat.apply {
-                    layoutManager = LinearLayoutManager(this@DetailPersonalChatActivity)
+                    val myLayoutManager = LinearLayoutManager(this@DetailPersonalChatActivity)
+                    layoutManager = myLayoutManager
+                    myLayoutManager.stackFromEnd = true
                     adapter = listAdapter
                 }
 
-                service.getUserProfile(model.user_id)
+                service.getUserProfile(model.receiver_id)
                     .addSnapshotListener { snapshot, e ->
                         if (e != null) {
                             Timber.d("Listen failed.")
@@ -147,7 +150,9 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
                 if (snapshot != null && snapshot.exists()) {
                     val model = snapshot.toObject<GetChatResponse>()
-                    model?.chatlog?.let { listAdapter.setData(it) }
+                    model?.chatlog?.let {
+                        listAdapter.setData(it)
+                    }
                 } else {
                     Timber.e("Tidak ada List Chat")
                 }

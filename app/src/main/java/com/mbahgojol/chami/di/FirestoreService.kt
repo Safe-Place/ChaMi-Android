@@ -7,11 +7,26 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mbahgojol.chami.data.model.ChatLog
+import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Detail
 import com.mbahgojol.chami.data.model.GetChatResponse
 
 class FirestoreService {
     private val db = Firebase.firestore
+
+    fun addUser(users: CreateUsers, listen: (String) -> Unit) =
+        db.collection("users")
+            .add(users)
+            .onSuccessTask { doc ->
+                doc.update("user_id", doc.id)
+                    .addOnSuccessListener {
+                        listen(doc.id)
+                    }
+            }
+
+    fun searchUser(username: String) =
+        db.collection("users")
+            .whereEqualTo("username", username)
 
     fun getChat(roomId: String) =
         db.collection("chat")

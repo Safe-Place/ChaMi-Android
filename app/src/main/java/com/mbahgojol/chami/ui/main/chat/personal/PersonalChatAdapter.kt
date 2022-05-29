@@ -54,7 +54,7 @@ class PersonalChatAdapter constructor(
                     }
                 }
 
-            service.getUserProfile(model.user_id)
+            service.getUserProfile(model.receiver_id)
                 .addSnapshotListener { snapshot, e ->
                     if (e != null) {
                         Timber.d("Listen failed.")

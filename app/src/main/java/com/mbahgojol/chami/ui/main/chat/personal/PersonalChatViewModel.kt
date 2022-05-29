@@ -35,8 +35,7 @@ class PersonalChatViewModel @Inject constructor(private val service: FirestoreSe
     }
 
     private fun getUser(chatRoom: ChatRoom?) = Observable.create<Users> { emitter ->
-        Timber.e(chatRoom?.user_id ?: "")
-        service.getUserProfile(chatRoom?.user_id ?: "")
+        service.getUserProfile(chatRoom?.receiver_id ?: "")
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
