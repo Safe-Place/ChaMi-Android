@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.data.model.ChatLog
-import com.mbahgojol.chami.data.model.HistoryChatModel
 import com.mbahgojol.chami.databinding.ItemChatPersonalSendBinding
+import com.mbahgojol.chami.utils.DateUtils
 import com.mbahgojol.chami.utils.TypeMsg
 
 class DetailChatAdapter constructor(
     private val authorId: String,
     private val data: MutableList<ChatLog> = mutableListOf(),
-    private var listener: (HistoryChatModel) -> Unit
+    private var listener: (ChatLog) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -28,6 +28,8 @@ class DetailChatAdapter constructor(
         fun bind(model: ChatLog) {
             if (authorId == model.author_id) {
                 binding.tvMessage.text = model.message
+                binding.tvTimestamp.text = DateUtils.reformatToClock(model.create_date)
+
                 binding.layoutReceiver.contenReceiver.visibility = View.GONE
                 binding.layoutSender.visibility = View.VISIBLE
             } else {

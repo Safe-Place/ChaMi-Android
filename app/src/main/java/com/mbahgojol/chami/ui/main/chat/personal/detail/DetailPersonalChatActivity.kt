@@ -1,6 +1,7 @@
 package com.mbahgojol.chami.ui.main.chat.personal.detail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,12 +9,10 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.R
-import com.mbahgojol.chami.data.model.ChatLog
-import com.mbahgojol.chami.data.model.ChatModel
-import com.mbahgojol.chami.data.model.HistoryChatModel
-import com.mbahgojol.chami.data.model.ListChatModel
+import com.mbahgojol.chami.data.model.*
 import com.mbahgojol.chami.databinding.ActivityDetailPersonalChatBinding
 import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,79 +23,69 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailPersonalChatBinding
 
     @Inject
-    lateinit var firestoreModule: FirestoreService
+    lateinit var service: FirestoreService
 
     private lateinit var listAdapter: DetailChatAdapter
+    private var user: Users? = null
+    private var senderId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPersonalChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
-
-        val model = intent.getParcelableExtra<HistoryChatModel>("data")
+        val model = intent.getParcelableExtra<ChatRoom>("data")
         val isInit = intent.getBooleanExtra("isInit", false)
+        senderId = intent.getStringExtra("senderId")
         if (model != null) {
+            binding.btnBack.setOnClickListener {
+                senderId?.let { service.updateStatusInRoom(it, model.roomid, false) }
+                finish()
+            }
+
+            if (isInit) service.createRoom(model.roomid)
+            senderId?.let {
+                service.updateStatusInRoom(it, model.roomid, true)
+                service.updateIsReadChat(it, model.roomid, true)
+            }
+
             binding.btnSend.setOnClickListener {
+                val currentDate = DateUtils.getCurrentTime()
+
                 val msg = binding.etPesan.text.toString()
                 val data = ChatLog(
                     model.user_id,
-                    model.username,
-                    "",
+                    user?.username ?: "anonym",
+                    currentDate,
                     0,
                     "",
                     "123",
-                    msg
+                    msg,
+                    model.roomid
                 )
 
-                if (isInit) {
-                    firestoreModule.createRoomAutoGenerate(ChatModel())
-                        .addOnSuccessListener { doc ->
-                            model.roomid = doc.id
-                            addChat(model, data)
-
-                            firestoreModule.setListChatbyId(
-                                ListChatModel(
-                                    model.user_id,
-                                    mutableListOf(
-                                        HistoryChatModel(
-                                            true,
-                                            model.roomid,
-                                            model.jabatan,
-                                            msg,
-                                            model.last_date,
-                                            model.profile_url,
-                                            model.user_id,
-                                            model.username,
-                                            model.isonline
-                                        )
+                service.addChat(data, model.roomid)
+                    .addOnSuccessListener {
+                        service.getRoomChat(model.user_id, model.roomid)
+                            .get()
+                            .addOnSuccessListener {
+                                val chatRoom = it.toObject<ChatRoom>()
+                                senderId?.let { it1 ->
+                                    service.updateChatDetail(
+                                        it1, model.roomid,
+                                        Detail(msg, currentDate, true)
                                     )
+                                }
+
+                                service.updateChatDetail(
+                                    model.user_id, model.roomid,
+                                    Detail(msg, currentDate, chatRoom?.inRoom ?: false)
                                 )
-                            )
-
-                            firestoreModule.updateListHistoryChatbyId(
-                                HistoryChatModel(
-                                    true,
-                                    model.roomid,
-                                    model.jabatan,
-                                    msg,
-                                    model.last_date,
-                                    model.profile_url,
-                                    "msqzZHdcpHi6og1uBUmo",
-                                    model.username,
-                                    model.isonline
-                                )
-                            )
-
-                            listenChat(doc.id)
-                        }
-                } else {
-                    addChat(model, data)
-                }
-
+                            }.addOnFailureListener {
+                                Log.e("ChatDetail", it.message.toString())
+                            }
+                        binding.etPesan.text.clear()
+                    }
             }
 
             listAdapter = DetailChatAdapter(model.user_id) {
@@ -109,27 +98,47 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                     adapter = listAdapter
                 }
 
-                tvName.text = model.username
-                tvJabatan.text = model.jabatan
-                avatar.load(model.profile_url) {
-                    transformations(CircleCropTransformation())
-                }
+                service.getUserProfile(model.user_id)
+                    .addSnapshotListener { snapshot, e ->
+                        if (e != null) {
+                            Timber.d("Listen failed.")
+                            return@addSnapshotListener
+                        }
 
-                if (model.isonline) {
-                    binding.isOnline.backgroundTintList =
-                        ContextCompat.getColorStateList(binding.root.context, R.color.green)
-                } else {
-                    binding.isOnline.backgroundTintList =
-                        ContextCompat.getColorStateList(binding.root.context, R.color.grey)
-                }
+                        if (snapshot != null && snapshot.exists()) {
+                            user = snapshot.toObject<Users>()
+
+                            tvName.text = user?.username
+                            tvJabatan.text = user?.jabatan
+                            avatar.load(user?.profile_url) {
+                                transformations(CircleCropTransformation())
+                            }
+
+                            if (user?.isonline == true) {
+                                binding.isOnline.backgroundTintList =
+                                    ContextCompat.getColorStateList(
+                                        binding.root.context,
+                                        R.color.green
+                                    )
+                            } else {
+                                binding.isOnline.backgroundTintList =
+                                    ContextCompat.getColorStateList(
+                                        binding.root.context,
+                                        R.color.grey
+                                    )
+                            }
+                        } else {
+                            Timber.e("Tidak ada List Chat")
+                        }
+                    }
             }
 
-            if (!isInit) listenChat(model.roomid)
+            listenChat(model.roomid)
         }
     }
 
     private fun listenChat(roomid: String) {
-        firestoreModule.getChatByRoomId(roomid)
+        service.getChat(roomid)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
@@ -137,33 +146,11 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                 }
 
                 if (snapshot != null && snapshot.exists()) {
-                    val response = snapshot.toObject<ChatModel>()
-                    response?.let { listAdapter.setData(it.chatlog) }
+                    val model = snapshot.toObject<GetChatResponse>()
+                    model?.chatlog?.let { listAdapter.setData(it) }
                 } else {
                     Timber.e("Tidak ada List Chat")
                 }
             }
-    }
-
-    private fun addChat(model: HistoryChatModel, chatLog: ChatLog) {
-        firestoreModule.addChatByRoomId(model.roomid, chatLog)
-            .addOnSuccessListener {
-                Timber.e("DocumentSnapshot successfully written!")
-
-                firestoreModule.updateListHistoryChatbyId(
-                    HistoryChatModel(
-                        true,
-                        model.roomid,
-                        model.jabatan,
-                        chatLog.message,
-                        model.last_date,
-                        model.profile_url,
-                        model.user_id,
-                        model.username,
-                        model.isonline
-                    )
-                )
-            }
-            .addOnFailureListener { e -> Timber.e("Error writing document", e) }
     }
 }

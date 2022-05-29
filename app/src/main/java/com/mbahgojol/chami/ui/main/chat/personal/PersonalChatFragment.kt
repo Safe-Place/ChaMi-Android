@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.ktx.toObject
-import com.mbahgojol.chami.data.model.ListChatModel
+import com.google.firebase.firestore.ktx.toObjects
+import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.databinding.FragmentPersonalChatBinding
 import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
@@ -22,21 +23,17 @@ class PersonalChatFragment : Fragment() {
 
     @Inject
     lateinit var firestoreModule: FirestoreService
+    private val viewModel: PersonalChatViewModel by viewModels()
+    private val senderId = "msqzZHdcpHi6og1uBUmo"
+
     private val listAdapter by lazy {
-        PersonalChatAdapter {
-            firestoreModule.getListChatById(it.user_id)
-                .get()
-                .addOnSuccessListener { doc ->
-                    val isInitChat = doc == null
-                    Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
-                        putExtra("data", it)
-                        putExtra("isInit", true)
-                        startActivity(this)
-                    }
-                }
-                .addOnFailureListener { ex ->
-                    Timber.d("get failed with ", ex)
-                }
+        PersonalChatAdapter(senderId, firestoreModule) {
+            Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
+                putExtra("data", it)
+                putExtra("isInit", false)
+                putExtra("senderId", senderId)
+                startActivity(this)
+            }
         }
     }
 
@@ -59,16 +56,19 @@ class PersonalChatFragment : Fragment() {
             }
         }
 
-        firestoreModule.getListChatById("msqzZHdcpHi6og1uBUmo")
+        viewModel.listenList.observe(viewLifecycleOwner) {
+        }
+
+        firestoreModule.getListChat(senderId)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
                     return@addSnapshotListener
                 }
 
-                if (snapshot != null && snapshot.exists()) {
-                    val model = snapshot.toObject<ListChatModel>()
-                    model?.let { listAdapter.setData(it.history_chat) }
+                if (snapshot != null && !snapshot.isEmpty) {
+                    val model = snapshot.toObjects<ChatRoom>().toMutableList()
+                    listAdapter.setData(model)
                 } else {
                     Timber.e("Tidak ada List Chat")
                 }
