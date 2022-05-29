@@ -9,6 +9,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.*
 import com.mbahgojol.chami.databinding.ActivityDetailPersonalChatBinding
 import com.mbahgojol.chami.di.FirestoreService
@@ -25,6 +26,9 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     @Inject
     lateinit var service: FirestoreService
 
+    @Inject
+    lateinit var sharedPref: SharedPref
+
     private lateinit var listAdapter: DetailChatAdapter
     private var user: Users? = null
     private var senderId: String? = null
@@ -34,16 +38,22 @@ class DetailPersonalChatActivity : AppCompatActivity() {
         binding = ActivityDetailPersonalChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.apply {
+            rvChat.apply {
+                val myLayoutManager = LinearLayoutManager(this@DetailPersonalChatActivity)
+                layoutManager = myLayoutManager
+                myLayoutManager.stackFromEnd = true
+            }
+        }
+
         val model = intent.getParcelableExtra<ChatRoom>("data")
-        val isInit = intent.getBooleanExtra("isInit", false)
         senderId = intent.getStringExtra("senderId")
-        if (model != null) {
+        if (intent.hasExtra("data") && model != null) {
             binding.btnBack.setOnClickListener {
                 senderId?.let { service.updateStatusInRoom(it, model.roomid, false) }
                 finish()
             }
 
-            if (isInit) service.createRoom(model.roomid)
             senderId?.let {
                 service.updateStatusInRoom(it, model.roomid, true)
                 service.updateIsReadChat(it, model.roomid, true)
@@ -92,52 +102,118 @@ class DetailPersonalChatActivity : AppCompatActivity() {
             listAdapter = DetailChatAdapter(model.receiver_id) {
 
             }
+            binding.rvChat.adapter = listAdapter
 
-            binding.apply {
-                rvChat.apply {
-                    val myLayoutManager = LinearLayoutManager(this@DetailPersonalChatActivity)
-                    layoutManager = myLayoutManager
-                    myLayoutManager.stackFromEnd = true
-                    adapter = listAdapter
-                }
+            fetchProfile(model.receiver_id)
+            listenChat(model.roomid)
+        } else {
+            val user = intent.getParcelableExtra<Users>("users")
+            val roomId = sharedPref.userId
+                .plus("|")
+                .plus(user?.user_id)
 
-                service.getUserProfile(model.receiver_id)
-                    .addSnapshotListener { snapshot, e ->
-                        if (e != null) {
-                            Timber.d("Listen failed.")
-                            return@addSnapshotListener
-                        }
-
-                        if (snapshot != null && snapshot.exists()) {
-                            user = snapshot.toObject<Users>()
-
-                            tvName.text = user?.username
-                            tvJabatan.text = user?.jabatan
-                            avatar.load(user?.profile_url) {
-                                transformations(CircleCropTransformation())
-                            }
-
-                            if (user?.isonline == true) {
-                                binding.isOnline.backgroundTintList =
-                                    ContextCompat.getColorStateList(
-                                        binding.root.context,
-                                        R.color.green
-                                    )
-                            } else {
-                                binding.isOnline.backgroundTintList =
-                                    ContextCompat.getColorStateList(
-                                        binding.root.context,
-                                        R.color.grey
-                                    )
-                            }
-                        } else {
-                            Timber.e("Tidak ada List Chat")
-                        }
-                    }
+            binding.btnBack.setOnClickListener {
+                senderId?.let { service.updateStatusInRoom(it, roomId, false) }
+                finish()
+            }
+            senderId?.let {
+                service.updateStatusInRoom(it, roomId, true)
+                service.updateIsReadChat(it, roomId, true)
             }
 
-            listenChat(model.roomid)
+            service.createRoom(roomId)
+
+            listAdapter = DetailChatAdapter(user?.user_id ?: "") {
+
+            }
+            binding.rvChat.adapter = listAdapter
+
+            user?.user_id?.let { fetchProfile(it) }
+            listenChat(roomId)
+
+            binding.btnSend.setOnClickListener {
+                val currentDate = DateUtils.getCurrentTime()
+
+                val msg = binding.etPesan.text.toString()
+                val data = ChatLog(
+                    user?.user_id ?: "",
+                    user?.username ?: "anonym",
+                    currentDate,
+                    0,
+                    "",
+                    "123",
+                    msg,
+                    roomId
+                )
+
+                service.addChat(data, roomId)
+                    .addOnSuccessListener {
+                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
+                        service.getRoomChat(user?.user_id ?: "", roomId)
+                            .get()
+                            .addOnSuccessListener {
+                                val chatRoom = it.toObject<ChatRoom>()
+                                senderId?.let { it1 ->
+                                    service.updateChatDetail(
+                                        it1, roomId,
+                                        Detail(msg, currentDate, true)
+                                    )
+                                }
+
+                                service.updateChatDetail(
+                                    user?.user_id ?: "", roomId,
+                                    Detail(msg, currentDate, chatRoom?.inRoom ?: false)
+                                )
+
+                                service.updateChatList(
+                                    senderId ?: "",
+                                    user?.user_id ?: "",
+                                    roomId,
+                                    chatRoom?.inRoom ?: false
+                                )
+                            }.addOnFailureListener {
+                                Log.e("ChatDetail", it.message.toString())
+                            }
+                        binding.etPesan.text.clear()
+                    }
+            }
         }
+    }
+
+    private fun fetchProfile(userId: String) {
+        service.getUserProfile(userId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.d("Listen failed.")
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    user = snapshot.toObject<Users>()
+
+                    binding.tvName.text = user?.username
+                    binding.tvJabatan.text = user?.jabatan
+                    binding.avatar.load(user?.profile_url) {
+                        transformations(CircleCropTransformation())
+                    }
+
+                    if (user?.isonline == true) {
+                        binding.isOnline.backgroundTintList =
+                            ContextCompat.getColorStateList(
+                                binding.root.context,
+                                R.color.green
+                            )
+                    } else {
+                        binding.isOnline.backgroundTintList =
+                            ContextCompat.getColorStateList(
+                                binding.root.context,
+                                R.color.grey
+                            )
+                    }
+                } else {
+                    Timber.e("Tidak ada List Chat")
+                }
+            }
     }
 
     private fun listenChat(roomid: String) {

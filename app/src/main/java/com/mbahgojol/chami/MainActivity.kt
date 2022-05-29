@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         val navHostFragment = supportFragmentManager
-                .findFragmentById(R.id.navHost) as NavHostFragment
+            .findFragmentById(R.id.navHost) as NavHostFragment
         navController = navHostFragment.navController
         binding.apply {
             bottomNavView.setupWithNavController(navController)
@@ -37,23 +38,31 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.search_view, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.search).actionView as SearchView
-
+        val menuItem = menu.findItem(R.id.search)
+        val searchView = menuItem.actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.search_hint_user)
+
+        menuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                navController.navigate(R.id.searchFragment)
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                navController.popBackStack()
+                return true
+            }
+
+        })
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            /*
-            Gunakan method ini ketika search selesai atau OK
-             */
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
                 searchView.clearFocus()
                 return true
             }
 
-            /*
-            Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
-             */
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }

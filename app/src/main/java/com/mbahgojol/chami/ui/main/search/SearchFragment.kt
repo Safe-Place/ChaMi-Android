@@ -1,4 +1,4 @@
-package com.mbahgojol.chami.ui.main.chat.personal
+package com.mbahgojol.chami.ui.main.search
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,34 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.toObjects
 import com.mbahgojol.chami.data.SharedPref
-import com.mbahgojol.chami.data.model.ChatRoom
-import com.mbahgojol.chami.databinding.FragmentPersonalChatBinding
+import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.databinding.FragmentSearchBinding
 import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.function.Predicate
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PersonalChatFragment : Fragment() {
-    private var binding: FragmentPersonalChatBinding? = null
+class SearchFragment : Fragment() {
 
     @Inject
-    lateinit var firestoreModule: FirestoreService
+    lateinit var service: FirestoreService
+
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val viewModel: PersonalChatViewModel by viewModels()
-
-    private val listAdapter by lazy {
-        PersonalChatAdapter(sharedPref.userId, firestoreModule) {
+    private var binding: FragmentSearchBinding? = null
+    private val myAdapter by lazy {
+        SearchUserAdapter {
             Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
-                putExtra("data", it)
-                putExtra("isInit", false)
+                putExtra("users", it)
+                putExtra("isInit", true)
                 putExtra("senderId", sharedPref.userId)
                 startActivity(this)
             }
@@ -44,7 +43,7 @@ class PersonalChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPersonalChatBinding.inflate(inflater, container, false)
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -52,34 +51,28 @@ class PersonalChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            rvListChat.apply {
+            rvSearch.apply {
                 layoutManager = LinearLayoutManager(requireActivity())
-                adapter = listAdapter
+                adapter = myAdapter
                 setHasFixedSize(true)
             }
         }
 
-        viewModel.listenList.observe(viewLifecycleOwner) {
-        }
-
-        firestoreModule.getListChat(sharedPref.userId)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.d("Listen failed.")
-                    return@addSnapshotListener
-                }
-
+        service.getAllUser()
+            .get()
+            .addOnSuccessListener { snapshot ->
                 if (snapshot != null && !snapshot.isEmpty) {
-                    val model = snapshot.toObjects<ChatRoom>().toMutableList()
-                    listAdapter.setData(model)
+                    val model = snapshot.toObjects<Users>().toMutableList()
+                    val prediction = Predicate<Users> { it.user_id == sharedPref.userId }
+                    remove(model, prediction)
+                    myAdapter.setData(model)
                 } else {
                     Timber.e("Tidak ada List Chat")
                 }
             }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+    private fun <T> remove(list: MutableList<T>, predicate: Predicate<T>) {
+        list.removeIf { x: T -> predicate.test(x) }
     }
 }

@@ -15,4 +15,5 @@
     <string name="last_chat">Ini adalah preview last chat</string>
     <string name="hint_input_pesan">Masukkan Pesan</string>
     <string name="posisi_pegawai">Divisi Pegawai</string>
+    <string name="search">Search</string>
 </resources>

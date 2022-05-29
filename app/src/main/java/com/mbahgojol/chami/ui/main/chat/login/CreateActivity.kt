@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.MainActivity
+import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivityCreateBinding
@@ -18,6 +19,9 @@ class CreateActivity : AppCompatActivity() {
 
     @Inject
     lateinit var service: FirestoreService
+
+    @Inject
+    lateinit var sharedPref: SharedPref
     private lateinit var binding: ActivityCreateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +58,7 @@ class CreateActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     if (it != null && it.documents.isNotEmpty()) {
                         val user = it.documents[0].toObject<Users>()
+                        sharedPref.userId = user?.user_id ?: ""
 
                         Intent(this, MainActivity::class.java).apply {
                             putExtra("user_id", user?.user_id)
@@ -63,6 +68,7 @@ class CreateActivity : AppCompatActivity() {
                         binding.progress.isVisible = false
                     } else {
                         service.addUser(users) { id ->
+                            sharedPref.userId = id
                             binding.progress.isVisible = false
                             Intent(this, MainActivity::class.java).apply {
                                 putExtra("user_id", id)

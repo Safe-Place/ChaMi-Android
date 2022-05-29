@@ -6,10 +6,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.mbahgojol.chami.data.model.ChatLog
-import com.mbahgojol.chami.data.model.CreateUsers
-import com.mbahgojol.chami.data.model.Detail
-import com.mbahgojol.chami.data.model.GetChatResponse
+import com.mbahgojol.chami.data.model.*
 
 class FirestoreService {
     private val db = Firebase.firestore
@@ -27,6 +24,9 @@ class FirestoreService {
     fun searchUser(username: String) =
         db.collection("users")
             .whereEqualTo("username", username)
+
+    fun getAllUser() =
+        db.collection("users")
 
     fun getChat(roomId: String) =
         db.collection("chat")
@@ -102,6 +102,25 @@ class FirestoreService {
             .collection("detail")
             .document(roomId)
             .update("isread", isread)
+    }
+
+    fun updateChatList(
+        senderId: String,
+        receiverId: String,
+        roomId: String,
+        inRoom: Boolean
+    ) {
+        db.collection("users")
+            .document(senderId)
+            .collection("chat_room")
+            .document(roomId)
+            .set(ChatRoom(roomId, true, receiverId), SetOptions.merge())
+
+        db.collection("users")
+            .document(receiverId)
+            .collection("chat_room")
+            .document(roomId)
+            .set(ChatRoom(roomId, inRoom, senderId), SetOptions.merge())
     }
 
     fun updateChatDetail(
