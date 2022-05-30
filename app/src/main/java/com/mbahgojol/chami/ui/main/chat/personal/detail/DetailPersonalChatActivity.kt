@@ -77,7 +77,6 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
                 service.addChat(data, model.roomid)
                     .addOnSuccessListener {
-                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                         service.getRoomChat(model.receiver_id, model.roomid)
                             .get()
                             .addOnSuccessListener {
@@ -96,8 +95,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
-                        binding.etPesan.text.clear()
                     }
+
+                binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
+                binding.etPesan.text.clear()
             }
 
             listAdapter = DetailChatAdapter(model.receiver_id) {
