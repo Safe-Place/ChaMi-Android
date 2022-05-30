@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mbahgojol.chami.databinding.ActivityMainBinding
+import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.root.hideKeyboard()
         setContentView(binding.root)
         supportActionBar?.elevation = 0f
 

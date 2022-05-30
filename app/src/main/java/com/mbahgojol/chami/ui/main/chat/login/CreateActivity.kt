@@ -3,6 +3,7 @@ package com.mbahgojol.chami.ui.main.chat.login
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.MainActivity
@@ -26,6 +27,7 @@ class CreateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityCreateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -46,7 +48,7 @@ class CreateActivity : AppCompatActivity() {
         binding.btnGabung.setOnClickListener {
             binding.progress.isVisible = true
 
-            val username = binding.etName.text.toString()
+            val username = binding.etName.text.toString() ?: "Bot ChaMi"
             val users = CreateUsers(
                 true,
                 "Agent Divisi Digital Center",

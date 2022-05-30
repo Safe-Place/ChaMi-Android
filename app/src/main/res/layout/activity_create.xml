@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
@@ -13,6 +14,7 @@
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
         android:gravity="center"
         android:hint="Input your name in here..."
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,10 +30,10 @@
         app:layout_constraintTop_toBottomOf="@id/etName" />
 
     <ProgressBar
-        android:visibility="invisible"
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

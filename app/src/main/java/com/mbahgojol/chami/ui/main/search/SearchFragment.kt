@@ -15,6 +15,7 @@ import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.FragmentSearchBinding
 import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
+import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.function.Predicate
@@ -52,6 +53,11 @@ class SearchFragment : Fragment() {
                     }
                 }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireView().hideKeyboard()
     }
 
     override fun onCreateView(
