@@ -96,12 +96,17 @@ class SignupActivity : AppCompatActivity() {
                         showLoading(it)
                     }
 
-                    val isLogin = LoginPref(this@SignupActivity)
-                    isLogin.setSession(true)
+                    signupViewModel.user.observe(this@SignupActivity) { user ->
+                        val idPref = LoginPref(this@SignupActivity)
+                        idPref.setId(user.id_pegawai)
 
-                    val intent = Intent(this@SignupActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                        val isLogin = LoginPref(this@SignupActivity)
+                        isLogin.setSession(true)
+
+                        val intent = Intent(this@SignupActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
         }

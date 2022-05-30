@@ -20,15 +20,15 @@ class SignupViewModel : ViewModel() {
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
 
-    private val _user = MutableLiveData<List<DataUser>>()
-    val user: LiveData<List<DataUser>> = _user
+    private val _user = MutableLiveData<DataUser>()
+    val user: LiveData<DataUser> = _user
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun signup(divisi: RequestBody, email: RequestBody, idPegawai: RequestBody, image:MultipartBody.Part, nama:RequestBody, password: RequestBody, posisi: RequestBody, context: Context){
         _isLoading.value = true
-        val client = ApiConfig.getApiService().signupUser(divisi,email,idPegawai,image,nama,password,posisi)
+        val client = ApiConfig.getApiService(context).signupUser(divisi,email,idPegawai,image,nama,password,posisi)
         client.enqueue(object : Callback<SignupResponse> {
             override fun onResponse(
                 call: Call<SignupResponse>,
