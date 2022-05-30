@@ -36,6 +36,7 @@ class DetailChatAdapter constructor(
                 binding.layoutReceiver.contenReceiver.visibility = View.VISIBLE
                 binding.layoutSender.visibility = View.GONE
                 binding.layoutReceiver.tvMessage.text = model.message
+                binding.layoutReceiver.tvTimestamp.text = DateUtils.reformatToClock(model.create_date)
             }
         }
     }

@@ -32,6 +32,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     private lateinit var listAdapter: DetailChatAdapter
     private var user: Users? = null
     private var senderId: String? = null
+    private var roomId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -217,6 +218,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     }
 
     private fun listenChat(roomid: String) {
+        this.roomId = roomid
         service.getChat(roomid)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
@@ -233,5 +235,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                     Timber.e("Tidak ada List Chat")
                 }
             }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        senderId?.let { roomId?.let { it1 -> service.updateStatusInRoom(it, it1, false) } }
     }
 }

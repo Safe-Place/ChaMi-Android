@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.mbahgojol.chami.data.SharedPref
+import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.FragmentSearchBinding
 import com.mbahgojol.chami.di.FirestoreService
@@ -30,12 +32,25 @@ class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding? = null
     private val myAdapter by lazy {
         SearchUserAdapter {
-            Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
-                putExtra("users", it)
-                putExtra("isInit", true)
-                putExtra("senderId", sharedPref.userId)
-                startActivity(this)
-            }
+            service.getListChat(sharedPref.userId)
+                .whereEqualTo("receiver_id", it.user_id)
+                .get()
+                .addOnSuccessListener { snap ->
+                    if (snap.documents.isNotEmpty()) {
+                        val room = snap.documents[0].toObject<ChatRoom>()
+                        Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
+                            putExtra("data", room)
+                            putExtra("senderId", sharedPref.userId)
+                            startActivity(this)
+                        }
+                    } else {
+                        Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
+                            putExtra("users", it)
+                            putExtra("senderId", sharedPref.userId)
+                            startActivity(this)
+                        }
+                    }
+                }
         }
     }
 
