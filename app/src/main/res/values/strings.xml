@@ -32,4 +32,46 @@
     <string name="using_login">Login dengan</string>
     <string name="hello">Hello!</string>
     <string name="desc_password_login">Masukkan password untuk login</string>
+    <string name="tab_challenge_1">List Challenge</string>
+    <string name="tab_challenge_2">History Challenge</string>
+    <string name="tenggat">Tenggat :</string>
+    <string name="pemenang">Pemenang</string>
+    <string name="your_sub">Your Submission</string>
+    <string name="kirim">Kirim</string>
+    <string name="tambah_lampiran">+ Tambah Lampiran</string>
+    <string name="tandai_selesai">Tandai Selesai</string>
+
+    <integer-array name="avatar">
+        <item>@drawable/avatar</item>
+    </integer-array>
+
+    <string-array name="data_judul">
+        <item>Membuat Prototype</item>
+        <item>Merancang user flow</item>
+        <item>Mencari ide</item>
+    </string-array>
+
+    <string-array name="data_deskripsi">
+        <item>Silakan submit file yang sudah dibuat</item>
+        <item>Silakan submit file yang sudah dibuat</item>
+        <item>Silakan submit file yang sudah dibuat</item>
+    </string-array>
+
+    <integer-array name="data_reward">
+        <item>100</item>
+        <item>200</item>
+        <item>150</item>
+    </integer-array>
+
+    <string-array name="due_date">
+        <item>12 Juni 2022</item>
+        <item>13 Juni 2022</item>
+        <item>14 Juni 2022</item>
+    </string-array>
+
+    <string-array name="data_status">
+        <item>Sedang Berlangsung</item>
+        <item>Sedang Berlangsung</item>
+        <item>Sedang Berlangsung</item>
+    </string-array>
 </resources>

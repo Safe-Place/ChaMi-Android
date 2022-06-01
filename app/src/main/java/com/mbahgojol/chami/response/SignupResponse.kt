@@ -4,27 +4,18 @@ import com.google.gson.annotations.SerializedName
 
 data class SignupResponse (
     @field:SerializedName("data")
-    val data: DataUser,
+    val succes: Boolean,
 
     @field:SerializedName("messages")
     val message : String,
 
     @field:SerializedName("status")
-    val status : Boolean
+    val data : DataUser
 )
 
 data class DataUser(
-    @field:SerializedName("divisi")
-    val divisi: String?,
-
-    @field:SerializedName("email")
-    val email: String?,
-
     @field:SerializedName("id_pegawai")
     val id_pegawai: String?,
-
-    @field:SerializedName("image_path")
-    val image_path: String?,
 
     @field:SerializedName("name")
     val name: String?,
@@ -32,6 +23,18 @@ data class DataUser(
     @field:SerializedName("password")
     val password: String?,
 
+    @field:SerializedName("email")
+    val email: String?,
+
     @field:SerializedName("posisi")
     val posisi: String?,
+
+    @field:SerializedName("divisi")
+    val divisi: String?,
+
+//    @field:SerializedName("path")
+//    val path: String?,
+
+    @field:SerializedName("registered_on")
+    val registered_on: String?,
 )

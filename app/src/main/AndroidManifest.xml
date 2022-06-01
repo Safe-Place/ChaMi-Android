@@ -11,6 +11,9 @@
         android:theme="@style/Theme.ChaMi"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.meeting.AddMeetingActivity"
+            android:exported="false" />
+        <activity
             android:name=".login.PasswordLoginActivity"
             android:exported="false" />
         <activity

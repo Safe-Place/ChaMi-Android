@@ -26,9 +26,9 @@ class SignupViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun signup(divisi: RequestBody, email: RequestBody, idPegawai: RequestBody, image:MultipartBody.Part, nama:RequestBody, password: RequestBody, posisi: RequestBody, context: Context){
+    fun signup(id_pegawai: String, name: String, password: String, email:String, posisi: String, divisi: String, context: Context){
         _isLoading.value = true
-        val client = ApiConfig.getApiService(context).signupUser(divisi,email,idPegawai,image,nama,password,posisi)
+        val client = ApiConfig.getApiService(context).signupUser(id_pegawai,name,password,email,posisi,divisi)
         client.enqueue(object : Callback<SignupResponse> {
             override fun onResponse(
                 call: Call<SignupResponse>,
@@ -45,13 +45,13 @@ class SignupViewModel : ViewModel() {
                     ).show()
                     _user.value = responseBody?.data
                 } else {
-                    val jsonError = response.errorBody()?.string()?.let{ JSONObject(it) }
-                    val responseStatus = jsonError?.getString("message")
-                    Toast.makeText(
-                        context,
-                        responseStatus,
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    val jsonError = response.errorBody()?.string()?.let{ JSONObject(it) }
+//                    val responseStatus = jsonError?.getString("message")
+//                    Toast.makeText(
+//                        context,
+//                        responseStatus,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                 }
             }
 

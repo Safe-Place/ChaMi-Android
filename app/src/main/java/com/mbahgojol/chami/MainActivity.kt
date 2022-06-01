@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mbahgojol.chami.databinding.ActivityMainBinding
+import com.mbahgojol.chami.dummyData.User
 import com.mbahgojol.chami.signup.SignupActivity
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,13 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             bottomNavView.setupWithNavController(navController)
         }
+
+//        val user = intent.getParcelableExtra<User>(EXTRA_USER) as User
     }
+
+//    private fun getDataIntent(){
+//        val user = intent.getParcelableExtra<User>(EXTRA_USER) as User
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -66,5 +73,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
+    }
+
+    companion object{
+        const val EXTRA_USER = "extra_user"
     }
 }

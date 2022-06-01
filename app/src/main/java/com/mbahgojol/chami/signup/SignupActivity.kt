@@ -11,6 +11,7 @@ import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.MainActivity
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
+import com.mbahgojol.chami.dummyData.User
 import com.mbahgojol.chami.login.LoginActivity
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -74,23 +75,23 @@ class SignupActivity : AppCompatActivity() {
                 binding.password.error = "Masukkan password"
             }
             else -> {
-                if(getFile!=null){
-                    val file = reduceFileImage(getFile as File)
-
-                    val divisi = divPegawai.toRequestBody("text/plain".toMediaType())
-                    val email = emailPegawai.toRequestBody("text/plain".toMediaType())
-                    val id = idPegawai.toRequestBody("text/plain".toMediaType())
-                    val name = namaPegawai.toRequestBody("text/plain".toMediaType())
-                    val password = passwordPegawai.toRequestBody("text/plain".toMediaType())
-                    val posisi = posisiPegawai.toRequestBody("text/plain".toMediaType())
-
-                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                    val image: MultipartBody.Part = MultipartBody.Part.createFormData(
-                        "photo",
-                        file.name,
-                        requestImageFile
-                    )
-                    signupViewModel.signup(divisi,email,id,image,name,password,posisi, this@SignupActivity)
+//                if(getFile!=null){
+//                    val file = reduceFileImage(getFile as File)
+//
+//                    val divisi = divPegawai.toRequestBody("text/plain".toMediaType())
+//                    val email = emailPegawai.toRequestBody("text/plain".toMediaType())
+//                    val id = idPegawai.toRequestBody("text/plain".toMediaType())
+//                    val name = namaPegawai.toRequestBody("text/plain".toMediaType())
+//                    val password = passwordPegawai.toRequestBody("text/plain".toMediaType())
+//                    val posisi = posisiPegawai.toRequestBody("text/plain".toMediaType())
+//
+//                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+//                    val image: MultipartBody.Part = MultipartBody.Part.createFormData(
+//                        "photo",
+//                        file.name,
+//                        requestImageFile
+//                    )
+                    signupViewModel.signup(idPegawai,namaPegawai,passwordPegawai,emailPegawai,posisiPegawai,divPegawai, this@SignupActivity)
 
                     signupViewModel.isLoading.observe(this@SignupActivity) {
                         showLoading(it)
@@ -107,7 +108,20 @@ class SignupActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-                }
+
+//                     ini nyoba aja, nanti hapus
+//                    val avatar = resources.obtainTypedArray(R.array.avatar)
+//                    val user = User(namaPegawai,idPegawai,emailPegawai,divPegawai,posisiPegawai,passwordPegawai,avatar.getResourceId(0,-1))
+//
+//                    val isLogin = LoginPref(this@SignupActivity)
+//                    isLogin.setSession(true)
+//
+//
+//                    val moveWithObjectIntent = Intent(this@SignupActivity, MainActivity::class.java)
+//                    moveWithObjectIntent.putExtra(MainActivity.EXTRA_USER, user)
+//                    startActivity(moveWithObjectIntent)
+//                    finish()
+//                }
             }
         }
     }
