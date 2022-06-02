@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">ChaMi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="challange">Challange</string>
+    <string name="files">Files</string>
+    <string name="meeting">Meeting</string>
+    <string name="chat">Chat</string>
+    <string name="others">Lainnya</string>
+    <string name="tab_chat_1">Personal</string>
+    <string name="tab_chat_2">Grup</string>
+    <string name="chami">ChaMi</string>
+    <string name="search_hint_user">Masukkan nama</string>
+    <string name="nama_pegawai">Nama pegawai</string>
+    <string name="last_chat">Ini adalah preview last chat</string>
+    <string name="hint_input_pesan">Masukkan Pesan</string>
+    <string name="posisi_pegawai">Divisi Pegawai</string>
+    <string name="search">Search</string>
 </resources>

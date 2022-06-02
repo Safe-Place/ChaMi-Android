@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/chatFragment">
+
+    <fragment
+        android:id="@+id/challangesFragment"
+        android:name="com.mbahgojol.chami.ui.main.challanges.ChallangesFragment"
+        android:label="@string/challange"
+        tools:layout="@layout/fragment_challanges" />
+    <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.mbahgojol.chami.ui.main.files.FilesFragment"
+        android:label="@string/files"
+        tools:layout="@layout/fragment_files" />
+    <fragment
+        android:id="@+id/meetingFragment"
+        android:name="com.mbahgojol.chami.ui.main.meeting.MeetingFragment"
+        android:label="@string/meeting"
+        tools:layout="@layout/fragment_meeting" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.mbahgojol.chami.ui.main.chat.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat">
+        <action
+            android:id="@+id/action_chatFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/othersFragment"
+        android:name="com.mbahgojol.chami.ui.main.others.OthersFragment"
+        android:label="@string/others"
+        tools:layout="@layout/fragment_others" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.mbahgojol.chami.ui.main.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
+</navigation>

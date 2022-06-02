@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1041489486664",
+    "project_id": "chami-dev-8390a",
+    "storage_bucket": "chami-dev-8390a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041489486664:android:25cfcaecc18a4e3f45c97d",
+        "android_client_info": {
+          "package_name": "com.mbahgojol.chami"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041489486664-bmak9so8g630aaippvkg8bh9c58s37ch.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mbahgojol.chami",
+            "certificate_hash": "a824bc5d34aa613c6639865afbf1859259b0d8b2"
+          }
+        },
+        {
+          "client_id": "1041489486664-peeqh2j8l2qs22hevr3afsjvhasl2327.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9ZrilPByondvCCMXSLxlG1lchI8UwMdQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041489486664-peeqh2j8l2qs22hevr3afsjvhasl2327.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

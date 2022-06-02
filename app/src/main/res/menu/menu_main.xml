@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/chatFragment"
+        android:icon="@drawable/ic_baseline_chat_24"
+        android:title="@string/chat" />
+    <item
+        android:id="@+id/meetingFragment"
+        android:icon="@drawable/ic_baseline_calendar_month_24"
+        android:title="@string/meeting" />
+    <item
+        android:id="@+id/filesFragment"
+        android:icon="@drawable/ic_baseline_insert_drive_file_24"
+        android:title="@string/files" />
+    <item
+        android:id="@+id/challangesFragment"
+        android:icon="@drawable/ic_challange"
+        android:title="@string/challange" />
+    <item
+        android:id="@+id/othersFragment"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="@string/others" />
+</menu>
