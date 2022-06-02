@@ -57,7 +57,6 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requireView().hideKeyboard()
     }
 
     override fun onCreateView(
@@ -70,6 +69,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.hideKeyboard()
 
         binding?.apply {
             rvSearch.apply {

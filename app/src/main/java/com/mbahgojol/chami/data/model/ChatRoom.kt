@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class ChatRoom(
     var roomid: String = "",
     var inRoom: Boolean = false,
-    var receiver_id: String = ""
+    var receiver_id: String = "",
+    var istyping: Boolean = false
 ) : Parcelable
 
 data class Detail(
