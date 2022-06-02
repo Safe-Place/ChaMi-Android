@@ -5,17 +5,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mbahgojol.chami.databinding.ActivityMainBinding
+import com.mbahgojol.chami.utils.hideKeyboard
+import dagger.hilt.android.AndroidEntryPoint
 import com.mbahgojol.chami.dummyData.User
 import com.mbahgojol.chami.signup.SignupActivity
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
@@ -23,7 +26,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.root.hideKeyboard()
         setContentView(binding.root)
+        supportActionBar?.elevation = 0f
 
         val loginPref = LoginPref(this@MainActivity)
         val isLogin = loginPref.getSession()
@@ -51,23 +56,31 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.search_view, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.search).actionView as SearchView
-
+        val menuItem = menu.findItem(R.id.search)
+        val searchView = menuItem.actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.search_hint_user)
+
+        menuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                navController.navigate(R.id.searchFragment)
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                navController.popBackStack()
+                return true
+            }
+
+        })
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            /*
-            Gunakan method ini ketika search selesai atau OK
-             */
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
                 searchView.clearFocus()
                 return true
             }
 
-            /*
-            Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
-             */
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }

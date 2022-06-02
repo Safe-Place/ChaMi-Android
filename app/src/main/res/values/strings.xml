@@ -74,4 +74,5 @@
         <item>Sedang Berlangsung</item>
         <item>Sedang Berlangsung</item>
     </string-array>
+    <string name="search">Search</string>
 </resources>
