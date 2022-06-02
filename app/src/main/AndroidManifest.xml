@@ -20,16 +20,7 @@
             android:name=".login.PasswordLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".login.FaceIdActivity"
-            android:exported="false" />
-        <activity
             android:name=".login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".signup.SignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.chat.login.CreateActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +29,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity"
+            android:name=".signup.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.login.CreateActivity"
+            android:exported="false"></activity>
+        <activity
+            android:name=".ui.main.chat.personal.detail.DetailPersonalChatActivity"
             android:exported="false"
             android:theme="@style/FullScreen" />
         <activity

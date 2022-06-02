@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.elevation = 0f
 
-        val loginPref = LoginPref(this@MainActivity)
-        val isLogin = loginPref.getSession()
-        if (!isLogin) {
-            startActivity(Intent(this, SignupActivity::class.java))
-            finish()
-        }
+//        val loginPref = LoginPref(this@MainActivity)
+//        val isLogin = loginPref.getSession()
+//        if (!isLogin) {
+//            startActivity(Intent(this, SignupActivity::class.java))
+//            finish()
+//        }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHost) as NavHostFragment
