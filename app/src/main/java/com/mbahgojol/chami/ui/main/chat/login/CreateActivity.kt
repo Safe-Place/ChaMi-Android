@@ -3,10 +3,13 @@ package com.mbahgojol.chami.ui.main.chat.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.MainActivity
 import com.mbahgojol.chami.data.SharedPref
@@ -15,7 +18,9 @@ import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivityCreateBinding
 import com.mbahgojol.chami.di.FirestoreService
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class CreateActivity : AppCompatActivity() {
@@ -52,6 +57,24 @@ class CreateActivity : AppCompatActivity() {
             Log.e("TOKEN => ", it)
             token = it
         }
+
+        Firebase.auth.signInAnonymously()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = Firebase.auth.currentUser
+                    user?.getIdToken(true)
+                        ?.addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Timber.e(it.result.token)
+                            }
+                        }
+                } else {
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
 
         binding.btnGabung.setOnClickListener {
             binding.progress.isVisible = true

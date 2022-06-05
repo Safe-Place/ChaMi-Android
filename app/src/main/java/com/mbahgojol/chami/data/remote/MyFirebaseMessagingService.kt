@@ -24,8 +24,22 @@ private const val ID_REPEATING = 101
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
+    override fun onMessageSent(msgId: String) {
+        super.onMessageSent(msgId)
+        Timber.e(msgId)
+    }
+
+    override fun onSendError(msgId: String, exception: Exception) {
+        super.onSendError(msgId, exception)
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         Timber.tag(TAG).d("From: %s", remoteMessage.from)
+
+        sendNotification(
+            "Pesan Baru",
+            "Ketuk untuk melihat"
+        )
 
         remoteMessage.data.isNotEmpty().let {
             Timber.tag(TAG).d("Message data payload: %s", remoteMessage.data)
