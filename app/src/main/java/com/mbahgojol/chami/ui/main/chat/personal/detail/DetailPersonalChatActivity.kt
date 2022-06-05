@@ -2,6 +2,7 @@ package com.mbahgojol.chami.ui.main.chat.personal.detail
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class DetailPersonalChatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailPersonalChatBinding
+    private val viewModel by viewModels<DetailPersonalChatViewModel>()
 
     @Inject
     lateinit var service: FirestoreService
@@ -92,6 +94,18 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     model.receiver_id, model.roomid,
                                     Detail(msg, currentDate, chatRoom?.inRoom ?: false)
                                 )
+
+                                val payload = PayloadNotif(
+                                    to = user?.token,
+                                    data = PayloadNotif.Data(
+                                        model.receiver_id,
+                                        senderId,
+                                        "",
+                                        "",
+                                        ""
+                                    )
+                                )
+                                viewModel.sendNotif(payload)
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
@@ -150,7 +164,6 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
                 service.addChat(data, roomId)
                     .addOnSuccessListener {
-                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                         service.getRoomChat(user?.user_id ?: "", roomId)
                             .get()
                             .addOnSuccessListener {
@@ -176,8 +189,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
-                        binding.etPesan.text.clear()
                     }
+
+                binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
+                binding.etPesan.text.clear()
             }
         }
     }

@@ -2,10 +2,12 @@ package com.mbahgojol.chami.ui.main.chat.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
@@ -24,6 +26,7 @@ class CreateActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPref: SharedPref
     private lateinit var binding: ActivityCreateBinding
+    private var token: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,11 @@ class CreateActivity : AppCompatActivity() {
 
             )
 
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.e("TOKEN => ", it)
+            token = it
+        }
+
         binding.btnGabung.setOnClickListener {
             binding.progress.isVisible = true
 
@@ -53,7 +61,7 @@ class CreateActivity : AppCompatActivity() {
                 true,
                 "Agent Divisi Digital Center",
                 image.random(),
-                username = username
+                username = username, token = token
             )
             service.searchUser(username)
                 .get()

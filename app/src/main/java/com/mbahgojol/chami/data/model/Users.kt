@@ -10,6 +10,7 @@ data class Users constructor(
     var profile_url: String = "",
     var user_id: String = "",
     var username: String = "",
+    var token: String = "",
     var chatRoom: ChatRoom = ChatRoom()
 ) : Parcelable
 
@@ -20,4 +21,5 @@ data class CreateUsers constructor(
     var profile_url: String = "",
     var user_id: String = "",
     var username: String = "",
+    var token: String = ""
 )

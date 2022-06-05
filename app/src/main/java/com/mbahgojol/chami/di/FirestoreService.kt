@@ -137,4 +137,26 @@ class FirestoreService {
             .set(detail, SetOptions.merge())
     }
 
+    fun pushNotif(
+        userId: String,
+        receiverId: String,
+        status: Boolean
+    ) {
+        db.collection("notif")
+            .document(userId)
+            .collection("comein")
+            .document(receiverId)
+            .set(mapOf("status" to status), SetOptions.merge())
+    }
+
+    fun getNotif(userId: String) = db.collection("notif")
+        .document(userId)
+        .collection("comein")
+        .whereEqualTo("status", true)
+
+    fun deteleNotif(userId: String) {
+        db.collection("notif")
+            .document(userId)
+            .delete()
+    }
 }
