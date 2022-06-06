@@ -137,6 +137,11 @@ class FirestoreService {
             .set(detail, SetOptions.merge())
     }
 
+    fun updateToken(userId: String, token: String) =
+        db.collection("users")
+            .document(userId)
+            .update("token", token)
+
     fun pushNotif(
         userId: String,
         receiverId: String,
