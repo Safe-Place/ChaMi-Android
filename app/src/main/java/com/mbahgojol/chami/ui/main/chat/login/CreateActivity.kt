@@ -58,7 +58,7 @@ class CreateActivity : AppCompatActivity() {
             token = it
         }
 
-        Firebase.auth.signInAnonymously()
+        /*Firebase.auth.signInAnonymously()
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = Firebase.auth.currentUser
@@ -74,7 +74,7 @@ class CreateActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
+            }*/
 
         binding.btnGabung.setOnClickListener {
             binding.progress.isVisible = true

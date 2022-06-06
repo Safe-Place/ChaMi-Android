@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.RemoteMessage
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.*
@@ -97,7 +95,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     Detail(msg, currentDate, chatRoom?.inRoom ?: false)
                                 )
 
-                                /*val payload = PayloadNotif(
+                                val payload = PayloadNotif(
                                     to = user?.token,
                                     data = PayloadNotif.Data(
                                         model.receiver_id,
@@ -107,8 +105,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                         ""
                                     )
                                 )
-                                viewModel.sendNotif(payload)*/
-                                sendMsg()
+                                viewModel.sendNotif(payload)
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
@@ -190,18 +187,17 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     chatRoom?.inRoom ?: false
                                 )
 
-                                /* val payload = PayloadNotif(
-                                     to = user?.token,
-                                     data = PayloadNotif.Data(
-                                         user?.user_id,
-                                         senderId,
-                                         "",
-                                         "",
-                                         ""
-                                     )
-                                 )
-                                 viewModel.sendNotif(payload)*/
-                                sendMsg()
+                                val payload = PayloadNotif(
+                                    to = user?.token,
+                                    data = PayloadNotif.Data(
+                                        user?.user_id,
+                                        senderId,
+                                        "",
+                                        "",
+                                        ""
+                                    )
+                                )
+                                viewModel.sendNotif(payload)
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
@@ -211,15 +207,6 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                 binding.etPesan.text.clear()
             }
         }
-    }
-
-    private fun sendMsg() {
-        FirebaseMessaging.getInstance().send(
-            RemoteMessage.Builder("1041489486664@fcm.googleapis.com")
-                .setMessageId("msg-01")
-                .addData("topic", "test")
-                .build()
-        )
     }
 
     private fun fetchProfile(userId: String) {
