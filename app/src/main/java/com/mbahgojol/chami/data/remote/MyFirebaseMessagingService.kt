@@ -15,7 +15,7 @@ import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
-import com.mbahgojol.chami.MainActivity
+import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.model.PayloadNotif
 import timber.log.Timber

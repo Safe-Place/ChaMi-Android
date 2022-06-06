@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/custom_background_send.xml" value="0.186" />
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/custom_input_chat.xml" value="0.186" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/custom_message_send.xml" value="0.196" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/activity_create.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/activity_detail_personal_chat.xml" value="0.33" />
