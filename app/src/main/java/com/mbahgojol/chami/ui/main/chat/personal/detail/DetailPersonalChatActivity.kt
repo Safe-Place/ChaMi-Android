@@ -2,6 +2,8 @@ package com.mbahgojol.chami.ui.main.chat.personal.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +24,7 @@ import javax.inject.Inject
 class DetailPersonalChatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailPersonalChatBinding
+    private val viewModel by viewModels<DetailPersonalChatViewModel>()
 
     @Inject
     lateinit var service: FirestoreService
@@ -36,6 +39,11 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
+
         binding = ActivityDetailPersonalChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -92,9 +100,28 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     model.receiver_id, model.roomid,
                                     Detail(msg, currentDate, chatRoom?.inRoom ?: false)
                                 )
+
+                                service.updateLastUpdateRoom(
+                                    senderId ?: "",
+                                    user?.user_id ?: "",
+                                    model.roomid
+                                )
+
+                                val payload = PayloadNotif(
+                                    to = user?.token,
+                                    data = PayloadNotif.Data(
+                                        model.receiver_id,
+                                        senderId,
+                                        "",
+                                        "",
+                                        ""
+                                    )
+                                )
+                                viewModel.sendNotif(payload)
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
+                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                     }
 
                 binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
@@ -150,7 +177,6 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
                 service.addChat(data, roomId)
                     .addOnSuccessListener {
-                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                         service.getRoomChat(user?.user_id ?: "", roomId)
                             .get()
                             .addOnSuccessListener {
@@ -173,11 +199,26 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     roomId,
                                     chatRoom?.inRoom ?: false
                                 )
+
+                                val payload = PayloadNotif(
+                                    to = user?.token,
+                                    data = PayloadNotif.Data(
+                                        user?.user_id,
+                                        senderId,
+                                        "",
+                                        "",
+                                        ""
+                                    )
+                                )
+                                viewModel.sendNotif(payload)
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
-                        binding.etPesan.text.clear()
+                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                     }
+
+                binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
+                binding.etPesan.text.clear()
             }
         }
     }
