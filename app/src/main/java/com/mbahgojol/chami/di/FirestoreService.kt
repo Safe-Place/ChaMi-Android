@@ -1,12 +1,12 @@
 package com.mbahgojol.chami.di
 
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.mbahgojol.chami.data.model.*
+import com.mbahgojol.chami.data.model.ChatLog
+import com.mbahgojol.chami.data.model.CreateUsers
+import com.mbahgojol.chami.data.model.Detail
+import com.mbahgojol.chami.data.model.GetChatResponse
 
 class FirestoreService {
     private val db = Firebase.firestore
@@ -46,6 +46,15 @@ class FirestoreService {
         db.collection("users")
             .document(userId)
             .collection("chat_room")
+
+    fun getListChatHome(userId: String) =
+        db.collection("users")
+            .document(userId)
+            .collection("chat_room")
+            .orderBy("last_update", Query.Direction.DESCENDING)
+
+    fun addTime() = db.collection("test")
+        .add(mapOf("createdAt" to FieldValue.serverTimestamp()))
 
     fun getRoomChat(userId: String, roomId: String) =
         db.collection("users")
@@ -104,6 +113,24 @@ class FirestoreService {
             .update("isread", isread)
     }
 
+    fun updateLastUpdateRoom(
+        senderId: String,
+        receiverId: String,
+        roomId: String
+    ) {
+        db.collection("users")
+            .document(senderId)
+            .collection("chat_room")
+            .document(roomId)
+            .update("last_update", FieldValue.serverTimestamp())
+
+        db.collection("users")
+            .document(receiverId)
+            .collection("chat_room")
+            .document(roomId)
+            .update("last_update", FieldValue.serverTimestamp())
+    }
+
     fun updateChatList(
         senderId: String,
         receiverId: String,
@@ -114,13 +141,27 @@ class FirestoreService {
             .document(senderId)
             .collection("chat_room")
             .document(roomId)
-            .set(ChatRoom(roomId, true, receiverId), SetOptions.merge())
+            .set(
+                mapOf(
+                    "inRoom" to true,
+                    "roomid" to roomId,
+                    "receiver_id" to receiverId,
+                    "last_update" to FieldValue.serverTimestamp()
+                ), SetOptions.merge()
+            )
 
         db.collection("users")
             .document(receiverId)
             .collection("chat_room")
             .document(roomId)
-            .set(ChatRoom(roomId, inRoom, senderId), SetOptions.merge())
+            .set(
+                mapOf(
+                    "inRoom" to inRoom,
+                    "roomid" to roomId,
+                    "receiver_id" to senderId,
+                    "last_update" to FieldValue.serverTimestamp()
+                ), SetOptions.merge()
+            )
     }
 
     fun updateChatDetail(
@@ -137,4 +178,31 @@ class FirestoreService {
             .set(detail, SetOptions.merge())
     }
 
+    fun updateToken(userId: String, token: String) =
+        db.collection("users")
+            .document(userId)
+            .update("token", token)
+
+    fun pushNotif(
+        userId: String,
+        receiverId: String,
+        status: Boolean
+    ) {
+        db.collection("notif")
+            .document(userId)
+            .collection("comein")
+            .document(receiverId)
+            .set(mapOf("status" to status), SetOptions.merge())
+    }
+
+    fun getNotif(userId: String) = db.collection("notif")
+        .document(userId)
+        .collection("comein")
+        .whereEqualTo("status", true)
+
+    fun deteleNotif(userId: String) {
+        db.collection("notif")
+            .document(userId)
+            .delete()
+    }
 }

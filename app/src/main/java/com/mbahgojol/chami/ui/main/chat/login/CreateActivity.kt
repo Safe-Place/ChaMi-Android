@@ -2,18 +2,21 @@ package com.mbahgojol.chami.ui.main.chat.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import com.google.firebase.firestore.ktx.toObject
-import com.mbahgojol.chami.MainActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivityCreateBinding
 import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class CreateActivity : AppCompatActivity() {
@@ -24,6 +27,7 @@ class CreateActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPref: SharedPref
     private lateinit var binding: ActivityCreateBinding
+    private var token: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,29 @@ class CreateActivity : AppCompatActivity() {
             "https://i.pinimg.com/originals/eb/7f/a7/eb7fa775f1ee3ca4f8beeaff5dc9d468.jpg",
             )
 
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.e("TOKEN => ", it)
+            token = it
+        }
+
+        /*Firebase.auth.signInAnonymously()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = Firebase.auth.currentUser
+                    user?.getIdToken(true)
+                        ?.addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Timber.e(it.result.token)
+                            }
+                        }
+                } else {
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }*/
+
         binding.btnGabung.setOnClickListener {
             binding.progress.isVisible = true
 
@@ -52,7 +79,7 @@ class CreateActivity : AppCompatActivity() {
                 true,
                 "Agent Divisi Digital Center",
                 image.random(),
-                username = username
+                username = username, token = token
             )
             service.searchUser(username)
                 .get()
@@ -60,6 +87,7 @@ class CreateActivity : AppCompatActivity() {
                     if (it != null && it.documents.isNotEmpty()) {
                         val user = it.documents[0].toObject<Users>()
                         sharedPref.userId = user?.user_id ?: ""
+                        service.updateToken(sharedPref.userId, token)
 
                         Intent(this, MainActivity::class.java).apply {
                             putExtra("user_id", user?.user_id)
