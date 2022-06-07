@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.mbahgojol.chami.BuildConfig
+import com.mbahgojol.chami.data.remote.NotifService
+import com.mbahgojol.chami.utils.AppConstant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +15,9 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 @Module
@@ -47,17 +51,18 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit =
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(AppConstant.BASE_URL_NOTIF)
             .client(okHttpClient)
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
     @Provides
     fun provideFirestoreModule() = FirestoreService()
 
-//    @Provides
-//    fun provideApiService(retrofit: Retrofit) =
-//        retrofit.create<RepositoryService>()
+    @Provides
+    fun provideApiService(retrofit: Retrofit) =
+        retrofit.create<NotifService>()
 //
 //    @Provides
 //    fun provideRepository(
