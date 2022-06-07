@@ -20,6 +20,9 @@
         android:theme="@style/Theme.ChaMi"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.others.EditDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.files.DetailFileActivity"
             android:exported="false" />
         <activity
@@ -76,8 +79,6 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
-            android:name=".MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

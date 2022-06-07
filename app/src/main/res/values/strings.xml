@@ -76,4 +76,6 @@
     </string-array>
     <string name="search">Search</string>
     <string name="dibuat_pada">"Dibuat pada : "</string>
+    <string name="edit_data">Edit Data</string>
+    <string name="sibuk">Sibuk</string>
 </resources>
