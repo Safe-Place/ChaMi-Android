@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.LoginPref
-import com.mbahgojol.chami.MainActivity
+import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
@@ -153,7 +153,7 @@ class SignupActivity : AppCompatActivity() {
                     divPegawai,
                     this@SignupActivity
                 )
-//
+
                 signupViewModel.isLoading.observe(this@SignupActivity) {
                     showLoading(it)
                 }
@@ -168,12 +168,12 @@ class SignupActivity : AppCompatActivity() {
                     val username = user.name
                     val users = CreateUsers(
                         true,
-                        "Agent Divisi Digital Center",
+                        user.divisi, //Agent Divisi Digital Center
                         image.random(),
                         username = username
                     )
 
-                    service.searchUser(username)
+                    service.searchUser(username, user.id_pegawai)
                         .get()
                         .addOnSuccessListener {
                             if (it != null && it.documents.isNotEmpty()) {
@@ -187,7 +187,7 @@ class SignupActivity : AppCompatActivity() {
 
 //                    binding.progress.isVisible = false
                             } else {
-                                service.addUser(users) { id ->
+                                service.addUser(users, user.id_pegawai) { id ->
                                     sharedPref.userId = id
 //                        binding.progress.isVisible = false
                                     Intent(this, MainActivity::class.java).apply {

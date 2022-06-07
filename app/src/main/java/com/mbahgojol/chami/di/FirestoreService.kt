@@ -3,25 +3,22 @@ package com.mbahgojol.chami.di
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.mbahgojol.chami.data.model.ChatLog
-import com.mbahgojol.chami.data.model.CreateUsers
-import com.mbahgojol.chami.data.model.Detail
-import com.mbahgojol.chami.data.model.GetChatResponse
+import com.mbahgojol.chami.data.model.*
 
 class FirestoreService {
     private val db = Firebase.firestore
 
-    fun addUser(users: CreateUsers, listen: (String) -> Unit) =
+    fun addUser(users: CreateUsers, id_user :String, listen: (String) -> Unit) =
         db.collection("users")
             .add(users)
             .onSuccessTask { doc ->
-                doc.update("user_id", doc.id)
+                doc.update("user_id", id_user)
                     .addOnSuccessListener {
                         listen(doc.id)
                     }
             }
 
-    fun searchUser(username: String) =
+    fun searchUser(username: String, id_user: String) =
         db.collection("users")
             .whereEqualTo("username", username)
 

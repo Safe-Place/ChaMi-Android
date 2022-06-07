@@ -15,22 +15,22 @@ data class SignupResponse (
 
 data class DataUser(
     @field:SerializedName("id_pegawai")
-    val id_pegawai: String?,
+    val id_pegawai: String,
 
     @field:SerializedName("name")
     val name: String,
 
     @field:SerializedName("password")
-    val password: String?,
+    val password: String,
 
     @field:SerializedName("email")
-    val email: String?,
+    val email: String,
 
     @field:SerializedName("posisi")
-    val posisi: String?,
+    val posisi: String,
 
     @field:SerializedName("divisi")
-    val divisi: String?,
+    val divisi: String,
 
 //    @field:SerializedName("path")
 //    val path: String?,
