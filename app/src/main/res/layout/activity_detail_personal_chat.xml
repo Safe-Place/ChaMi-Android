@@ -32,6 +32,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="8dp"
+                app:tint="@color/yellow"
                 android:src="@drawable/ic_baseline_attach_file_24" />
 
             <EditText
@@ -51,6 +52,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
+                app:tint="@color/yellow"
                 android:src="@drawable/ic_baseline_photo_camera_24" />
         </LinearLayout>
 

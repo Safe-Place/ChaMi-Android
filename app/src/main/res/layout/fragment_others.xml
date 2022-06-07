@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            tools:src="@tools:sample/avatars" />
+            android:src= "@drawable/ic_baseline_person_24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:fontFamily="@font/inter_bold"
-                tools:text="@string/nama_pegawai"
+                android:text="@string/nama_pegawai"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:fontFamily="@font/inter_reguler"
-                tools:text="@string/posisi_pegawai"
+                android:text="@string/posisi_pegawai"
                 android:textColor="@color/stream_gray"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -68,7 +68,7 @@
             android:fontFamily="@font/inter_reguler"
             android:textSize="14sp"
             android:layout_marginStart="10dp"
-            tools:text="1000 Point"/>
+            android:text="1000 Point"/>
     </LinearLayout>
 
     <ImageView

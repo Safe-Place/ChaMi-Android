@@ -60,14 +60,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Daily Sprint"
+                android:text="Daily Sprint"
                 android:fontFamily="@font/inter_reguler" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_reguler"
                 android:textSize="14sp"
-                tools:text="18.30 - 19.30"/>
+                android:text="18.30 - 19.30"/>
 
         </LinearLayout>
 

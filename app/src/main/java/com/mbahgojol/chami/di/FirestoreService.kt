@@ -1,9 +1,6 @@
 package com.mbahgojol.chami.di
 
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mbahgojol.chami.data.model.*
@@ -136,5 +133,20 @@ class FirestoreService {
             .document(roomId)
             .set(detail, SetOptions.merge())
     }
+
+    fun addFile(file: Files, listen: (String) -> Unit){
+        db.collection("files")
+            .add(file)
+            .onSuccessTask { doc ->
+                doc.update("file_id", doc.id)
+                    .addOnSuccessListener {
+                        listen(doc.id)
+                    }
+            }
+    }
+
+    fun getFiles(divisi:String): Query =
+        db.collection("files")
+            .whereEqualTo("author_div", divisi)
 
 }

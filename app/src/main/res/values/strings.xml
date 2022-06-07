@@ -75,4 +75,5 @@
         <item>Sedang Berlangsung</item>
     </string-array>
     <string name="search">Search</string>
+    <string name="dibuat_pada">"Dibuat pada : "</string>
 </resources>

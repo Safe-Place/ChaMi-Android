@@ -22,7 +22,7 @@ interface ApiService {
 //    ): Call<SignupResponse>
 
     @FormUrlEncoded
-    @POST("users/add")
+    @POST("api/v1/register")
     fun signupUser(
         @Field("id_pegawai") id_pegawai: String,
         @Field("name") name: String,
