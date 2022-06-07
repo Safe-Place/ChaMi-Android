@@ -62,7 +62,7 @@ class PersonalChatFragment : Fragment() {
         viewModel.listenList.observe(viewLifecycleOwner) {
         }
 
-        firestoreModule.getListChat(sharedPref.userId)
+        firestoreModule.getListChatHome(sharedPref.userId)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")

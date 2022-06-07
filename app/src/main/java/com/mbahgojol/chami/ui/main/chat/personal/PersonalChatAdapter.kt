@@ -36,12 +36,8 @@ class PersonalChatAdapter constructor(
 
         fun bind(model: ChatRoom) {
             service.getChatDetail(senderId, model.roomid)
-                .addSnapshotListener { snapshot, e ->
-                    if (e != null) {
-                        Timber.d("Listen failed.")
-                        return@addSnapshotListener
-                    }
-
+                .get()
+                .addOnSuccessListener { snapshot ->
                     if (snapshot != null && snapshot.exists()) {
                         val detail = snapshot.toObject<Detail>()
 

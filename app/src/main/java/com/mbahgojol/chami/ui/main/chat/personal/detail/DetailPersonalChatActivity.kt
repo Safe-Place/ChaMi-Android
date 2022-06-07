@@ -39,7 +39,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
 
         binding = ActivityDetailPersonalChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -98,6 +101,12 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     Detail(msg, currentDate, chatRoom?.inRoom ?: false)
                                 )
 
+                                service.updateLastUpdateRoom(
+                                    senderId ?: "",
+                                    user?.user_id ?: "",
+                                    model.roomid
+                                )
+
                                 val payload = PayloadNotif(
                                     to = user?.token,
                                     data = PayloadNotif.Data(
@@ -112,6 +121,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
+                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                     }
 
                 binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
@@ -204,6 +214,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
+                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                     }
 
                 binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
