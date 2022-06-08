@@ -6,14 +6,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.ktx.toObject
+import com.mbahgojol.chami.LoginPref
+import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.login.LoginActivity
-import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
@@ -64,68 +66,68 @@ class SignupActivity : AppCompatActivity() {
             "https://i.pinimg.com/originals/eb/7f/a7/eb7fa775f1ee3ca4f8beeaff5dc9d468.jpg",
 
             )
+//
+//        val username = "ghozi"
+//        val users = CreateUsers(
+//            true,
+//            "Agent Divisi Digital Center",
+//            image.random(),
+//            username = username
+//        )
+//        service.searchUser(username)
+//            .get()
+//            .addOnSuccessListener {
+//                if (it != null && it.documents.isNotEmpty()) {
+//                    val user = it.documents[0].toObject<Users>()
+//                    sharedPref.userId = user?.user_id ?: ""
+//
+//                    Intent(this, MainActivity::class.java).apply {
+//                        putExtra("user_id", user?.user_id)
+//                        startActivity(this)
+//                    }
+//
+////                    binding.progress.isVisible = false
+//                } else {
+//                    service.addUser(users) { id ->
+//                        sharedPref.userId = id
+////                        binding.progress.isVisible = false
+//                        Intent(this, MainActivity::class.java).apply {
+//                            putExtra("user_id", id)
+//                            startActivity(this)
+//                        }
+//                    }
+//                }
+//            }
 
-        val username = "ghozi"
-        val users = CreateUsers(
-            true,
-            "Agent Divisi Digital Center",
-            image.random(),
-            username = username
-        )
-        service.searchUser(username)
-            .get()
-            .addOnSuccessListener {
-                if (it != null && it.documents.isNotEmpty()) {
-                    val user = it.documents[0].toObject<Users>()
-                    sharedPref.userId = user?.user_id ?: ""
+        val signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
 
-                    Intent(this, MainActivity::class.java).apply {
-                        putExtra("user_id", user?.user_id)
-                        startActivity(this)
-                    }
+        val namaPegawai = binding.nama.text.toString()
+        val idPegawai = binding.idPegawai.text.toString()
+        val emailPegawai = binding.email.text.toString()
+        val divPegawai = binding.divisi.text.toString()
+        val posisiPegawai = binding.posisi.text.toString()
+        val passwordPegawai = binding.password.text.toString()
 
-//                    binding.progress.isVisible = false
-                } else {
-                    service.addUser(users) { id ->
-                        sharedPref.userId = id
-//                        binding.progress.isVisible = false
-                        Intent(this, MainActivity::class.java).apply {
-                            putExtra("user_id", id)
-                            startActivity(this)
-                        }
-                    }
-                }
+        when {
+            namaPegawai.isEmpty() -> {
+                binding.nama.error = "Masukkan nama"
             }
-
-//        val signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
-//
-//        val namaPegawai = binding.nama.text.toString()
-//        val idPegawai = binding.idPegawai.text.toString()
-//        val emailPegawai = binding.email.text.toString()
-//        val divPegawai = binding.divisi.text.toString()
-//        val posisiPegawai = binding.posisi.text.toString()
-//        val passwordPegawai = binding.password.text.toString()
-//
-//        when {
-//            namaPegawai.isEmpty() -> {
-//                binding.nama.error = "Masukkan nama"
-//            }
-//            idPegawai.isEmpty() -> {
-//                binding.idPegawai.error = "Masukkan Id pegawai"
-//            }
-//            emailPegawai.isEmpty() -> {
-//                binding.email.error = "Masukkan email"
-//            }
-//            divPegawai.isEmpty() -> {
-//                binding.divisi.error = "Masukkan divisi"
-//            }
-//            posisiPegawai.isEmpty() -> {
-//                binding.posisi.error = "Masukkan posisi"
-//            }
-//            passwordPegawai.isEmpty() -> {
-//                binding.password.error = "Masukkan password"
-//            }
-//            else -> {
+            idPegawai.isEmpty() -> {
+                binding.idPegawai.error = "Masukkan Id pegawai"
+            }
+            emailPegawai.isEmpty() -> {
+                binding.email.error = "Masukkan email"
+            }
+            divPegawai.isEmpty() -> {
+                binding.divisi.error = "Masukkan divisi"
+            }
+            posisiPegawai.isEmpty() -> {
+                binding.posisi.error = "Masukkan posisi"
+            }
+            passwordPegawai.isEmpty() -> {
+                binding.password.error = "Masukkan password"
+            }
+            else -> {
 ////                if(getFile!=null){
 ////                    val file = reduceFileImage(getFile as File)
 ////
@@ -142,31 +144,64 @@ class SignupActivity : AppCompatActivity() {
 ////                        file.name,
 ////                        requestImageFile
 ////                    )
-//                signupViewModel.signup(
-//                    idPegawai,
-//                    namaPegawai,
-//                    passwordPegawai,
-//                    emailPegawai,
-//                    posisiPegawai,
-//                    divPegawai,
-//                    this@SignupActivity
-//                )
-//
-//                signupViewModel.isLoading.observe(this@SignupActivity) {
-//                    showLoading(it)
-//                }
-//
-//                signupViewModel.user.observe(this@SignupActivity) { user ->
-//                    val idPref = LoginPref(this@SignupActivity)
-//                    idPref.setId(user.id_pegawai)
-//
-//                    val isLogin = LoginPref(this@SignupActivity)
-//                    isLogin.setSession(true)
-//
+                signupViewModel.signup(
+                    idPegawai,
+                    namaPegawai,
+                    passwordPegawai,
+                    emailPegawai,
+                    posisiPegawai,
+                    divPegawai,
+                    this@SignupActivity
+                )
+
+                signupViewModel.isLoading.observe(this@SignupActivity) {
+                    showLoading(it)
+                }
+
+                signupViewModel.user.observe(this@SignupActivity) { user ->
+                    val idPref = LoginPref(this@SignupActivity)
+                    idPref.setId(user.id_pegawai)
+
+                    val isLogin = LoginPref(this@SignupActivity)
+                    isLogin.setSession(true)
+
+                    val username = user.name
+                    val users = CreateUsers(
+                        true,
+                        user.divisi, //Agent Divisi Digital Center
+                        image.random(),
+                        username = username
+                    )
+
+                    service.searchUser(username, user.id_pegawai)
+                        .get()
+                        .addOnSuccessListener {
+                            if (it != null && it.documents.isNotEmpty()) {
+                                val user = it.documents[0].toObject<Users>()
+                                sharedPref.userId = user?.user_id ?: ""
+
+                                Intent(this, MainActivity::class.java).apply {
+                                    putExtra("user_id", user?.user_id)
+                                    startActivity(this)
+                                }
+
+//                    binding.progress.isVisible = false
+                            } else {
+                                service.addUser(users, user.id_pegawai) { id ->
+                                    sharedPref.userId = id
+//                        binding.progress.isVisible = false
+                                    Intent(this, MainActivity::class.java).apply {
+                                        putExtra("user_id", id)
+                                        startActivity(this)
+                                    }
+                                }
+                            }
+                        }
+
 //                    val intent = Intent(this@SignupActivity, MainActivity::class.java)
 //                    startActivity(intent)
 //                    finish()
-//                }
+                }
 //
 ////                     ini nyoba aja, nanti hapus
 ////                    val avatar = resources.obtainTypedArray(R.array.avatar)
@@ -181,9 +216,10 @@ class SignupActivity : AppCompatActivity() {
 ////                    startActivity(moveWithObjectIntent)
 ////                    finish()
 ////                }
-//            }
-//        }
+            }
+        }
     }
+
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE

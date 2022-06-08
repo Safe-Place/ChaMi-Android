@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
     implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.3'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'

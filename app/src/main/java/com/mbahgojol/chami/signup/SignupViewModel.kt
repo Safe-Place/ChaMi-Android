@@ -1,5 +1,6 @@
 package com.mbahgojol.chami.signup
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -45,19 +46,20 @@ class SignupViewModel : ViewModel() {
                     ).show()
                     _user.value = responseBody?.data
                 } else {
-//                    val jsonError = response.errorBody()?.string()?.let{ JSONObject(it) }
-//                    val responseStatus = jsonError?.getString("message")
-//                    Toast.makeText(
-//                        context,
-//                        responseStatus,
-//                        Toast.LENGTH_SHORT
-//                    ).show()
+                    val jsonError = response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val responseStatus = jsonError?.getString("message")
+                    Toast.makeText(
+                        context,
+                        responseStatus,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                Log.e(SignupActivity.TAG, "onFailure: ${t.message}")
+                Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
+
 }

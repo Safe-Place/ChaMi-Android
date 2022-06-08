@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#003C8F</color>
-    <color name="purple_700">#003C8F</color>
+    <color name="purple_200">#F8C018</color>
+    <color name="purple_500">#F8C018</color>
+    <color name="purple_700">#F8C018</color>
     <color name="teal_200">#FF5722</color>
     <color name="teal_700">#FF5722</color>
     <color name="black">#FF000000</color>
@@ -14,4 +14,5 @@
     <color name="stream_gray">#828282</color>
     <color name="green">#00FF0A</color>
     <color name="red">#ED1809</color>
+    <color name="yellow">#F8C018</color>
 </resources>
