@@ -46,7 +46,7 @@ class CreateActivity : AppCompatActivity() {
             "https://i.pinimg.com/originals/f9/ba/90/f9ba90e3eba7af18a0ca139844ed08d5.jpg",
             "https://i.pinimg.com/originals/3f/c3/d2/3fc3d2a90e45cc51b9c2f2ec67992050.png",
             "https://i.pinimg.com/originals/eb/7f/a7/eb7fa775f1ee3ca4f8beeaff5dc9d468.jpg",
-            )
+        )
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             Log.e("TOKEN => ", it)
@@ -87,6 +87,7 @@ class CreateActivity : AppCompatActivity() {
                     if (it != null && it.documents.isNotEmpty()) {
                         val user = it.documents[0].toObject<Users>()
                         sharedPref.userId = user?.user_id ?: ""
+                        sharedPref.userName = user?.username ?: ""
                         service.updateToken(sharedPref.userId, token)
 
                         Intent(this, MainActivity::class.java).apply {
@@ -98,6 +99,7 @@ class CreateActivity : AppCompatActivity() {
                     } else {
                         service.addUser(users) { id ->
                             sharedPref.userId = id
+                            sharedPref.userName = username
                             binding.progress.isVisible = false
                             Intent(this, MainActivity::class.java).apply {
                                 putExtra("user_id", id)

@@ -34,7 +34,6 @@ class PersonalChatFragment : Fragment() {
             Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
                 putExtra("data", it)
                 putExtra("isInit", false)
-                putExtra("senderId", sharedPref.userId)
                 startActivity(this)
             }
         }

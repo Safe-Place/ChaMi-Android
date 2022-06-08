@@ -41,13 +41,11 @@ class SearchFragment : Fragment() {
                         val room = snap.documents[0].toObject<ChatRoom>()
                         Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
                             putExtra("data", room)
-                            putExtra("senderId", sharedPref.userId)
                             startActivity(this)
                         }
                     } else {
                         Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
                             putExtra("users", it)
-                            putExtra("senderId", sharedPref.userId)
                             startActivity(this)
                         }
                     }

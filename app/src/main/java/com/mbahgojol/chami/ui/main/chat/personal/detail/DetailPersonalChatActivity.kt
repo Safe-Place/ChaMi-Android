@@ -34,7 +34,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
     private lateinit var listAdapter: DetailChatAdapter
     private var user: Users? = null
-    private var senderId: String? = null
+    private val senderId by lazy { sharedPref.userId }
     private var roomId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,25 +56,29 @@ class DetailPersonalChatActivity : AppCompatActivity() {
         }
 
         val model = intent.getParcelableExtra<ChatRoom>("data")
-        senderId = intent.getStringExtra("senderId")
         if (intent.hasExtra("data") && model != null) {
+            binding.btnAttach.setOnClickListener {
+                AttachBottomSheetDialog.newInstance(senderId, model.receiver_id, model.roomid)
+                    .apply {
+                        show(supportFragmentManager, "")
+                    }
+            }
+
             binding.btnBack.setOnClickListener {
-                senderId?.let { service.updateStatusInRoom(it, model.roomid, false) }
+                service.updateStatusInRoom(senderId, model.roomid, false)
                 finish()
             }
 
-            senderId?.let {
-                service.updateStatusInRoom(it, model.roomid, true)
-                service.updateIsReadChat(it, model.roomid, true)
-            }
+            service.updateStatusInRoom(senderId, model.roomid, true)
+            service.updateIsReadChat(senderId, model.roomid, true)
 
             binding.btnSend.setOnClickListener {
                 val currentDate = DateUtils.getCurrentTime()
 
                 val msg = binding.etPesan.text.toString()
                 val data = ChatLog(
-                    model.receiver_id,
-                    user?.username ?: "anonym",
+                    senderId,
+                    sharedPref.userName,
                     currentDate,
                     0,
                     "",
@@ -89,12 +93,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                             .get()
                             .addOnSuccessListener {
                                 val chatRoom = it.toObject<ChatRoom>()
-                                senderId?.let { it1 ->
-                                    service.updateChatDetail(
-                                        it1, model.roomid,
-                                        Detail(msg, currentDate, true)
-                                    )
-                                }
+                                service.updateChatDetail(
+                                    senderId, model.roomid,
+                                    Detail(msg, currentDate, true)
+                                )
 
                                 service.updateChatDetail(
                                     model.receiver_id, model.roomid,
@@ -102,7 +104,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                 )
 
                                 service.updateLastUpdateRoom(
-                                    senderId ?: "",
+                                    senderId,
                                     user?.user_id ?: "",
                                     model.roomid
                                 )
@@ -128,7 +130,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                 binding.etPesan.text.clear()
             }
 
-            listAdapter = DetailChatAdapter(model.receiver_id) {
+            listAdapter = DetailChatAdapter(senderId) {
 
             }
             binding.rvChat.adapter = listAdapter
@@ -137,22 +139,28 @@ class DetailPersonalChatActivity : AppCompatActivity() {
             listenChat(model.roomid)
         } else {
             val user = intent.getParcelableExtra<Users>("users")
-            val roomId = sharedPref.userId
+            val roomId = senderId
                 .plus("|")
                 .plus(user?.user_id)
 
+            binding.btnAttach.setOnClickListener {
+                AttachBottomSheetDialog.newInstance(senderId, user?.user_id ?: "", roomId)
+                    .apply {
+                        show(supportFragmentManager, "")
+                    }
+            }
+
             binding.btnBack.setOnClickListener {
-                senderId?.let { service.updateStatusInRoom(it, roomId, false) }
+                service.updateStatusInRoom(senderId, roomId, false)
                 finish()
             }
-            senderId?.let {
-                service.updateStatusInRoom(it, roomId, true)
-                service.updateIsReadChat(it, roomId, true)
-            }
+
+            service.updateStatusInRoom(senderId, roomId, true)
+            service.updateIsReadChat(senderId, roomId, true)
 
             service.createRoom(roomId)
 
-            listAdapter = DetailChatAdapter(user?.user_id ?: "") {
+            listAdapter = DetailChatAdapter(senderId) {
 
             }
             binding.rvChat.adapter = listAdapter
@@ -165,8 +173,8 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
                 val msg = binding.etPesan.text.toString()
                 val data = ChatLog(
-                    user?.user_id ?: "",
-                    user?.username ?: "anonym",
+                    senderId,
+                    sharedPref.userName,
                     currentDate,
                     0,
                     "",
@@ -181,12 +189,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                             .get()
                             .addOnSuccessListener {
                                 val chatRoom = it.toObject<ChatRoom>()
-                                senderId?.let { it1 ->
-                                    service.updateChatDetail(
-                                        it1, roomId,
-                                        Detail(msg, currentDate, true)
-                                    )
-                                }
+                                service.updateChatDetail(
+                                    senderId, roomId,
+                                    Detail(msg, currentDate, true)
+                                )
 
                                 service.updateChatDetail(
                                     user?.user_id ?: "", roomId,
@@ -194,7 +200,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                 )
 
                                 service.updateChatList(
-                                    senderId ?: "",
+                                    senderId,
                                     user?.user_id ?: "",
                                     roomId,
                                     chatRoom?.inRoom ?: false
@@ -272,6 +278,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                     val model = snapshot.toObject<GetChatResponse>()
                     model?.chatlog?.let {
                         listAdapter.setData(it)
+                        binding.rvChat.smoothScrollToPosition(listAdapter.itemCount)
                     }
                 } else {
                     Timber.e("Tidak ada List Chat")
@@ -281,6 +288,6 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        senderId?.let { roomId?.let { it1 -> service.updateStatusInRoom(it, it1, false) } }
+        roomId?.let { it1 -> service.updateStatusInRoom(senderId, it1, false) }
     }
 }

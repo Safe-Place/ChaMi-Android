@@ -1,25 +1,24 @@
 package com.mbahgojol.chami.login
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.LoginPref
-import com.mbahgojol.chami.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivityLoginBinding
 import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.signup.SignupActivity
+import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     @Inject
     lateinit var service: FirestoreService
@@ -85,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                 }
         }
 
-        binding.tvMoveSignup.setOnClickListener{
+        binding.tvMoveSignup.setOnClickListener {
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
             startActivity(intent)
         }
@@ -95,21 +94,28 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.ivFaceRecog.setOnClickListener {
-            Toast.makeText(this@LoginActivity, "Login dengan face belum tersedia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@LoginActivity,
+                "Login dengan face belum tersedia",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         binding.ivFingerPrint.setOnClickListener {
-            Toast.makeText(this@LoginActivity, "Login dengan finger print belum tersedia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@LoginActivity,
+                "Login dengan finger print belum tersedia",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    private fun getid(){
+    private fun getid() {
         val pref = LoginPref(this@LoginActivity)
         val id = pref.getId()
 
-        if(id!=null) {
+        if (id != null) {
             binding.tvIdPegawai.text = "id $id"
-        }
-        else{
+        } else {
             binding.tvIdPegawai.text = "Belum Daftar"
         }
     }

@@ -7,6 +7,7 @@ import javax.inject.Inject
 class SharedPref @Inject constructor(@ApplicationContext private val context: Context) {
     private val pref = context.getSharedPreferences("chami", Context.MODE_PRIVATE)
     private val userIdKey = "userIdKey"
+    private val userNameKey = "userNameKey"
 
     var userId: String
         set(value) {
@@ -15,4 +16,12 @@ class SharedPref @Inject constructor(@ApplicationContext private val context: Co
                 .apply()
         }
         get() = pref.getString(userIdKey, "").toString()
+
+    var userName: String
+        set(value) {
+            pref.edit()
+                .putString(userNameKey, value)
+                .apply()
+        }
+        get() = pref.getString(userNameKey, "").toString()
 }

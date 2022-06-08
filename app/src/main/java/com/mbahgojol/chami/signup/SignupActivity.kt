@@ -7,13 +7,13 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.toObject
-import com.mbahgojol.chami.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.login.LoginActivity
+import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
