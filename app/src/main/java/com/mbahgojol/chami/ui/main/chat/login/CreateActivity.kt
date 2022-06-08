@@ -12,7 +12,7 @@ import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivityCreateBinding
-import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

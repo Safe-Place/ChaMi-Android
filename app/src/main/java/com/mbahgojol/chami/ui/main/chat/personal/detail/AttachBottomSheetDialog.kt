@@ -1,13 +1,17 @@
 package com.mbahgojol.chami.ui.main.chat.personal.detail
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mbahgojol.chami.data.model.ChatLog
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.LayoutAttachBottomBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -48,8 +52,29 @@ class AttachBottomSheetDialog : BottomSheetDialogFragment() {
                     "File",
                     roomId
                 )
+
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.type = "*/*"
+                resultFile.launch(intent)
             }
         }
+    }
+
+    private var resultFile =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+            }
+        }
+
+    private fun uploadtoStorage(uri: Uri) {
+        /* val storageRef = storage.reference
+         val path : String = "files/"+UUID.randomUUID()
+         val filesRef = storageRef.child(path)
+         val uploadFile = filesRef.putFile(uri)*/
+
+
     }
 
     companion object {

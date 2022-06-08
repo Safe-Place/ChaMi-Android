@@ -13,7 +13,7 @@ import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.data.model.Detail
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ItemListChatBinding
-import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.utils.DateUtils
 import timber.log.Timber
 

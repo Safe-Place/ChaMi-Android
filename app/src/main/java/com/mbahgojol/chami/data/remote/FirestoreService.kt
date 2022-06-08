@@ -1,4 +1,4 @@
-package com.mbahgojol.chami.di
+package com.mbahgojol.chami.data.remote
 
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore

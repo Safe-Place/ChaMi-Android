@@ -12,7 +12,7 @@ import com.google.firebase.firestore.ktx.toObjects
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.databinding.FragmentPersonalChatBinding
-import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

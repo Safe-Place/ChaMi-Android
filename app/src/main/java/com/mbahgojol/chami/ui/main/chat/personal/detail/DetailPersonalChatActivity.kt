@@ -14,7 +14,7 @@ import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.*
 import com.mbahgojol.chami.databinding.ActivityDetailPersonalChatBinding
-import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
