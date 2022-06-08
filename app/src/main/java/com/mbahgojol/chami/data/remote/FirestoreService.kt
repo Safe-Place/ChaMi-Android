@@ -8,17 +8,17 @@ import com.mbahgojol.chami.data.model.*
 class FirestoreService {
     private val db = Firebase.firestore
 
-    fun addUser(users: CreateUsers, id_user :String, listen: (String) -> Unit) =
+    fun addUser(users: CreateUsers, listen: (String) -> Unit) =
         db.collection("users")
             .add(users)
             .onSuccessTask { doc ->
-                doc.update("user_id", id_user)
+                doc.update("user_id", doc.id)
                     .addOnSuccessListener {
                         listen(doc.id)
                     }
             }
 
-    fun searchUser(username: String, id_user: String) =
+    fun searchUser(username: String) =
         db.collection("users")
             .whereEqualTo("username", username)
 
@@ -202,7 +202,8 @@ class FirestoreService {
             .document(userId)
             .delete()
     }
-    fun addFile(file: Files, listen: (String) -> Unit){
+
+    fun addFile(file: Files, listen: (String) -> Unit) {
         db.collection("files")
             .add(file)
             .onSuccessTask { doc ->
@@ -213,7 +214,7 @@ class FirestoreService {
             }
     }
 
-    fun getFiles(divisi:String): Query =
+    fun getFiles(divisi: String): Query =
         db.collection("files")
             .whereEqualTo("author_div", divisi)
 

@@ -4,27 +4,25 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.Files
 import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.FragmentFilesBinding
-import com.mbahgojol.chami.di.FirestoreService
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class FilesFragment : Fragment() {
@@ -33,10 +31,13 @@ class FilesFragment : Fragment() {
 
     @Inject
     lateinit var firestoreModule: FirestoreService
+
     @Inject
     lateinit var sharedPref: SharedPref
 
-    val storage = Firebase.storage("gs://chami-dev-8390a.appspot.com")
+    private val storage by lazy {
+        Firebase.storage("gs://chami-dev-8390a.appspot.com")
+    }
     lateinit var uri: Uri
 
     private val listAdapter by lazy {
@@ -85,12 +86,12 @@ class FilesFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 777) {
-            uri= data!!.data!!
+            uri = data!!.data!!
             uploadtoStorage(uri)
         }
     }
 
-    private fun getDivisi(){
+    private fun getDivisi() {
         firestoreModule.getUserProfile(sharedPref.userId)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
@@ -110,7 +111,7 @@ class FilesFragment : Fragment() {
             }
     }
 
-    fun getfile(user_div : String){
+    fun getfile(user_div: String) {
         firestoreModule.getFiles(user_div)
             .addSnapshotListener { value, e ->
                 if (e != null) {
@@ -129,16 +130,25 @@ class FilesFragment : Fragment() {
                     var file_id = doc.getString("file_id")
                     var author_div = doc.getString("author_div")
 
-                    var file = Files(nama_file,type,file_url,size_byte,create_at,author_id,file_id,author_div)
+                    var file = Files(
+                        nama_file,
+                        type,
+                        file_url,
+                        size_byte,
+                        create_at,
+                        author_id,
+                        file_id,
+                        author_div
+                    )
                     data.add(file)
                 }
                 listAdapter.setData(data)
             }
     }
 
-    private fun uploadtoStorage (uri: Uri){
+    private fun uploadtoStorage(uri: Uri) {
         val storageRef = storage.reference
-        val path : String = "files/"+UUID.randomUUID()
+        val path: String = "files/" + UUID.randomUUID()
         val filesRef = storageRef.child(path)
         val uploadFile = filesRef.putFile(uri)
 
@@ -166,7 +176,7 @@ class FilesFragment : Fragment() {
                     val sizeFile = metadata.sizeBytes
                     val createAt = metadata.creationTimeMillis
 
-                    uploadtoFirestore(downloadUri,nameFile,sizeFile,createAt)
+                    uploadtoFirestore(downloadUri, nameFile, sizeFile, createAt)
                 }.addOnFailureListener {
                     Timber.e("Gagal mendapatkan metadata")
                 }
@@ -176,9 +186,14 @@ class FilesFragment : Fragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun uploadtoFirestore(downloadUri:Uri, nameFile:String?, sizeFile:Long, createAt:Long){
+    private fun uploadtoFirestore(
+        downloadUri: Uri,
+        nameFile: String?,
+        sizeFile: Long,
+        createAt: Long
+    ) {
         val author_id = sharedPref.userId
-        val typeFile : Long = 5
+        val typeFile: Long = 5
         val format = SimpleDateFormat("dd-MM-yyyy HH:mm")
         val createDate = format.format(Date(createAt))
 
@@ -202,7 +217,7 @@ class FilesFragment : Fragment() {
                         author_id,
                         author_div = author_div
                     )
-                    firestoreModule.addFile(file){ id ->
+                    firestoreModule.addFile(file) { id ->
                         sharedPref.userId = id
                     }
                 } else {

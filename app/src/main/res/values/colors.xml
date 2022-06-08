@@ -15,4 +15,8 @@
     <color name="green">#00FF0A</color>
     <color name="red">#ED1809</color>
     <color name="yellow">#F8C018</color>
+    <color name="oren">#FF7514</color>
+    <color name="endOren">#FFCB05</color>
+    <color name="startOren">#F96633</color>
+    <color name="boxChatLog">#40FFCB05</color>
 </resources>

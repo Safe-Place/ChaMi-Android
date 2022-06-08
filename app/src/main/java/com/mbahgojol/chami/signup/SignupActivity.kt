@@ -5,17 +5,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.LoginPref
-import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
-import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.data.remote.FirestoreService
+import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.login.LoginActivity
+import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
@@ -31,6 +31,8 @@ class SignupActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sharedPref: SharedPref
+
+    private val signupViewModel by viewModels<RegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,8 +100,6 @@ class SignupActivity : AppCompatActivity() {
 //                    }
 //                }
 //            }
-
-        val signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
 
         val namaPegawai = binding.nama.text.toString()
         val idPegawai = binding.idPegawai.text.toString()
@@ -173,7 +173,7 @@ class SignupActivity : AppCompatActivity() {
                         username = username
                     )
 
-                    service.searchUser(username, user.id_pegawai)
+                    service.searchUser(username)
                         .get()
                         .addOnSuccessListener {
                             if (it != null && it.documents.isNotEmpty()) {
@@ -187,7 +187,7 @@ class SignupActivity : AppCompatActivity() {
 
 //                    binding.progress.isVisible = false
                             } else {
-                                service.addUser(users, user.id_pegawai) { id ->
+                                service.addUser(users) { id ->
                                     sharedPref.userId = id
 //                        binding.progress.isVisible = false
                                     Intent(this, MainActivity::class.java).apply {
