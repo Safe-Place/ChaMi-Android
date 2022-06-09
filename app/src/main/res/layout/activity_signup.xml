@@ -26,10 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
+            android:layout_marginTop="70dp"
             android:fontFamily="@font/inter_bold"
             android:text="@string/sign_up"
             android:textSize="26sp"
-            android:layout_marginTop="70dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -209,8 +209,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="120dp"
-            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnSignup">
@@ -248,8 +248,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </ScrollView>

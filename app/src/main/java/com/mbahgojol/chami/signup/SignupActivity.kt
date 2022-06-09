@@ -3,11 +3,13 @@ package com.mbahgojol.chami.signup
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
@@ -31,6 +33,7 @@ class SignupActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sharedPref: SharedPref
+    private var token: String = ""
 
     private val signupViewModel by viewModels<RegisterViewModel>()
 
@@ -41,6 +44,11 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.e("TOKEN => ", it)
+            token = it
+        }
 
         binding.uploadPhoto.setOnClickListener { startGallery() }
 
@@ -179,6 +187,8 @@ class SignupActivity : AppCompatActivity() {
                             if (it != null && it.documents.isNotEmpty()) {
                                 val user = it.documents[0].toObject<Users>()
                                 sharedPref.userId = user?.user_id ?: ""
+                                sharedPref.userName = user?.username ?: ""
+                                service.updateToken(sharedPref.userId, token)
 
                                 Intent(this, MainActivity::class.java).apply {
                                     putExtra("user_id", user?.user_id)
@@ -189,6 +199,8 @@ class SignupActivity : AppCompatActivity() {
                             } else {
                                 service.addUser(users) { id ->
                                     sharedPref.userId = id
+                                    sharedPref.userName = username
+                                    service.updateToken(sharedPref.userId, token)
 //                        binding.progress.isVisible = false
                                     Intent(this, MainActivity::class.java).apply {
                                         putExtra("user_id", id)
