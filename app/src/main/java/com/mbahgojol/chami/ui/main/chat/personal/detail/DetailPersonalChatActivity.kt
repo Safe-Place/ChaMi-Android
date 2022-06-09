@@ -1,7 +1,11 @@
 package com.mbahgojol.chami.ui.main.chat.personal.detail
 
+import android.annotation.TargetApi
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +41,18 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     private val senderId by lazy { sharedPref.userId }
     private var roomId: String? = null
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    fun setStatusBarGradiant(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = activity.window
+            val background = ContextCompat.getDrawable(activity, R.drawable.toolbar_color)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+            window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
+            window.setBackgroundDrawable(background)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
@@ -45,6 +61,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
         )
 
         binding = ActivityDetailPersonalChatBinding.inflate(layoutInflater)
+        setStatusBarGradiant(this)
         setContentView(binding.root)
 
         binding.apply {

@@ -10,6 +10,8 @@
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/custom_round_stroke_bg.xml" value="0.186" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/custom_rounded_bg.xml" value="0.186" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/custom_rounded_button.xml" value="0.186" />
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.277" />
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/drawable/toolbar_color.xml" value="0.277" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/activity_call.xml" value="0.36367753623188404" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/activity_create.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/activity_detail_personal_chat.xml" value="0.33" />
@@ -17,6 +19,9 @@
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/fragment_challanges.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/fragment_chat.xml" value="0.24954710144927536" />
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/fragment_files.xml" value="0.23007246376811594" />
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/fragment_meeting.xml" value="0.36367753623188404" />
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/fragment_others.xml" value="0.36367753623188404" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/fragment_personal_chat.xml" value="0.358695652173913" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/item_chat_personal_receive.xml" value="0.36666666666666664" />
@@ -24,6 +29,7 @@
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/item_list_chat.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/item_search.xml" value="0.365625" />
         <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/layout/layout_attach_bottom.xml" value="0.33" />
+        <entry key="..\:/Users/User_1/Desktop/Jokie/ChaMi/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3555253623188406" />
         <entry key="app/src/main/res/layout/fragment_challanges.xml" value="0.3555253623188406" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.3555253623188406" />

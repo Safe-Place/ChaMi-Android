@@ -8,11 +8,12 @@
     android:orientation="vertical"
     app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tbHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_500"
+        android:background="@drawable/toolbar_color"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:tabIndicator="@drawable/custom_underline"
