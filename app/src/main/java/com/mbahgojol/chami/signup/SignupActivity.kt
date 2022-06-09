@@ -4,12 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.LoginPref
+import com.mbahgojol.chami.R
 import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
@@ -49,6 +51,18 @@ class SignupActivity : AppCompatActivity() {
             val intent = Intent(this@SignupActivity, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        // divisi spinner
+        val adapterDiv = ArrayAdapter.createFromResource(this,
+            R.array.divisi_list, R.layout.spinner_item)
+        adapterDiv.setDropDownViewResource(R.layout.spinner_list)
+        binding.spinnerDivisi.adapter = adapterDiv
+
+        // posisi spinner
+        val adapterPosisi = ArrayAdapter.createFromResource(this,
+            R.array.posisi_list, R.layout.spinner_item)
+        adapterPosisi.setDropDownViewResource(R.layout.spinner_list)
+        binding.spinnerDivisi.adapter = adapterPosisi
     }
 
     private fun signup() {
@@ -103,8 +117,9 @@ class SignupActivity : AppCompatActivity() {
         val namaPegawai = binding.nama.text.toString()
         val idPegawai = binding.idPegawai.text.toString()
         val emailPegawai = binding.email.text.toString()
-        val divPegawai = binding.divisi.text.toString()
-        val posisiPegawai = binding.posisi.text.toString()
+//        val divPegawai = binding.divisi.text.toString()
+        val divPegawai = binding.spinnerDivisi2.selectedItem.toString()
+        val posisiPegawai = binding.spinnerPosisi2.selectedItem.toString()
         val passwordPegawai = binding.password.text.toString()
         val konfirmPassword = binding.konfirmPassword.text.toString()
 
@@ -118,12 +133,12 @@ class SignupActivity : AppCompatActivity() {
             emailPegawai.isEmpty() -> {
                 binding.email.error = "Masukkan email"
             }
-            divPegawai.isEmpty() -> {
-                binding.divisi.error = "Masukkan divisi"
-            }
-            posisiPegawai.isEmpty() -> {
-                binding.posisi.error = "Masukkan posisi"
-            }
+//            divPegawai.isEmpty() -> {
+//                binding.divisi.error = "Masukkan divisi"
+//            }
+//            posisiPegawai.isEmpty() -> {
+//                binding.posisi.error = "Masukkan posisi"
+//            }
             passwordPegawai.isEmpty() -> {
                 binding.password.error = "Masukkan password"
             }

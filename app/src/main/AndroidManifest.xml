@@ -20,6 +20,9 @@
         android:theme="@style/Theme.ChaMi"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".login.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.others.EditDataActivity"
             android:exported="false" />
         <activity

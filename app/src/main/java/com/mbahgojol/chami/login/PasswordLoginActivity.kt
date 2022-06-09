@@ -45,6 +45,11 @@ class PasswordLoginActivity : AppCompatActivity() {
                 Toast.makeText(this@PasswordLoginActivity, "Id Pegawai belum terdaftar", Toast.LENGTH_LONG).show()
             } else login(id)
         }
+
+        binding.forgotPassword.setOnClickListener {
+            val intent = Intent(this@PasswordLoginActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun login(id: String) {

@@ -114,12 +114,18 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_people_24"
                     app:tint="@color/grey" />
-
-                <EditText
-                    android:id="@+id/divisi"
-                    style="@style/inputTextSignup"
+                <Spinner
+                    android:id="@+id/spinnerDivisi"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/divisi" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp" />
+                <Spinner
+                    android:id="@+id/spinnerDivisi2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:entries="@array/divisi_list" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,11 +141,18 @@
                     android:src="@drawable/ic_baseline_work_24"
                     app:tint="@color/grey" />
 
-                <EditText
-                    android:id="@+id/posisi"
-                    style="@style/inputTextSignup"
+                <Spinner
+                    android:id="@+id/spinnerPosisi"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/posisi" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp" />
+                <Spinner
+                    android:id="@+id/spinnerPosisi2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:entries="@array/posisi_list" />
             </LinearLayout>
 
             <LinearLayout

@@ -41,6 +41,17 @@
     <string name="tambah_lampiran">+ Tambah Lampiran</string>
     <string name="tandai_selesai">Tandai Selesai</string>
 
+    <string-array name="divisi_list">
+        <item>Divisi Digital Center</item>
+        <item>Divisi Customer Relation</item>
+        <item>Divisi Customer Resolution</item>
+    </string-array>
+
+    <string-array name="posisi_list">
+        <item>Agent</item>
+        <item>Supervisor</item>
+    </string-array>
+
     <integer-array name="avatar">
         <item>@drawable/avatar</item>
     </integer-array>
@@ -73,6 +84,7 @@
         <item>Sedang Berlangsung</item>
         <item>Sedang Berlangsung</item>
         <item>Sedang Berlangsung</item>
+
     </string-array>
     <string name="search">Search</string>
     <string name="dibuat_pada">"Dibuat pada : "</string>
@@ -81,4 +93,6 @@
     <string name="masukkan_password">Masukkan Password</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>
     <string name="lupa_password"><u>Lupa Password?</u></string>
+    <string name="kode_verifikasi">Kode Verifikasi</string>
+    <string name="hint_otp">Masukkan kode OTP yang sudah dikirimkan ke email</string>
 </resources>
