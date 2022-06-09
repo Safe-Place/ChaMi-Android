@@ -18,6 +18,7 @@ data class Users constructor(
 data class CreateUsers constructor(
     var isonline: Boolean = false,
     var jabatan: String = "",
+    var posisi: String?= "",
     var profile_url: String = "",
     var user_id: String = "",
     var username: String = "",

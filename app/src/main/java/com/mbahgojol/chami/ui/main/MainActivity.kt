@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityMainBinding
 import com.mbahgojol.chami.utils.hideKeyboard
@@ -34,12 +35,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.elevation = 0f
 
-//        val loginPref = LoginPref(this@MainActivity)
-//        val isLogin = loginPref.getSession()
-//        if (!isLogin) {
-//            startActivity(Intent(this, SignupActivity::class.java))
-//            finish()
-//        }
+        val loginPref = LoginPref(this@MainActivity)
+        val isLogin = loginPref.getSession()
+        if (!isLogin) {
+            startActivity(Intent(this, SignupActivity::class.java))
+            finish()
+        }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHost) as NavHostFragment

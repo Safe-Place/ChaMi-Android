@@ -18,9 +18,9 @@ class FirestoreService {
                     }
             }
 
-    fun searchUser(username: String, id_user: String) =
+    fun searchUser(id_user: String) =
         db.collection("users")
-            .whereEqualTo("username", username)
+            .whereEqualTo("user_id", id_user)
 
     fun getAllUser() =
         db.collection("users")

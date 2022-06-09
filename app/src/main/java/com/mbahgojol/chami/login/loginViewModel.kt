@@ -1,50 +1,43 @@
-package com.mbahgojol.chami.signup
+package com.mbahgojol.chami.login
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mbahgojol.chami.api.ApiConfig
+import com.mbahgojol.chami.response.DataLogin
 import com.mbahgojol.chami.response.DataUser
+import com.mbahgojol.chami.response.LoginResponse
 import com.mbahgojol.chami.response.SignupResponse
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
-class SignupViewModel : ViewModel() {
+class LoginViewModel : ViewModel() {
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
 
-    private val _user = MutableLiveData<DataUser>()
-    val user: LiveData<DataUser> = _user
+    private val _user = MutableLiveData<DataLogin>()
+    val user: LiveData<DataLogin> = _user
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun signup(id_pegawai: String, name: String, password: String, password2: String, email:String, posisi: String, divisi: String, context: Context){
+    fun login(id_pegawai: String, password: String, context: Context){
         _isLoading.value = true
-        val client = ApiConfig.getApiService(context).signupUser(id_pegawai,name,password,password2,email,posisi,divisi)
-        client.enqueue(object : Callback<SignupResponse> {
+        val client = ApiConfig.getApiService(context).loginUser(id_pegawai,password)
+        client.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(
-                call: Call<SignupResponse>,
-                response: Response<SignupResponse>
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
             ) {
                 val responseBody = response.body()
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _message.value = responseBody?.message
-                    Toast.makeText(
-                        context,
-                        _message.value,
-                        Toast.LENGTH_SHORT
-                    ).show()
                     _user.value = responseBody?.data
                 } else {
                     val jsonError = response.errorBody()?.string()?.let{ JSONObject(it) }
@@ -57,7 +50,7 @@ class SignupViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Timber.e("onFailure: " + t.message)
             }
         })

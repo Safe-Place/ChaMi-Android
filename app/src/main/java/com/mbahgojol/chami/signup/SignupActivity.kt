@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -39,8 +40,6 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
-        binding.uploadPhoto.setOnClickListener { startGallery() }
 
         binding.btnSignup.setOnClickListener {
             signup()
@@ -107,6 +106,7 @@ class SignupActivity : AppCompatActivity() {
         val divPegawai = binding.divisi.text.toString()
         val posisiPegawai = binding.posisi.text.toString()
         val passwordPegawai = binding.password.text.toString()
+        val konfirmPassword = binding.konfirmPassword.text.toString()
 
         when {
             namaPegawai.isEmpty() -> {
@@ -126,6 +126,12 @@ class SignupActivity : AppCompatActivity() {
             }
             passwordPegawai.isEmpty() -> {
                 binding.password.error = "Masukkan password"
+            }
+            konfirmPassword.isEmpty() -> {
+                binding.konfirmPassword.error = "Tidak boleh kosong"
+            }
+            konfirmPassword != passwordPegawai -> {
+                binding.konfirmPassword.error = "Password tidak sama"
             }
             else -> {
 ////                if(getFile!=null){
@@ -148,6 +154,7 @@ class SignupActivity : AppCompatActivity() {
                     idPegawai,
                     namaPegawai,
                     passwordPegawai,
+                    konfirmPassword,
                     emailPegawai,
                     posisiPegawai,
                     divPegawai,
@@ -159,36 +166,37 @@ class SignupActivity : AppCompatActivity() {
                 }
 
                 signupViewModel.user.observe(this@SignupActivity) { user ->
-                    val idPref = LoginPref(this@SignupActivity)
-                    idPref.setId(user.id_pegawai)
+                    LoginPref(this@SignupActivity).apply {
+                        setNama(user.name)
+                        setId(user.id_pegawai)
+                        setEmail(user.email)
+                        setDivisi(user.divisi)
+                        setPosisi(user.posisi)
+                    }
 
-                    val isLogin = LoginPref(this@SignupActivity)
-                    isLogin.setSession(true)
+//                    val isLogin = LoginPref(this@SignupActivity)
+//                    isLogin.setSession(true)
 
                     val username = user.name
                     val users = CreateUsers(
                         true,
                         user.divisi, //Agent Divisi Digital Center
+                        user.posisi,
                         image.random(),
                         username = username
                     )
 
-                    service.searchUser(username, user.id_pegawai)
+                    service.searchUser(user.id_pegawai)
                         .get()
                         .addOnSuccessListener {
                             if (it != null && it.documents.isNotEmpty()) {
-                                val user = it.documents[0].toObject<Users>()
-                                sharedPref.userId = user?.user_id ?: ""
-
-                                Intent(this, MainActivity::class.java).apply {
-                                    putExtra("user_id", user?.user_id)
-                                    startActivity(this)
-                                }
+                                Toast.makeText(this@SignupActivity, "Akun sudah ada", Toast.LENGTH_LONG).show()
 
 //                    binding.progress.isVisible = false
                             } else {
                                 service.addUser(users, user.id_pegawai) { id ->
                                     sharedPref.userId = id
+                                    LoginPref(this@SignupActivity).setSession(true)
 //                        binding.progress.isVisible = false
                                     Intent(this, MainActivity::class.java).apply {
                                         putExtra("user_id", id)
@@ -225,24 +233,8 @@ class SignupActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun startGallery() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_GET_CONTENT
-        intent.type = "image/*"
-        val chooser = Intent.createChooser(intent, "Choose a Picture")
-        launcherIntentGallery.launch(chooser)
-    }
 
-    private val launcherIntentGallery = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val selectedImg: Uri = result.data?.data as Uri
-            val myFile = uriToFile(selectedImg, this@SignupActivity)
-            getFile = myFile
-            binding.uploadPhoto.setImageURI(selectedImg)
-        }
-    }
+
 
     companion object {
         const val TAG = "SignupActivity"

@@ -78,4 +78,7 @@
     <string name="dibuat_pada">"Dibuat pada : "</string>
     <string name="edit_data">Edit Data</string>
     <string name="sibuk">Sibuk</string>
+    <string name="masukkan_password">Masukkan Password</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="lupa_password"><u>Lupa Password?</u></string>
 </resources>

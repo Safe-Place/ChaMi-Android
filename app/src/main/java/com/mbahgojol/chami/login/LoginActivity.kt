@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        getid()
+        val id_user = getid()
 
 //        binding.loginMethod.setOnClickListener {
 //            val image = listOf(
@@ -91,8 +91,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.ivPassword.setOnClickListener {
-            val intent = Intent(this@LoginActivity, PasswordLoginActivity::class.java)
-            startActivity(intent)
+            if (id_user != null){
+                val intent = Intent(this@LoginActivity, PasswordLoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this@LoginActivity, "Daftar terlebih dahulu", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.ivFaceRecog.setOnClickListener {
             Toast.makeText(this@LoginActivity, "Login dengan face belum tersedia", Toast.LENGTH_SHORT).show()
@@ -102,15 +106,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getid(){
+    private fun getid() : String?{
         val pref = LoginPref(this@LoginActivity)
         val id = pref.getId()
 
         if(id!=null) {
             binding.tvIdPegawai.text = "id $id"
+            return id
         }
         else{
             binding.tvIdPegawai.text = "Belum Daftar"
+            return null
         }
     }
 }
