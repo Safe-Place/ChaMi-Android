@@ -180,6 +180,32 @@ class FirestoreService {
             .document(userId)
             .update("token", token)
 
+    fun incrementNotifPersonal(senderId: String, receiverId: String, roomId: String) =
+        db.collection("notif")
+            .document(receiverId)
+            .collection(receiverId)
+            .document(senderId)
+            .update(
+                mapOf(
+                    "senderId" to senderId,
+                    "receiverId" to receiverId,
+                    "roomid" to roomId,
+                    "count" to 0
+                )
+            )
+
+    fun getAllCountNotif(userId: String) =
+        db.collection("notif")
+            .document(userId)
+            .collection(userId)
+
+    fun decrementNotifPersonal(senderId: String, receiverId: String) =
+        db.collection("notif")
+            .document(senderId)
+            .collection(senderId)
+            .document(receiverId)
+            .delete()
+
     fun pushNotif(
         userId: String,
         receiverId: String,

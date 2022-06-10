@@ -17,8 +17,8 @@ import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.*
-import com.mbahgojol.chami.databinding.ActivityDetailPersonalChatBinding
 import com.mbahgojol.chami.data.remote.FirestoreService
+import com.mbahgojol.chami.databinding.ActivityDetailPersonalChatBinding
 import com.mbahgojol.chami.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -73,7 +73,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
         }
 
         val model = intent.getParcelableExtra<ChatRoom>("data")
+        val isread = intent.getBooleanExtra("isread", false)
         if (intent.hasExtra("data") && model != null) {
+            if (!isread) service.decrementNotifPersonal(senderId, model.receiver_id)
+
             binding.btnAttach.setOnClickListener {
                 AttachBottomSheetDialog.newInstance(senderId, model.receiver_id, model.roomid)
                     .apply {
@@ -112,12 +115,12 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                 val chatRoom = it.toObject<ChatRoom>()
                                 service.updateChatDetail(
                                     senderId, model.roomid,
-                                    Detail(msg, currentDate, true)
+                                    Detail(msg, currentDate, true, senderId)
                                 )
 
                                 service.updateChatDetail(
                                     model.receiver_id, model.roomid,
-                                    Detail(msg, currentDate, chatRoom?.inRoom ?: false)
+                                    Detail(msg, currentDate, chatRoom?.inRoom ?: false, senderId)
                                 )
 
                                 service.updateLastUpdateRoom(
@@ -126,17 +129,19 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     model.roomid
                                 )
 
-                                val payload = PayloadNotif(
-                                    to = user?.token,
-                                    data = PayloadNotif.Data(
-                                        model.receiver_id,
-                                        senderId,
-                                        "",
-                                        "",
-                                        ""
+                                if (chatRoom?.inRoom == false) {
+                                    val payload = PayloadNotif(
+                                        to = user?.token,
+                                        data = PayloadNotif.Data(
+                                            model.receiver_id,
+                                            senderId,
+                                            model.roomid,
+                                            "",
+                                            ""
+                                        )
                                     )
-                                )
-                                viewModel.sendNotif(payload)
+                                    viewModel.sendNotif(payload)
+                                }
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }
@@ -208,12 +213,12 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                 val chatRoom = it.toObject<ChatRoom>()
                                 service.updateChatDetail(
                                     senderId, roomId,
-                                    Detail(msg, currentDate, true)
+                                    Detail(msg, currentDate, true, senderId)
                                 )
 
                                 service.updateChatDetail(
                                     user?.user_id ?: "", roomId,
-                                    Detail(msg, currentDate, chatRoom?.inRoom ?: false)
+                                    Detail(msg, currentDate, chatRoom?.inRoom ?: false, senderId)
                                 )
 
                                 service.updateChatList(
@@ -223,17 +228,19 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                                     chatRoom?.inRoom ?: false
                                 )
 
-                                val payload = PayloadNotif(
-                                    to = user?.token,
-                                    data = PayloadNotif.Data(
-                                        user?.user_id,
-                                        senderId,
-                                        "",
-                                        "",
-                                        ""
+                                if (chatRoom?.inRoom == null || !chatRoom.inRoom) {
+                                    val payload = PayloadNotif(
+                                        to = user?.token,
+                                        data = PayloadNotif.Data(
+                                            user?.user_id,
+                                            senderId,
+                                            roomId,
+                                            "",
+                                            ""
+                                        )
                                     )
-                                )
-                                viewModel.sendNotif(payload)
+                                    viewModel.sendNotif(payload)
+                                }
                             }.addOnFailureListener {
                                 Log.e("ChatDetail", it.message.toString())
                             }

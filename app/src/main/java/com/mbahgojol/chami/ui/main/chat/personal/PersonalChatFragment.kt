@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.toObjects
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.ChatRoom
-import com.mbahgojol.chami.databinding.FragmentPersonalChatBinding
 import com.mbahgojol.chami.data.remote.FirestoreService
+import com.mbahgojol.chami.databinding.FragmentPersonalChatBinding
 import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -24,15 +24,17 @@ class PersonalChatFragment : Fragment() {
 
     @Inject
     lateinit var firestoreModule: FirestoreService
+
     @Inject
     lateinit var sharedPref: SharedPref
 
     private val viewModel: PersonalChatViewModel by viewModels()
 
     private val listAdapter by lazy {
-        PersonalChatAdapter(sharedPref.userId, firestoreModule) {
+        PersonalChatAdapter(sharedPref.userId, firestoreModule) { room, isread ->
             Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
-                putExtra("data", it)
+                putExtra("data", room)
+                putExtra("isread", isread)
                 putExtra("isInit", false)
                 startActivity(this)
             }

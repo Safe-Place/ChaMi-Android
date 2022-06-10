@@ -14,5 +14,6 @@ data class ChatRoom(
 data class Detail(
     var last_chat: String = "",
     var last_date: String = "",
-    var isread: Boolean = false
+    var isread: Boolean = false,
+    var author_id: String = ""
 )
