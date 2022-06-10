@@ -1,6 +1,8 @@
 package com.mbahgojol.chami.ui.main.chat.personal.detail
 
+import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.PayloadNotif
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.data.remote.NotifService
 import com.mbahgojol.chami.utils.AppConstant
 import com.mbahgojol.chami.utils.BaseViewModel
@@ -11,7 +13,11 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailPersonalChatViewModel @Inject constructor(private val notifService: NotifService) :
+class DetailPersonalChatViewModel @Inject constructor(
+    private val notifService: NotifService,
+    private val service: FirestoreService,
+    private val sharedPref: SharedPref
+) :
     BaseViewModel() {
 
     fun sendNotif(payloadNotif: PayloadNotif) {
@@ -19,6 +25,11 @@ class DetailPersonalChatViewModel @Inject constructor(private val notifService: 
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                service.incrementNotifPersonal(
+                    payloadNotif.data?.idSender.toString(),
+                    payloadNotif.data?.idReceiver.toString(),
+                    payloadNotif.data?.roomId.toString()
+                )
                 Timber.e(it.toString())
             }, {
                 Timber.e(it.message.toString())

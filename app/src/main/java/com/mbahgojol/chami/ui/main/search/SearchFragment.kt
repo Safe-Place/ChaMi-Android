@@ -11,9 +11,10 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.ChatRoom
+import com.mbahgojol.chami.data.model.Detail
 import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.FragmentSearchBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
 import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,15 +40,24 @@ class SearchFragment : Fragment() {
                 .addOnSuccessListener { snap ->
                     if (snap.documents.isNotEmpty()) {
                         val room = snap.documents[0].toObject<ChatRoom>()
-                        Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
-                            putExtra("data", room)
-                            putExtra("senderId", sharedPref.userId)
-                            startActivity(this)
-                        }
+                        service.getChatDetail(sharedPref.userId, room?.roomid ?: "")
+                            .get()
+                            .addOnSuccessListener { snapshot ->
+                                if (snapshot != null && snapshot.exists()) {
+                                    val detail = snapshot.toObject<Detail>()
+                                    Intent(
+                                        requireActivity(),
+                                        DetailPersonalChatActivity::class.java
+                                    ).apply {
+                                        putExtra("data", room)
+                                        putExtra("isread", detail?.isread)
+                                        startActivity(this)
+                                    }
+                                }
+                            }
                     } else {
                         Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
                             putExtra("users", it)
-                            putExtra("senderId", sharedPref.userId)
                             startActivity(this)
                         }
                     }

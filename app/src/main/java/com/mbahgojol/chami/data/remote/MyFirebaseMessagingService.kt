@@ -15,14 +15,24 @@ import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
-import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.PayloadNotif
+import com.mbahgojol.chami.ui.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 private const val ID_REPEATING = 101
 
+@AndroidEntryPoint
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    @Inject
+    lateinit var service: FirestoreService
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     override fun onMessageSent(msgId: String) {
         super.onMessageSent(msgId)
@@ -36,11 +46,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         Timber.tag(TAG).d("From: %s", remoteMessage.from)
 
-        sendNotification(
-            "Pesan Baru",
-            "Ketuk untuk melihat"
-        )
-
         remoteMessage.data.isNotEmpty().let {
             Timber.tag(TAG).d("Message data payload: %s", remoteMessage.data)
             val jsonData = Gson().toJson(remoteMessage.data)
@@ -50,10 +55,23 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
             if (jsonData != null) {
                 val model = Gson().fromJson(jsonData, PayloadNotif.Data::class.java)
-                sendNotification(
-                    "Pesan Baru",
-                    "Ketuk untuk melihat"
-                )
+
+                if (sharedPref.userId != "") {
+                    service.getAllCountNotif(sharedPref.userId)
+                        .get()
+                        .addOnSuccessListener {
+                            val size = it.documents.size
+                            sendNotification(
+                                "($size) Pesan Baru",
+                                "Ketuk untuk melihat"
+                            )
+                        }.addOnFailureListener {
+                            sendNotification(
+                                "Pesan Baru",
+                                "Ketuk untuk melihat"
+                            )
+                        }
+                }
             }
 
             if (true) {

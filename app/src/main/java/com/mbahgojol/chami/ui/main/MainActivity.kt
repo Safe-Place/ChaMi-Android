@@ -1,15 +1,19 @@
 package com.mbahgojol.chami.ui.main
 
+import android.annotation.TargetApi
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -18,21 +22,36 @@ import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityMainBinding
 import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
-import com.mbahgojol.chami.dummyData.User
-import com.mbahgojol.chami.signup.SignupActivity
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    fun setStatusBarGradiant(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = activity.window
+            val background = ContextCompat.getDrawable(activity, R.drawable.toolbar_color)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+            window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
+            window.setBackgroundDrawable(background)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.root.hideKeyboard()
+        setStatusBarGradiant(this)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.elevation = 0f
 
         val loginPref = LoginPref(this@MainActivity)
@@ -93,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    companion object{
+    companion object {
         const val EXTRA_USER = "extra_user"
     }
 }

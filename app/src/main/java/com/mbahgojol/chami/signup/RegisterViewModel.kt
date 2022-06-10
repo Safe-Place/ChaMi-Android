@@ -1,6 +1,6 @@
 package com.mbahgojol.chami.signup
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -16,7 +16,6 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import timber.log.Timber
 
 class SignupViewModel : ViewModel() {
     private val _message = MutableLiveData<String>()
@@ -47,7 +46,7 @@ class SignupViewModel : ViewModel() {
                     ).show()
                     _user.value = responseBody?.data
                 } else {
-                    val jsonError = response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val jsonError = response.errorBody()?.string()?.let { JSONObject(it) }
                     val responseStatus = jsonError?.getString("message")
                     Toast.makeText(
                         context,
@@ -58,8 +57,9 @@ class SignupViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                Timber.e("onFailure: " + t.message)
+                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
             }
         })
     }
+
 }

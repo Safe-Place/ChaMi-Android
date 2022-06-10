@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.mbahgojol.chami.BuildConfig
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.data.remote.NotifService
 import com.mbahgojol.chami.utils.AppConstant
 import dagger.Module

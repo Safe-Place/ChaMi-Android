@@ -1,15 +1,25 @@
-package com.mbahgojol.chami.di
+package com.mbahgojol.chami.data.remote
 
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mbahgojol.chami.data.model.*
+import timber.log.Timber
 
 class FirestoreService {
     private val db = Firebase.firestore
 
+    fun addUser(users: CreateUsers, listen: (String) -> Unit) =
+        db.collection("users")
+            .add(users)
+            .onSuccessTask { doc ->
+                doc.update("user_id", doc.id)
+                    .addOnSuccessListener {
+                        listen(doc.id)
+                    }
+            }
 
-    fun addUser(users: CreateUsers, id_user :String, listen: (String) -> Unit) =
+    fun addUsers(users: CreateUsers, id_user :String, listen: (String) -> Unit) =
         db.collection("users")
             .add(users)
             .onSuccessTask { doc ->
@@ -19,10 +29,14 @@ class FirestoreService {
                     }
             }
 
+    fun searchUser(username: String) =
+        db.collection("users")
+            .whereEqualTo("username", username)
 
-    fun searchUser(id_user: String) =
+    fun searchUsers(id_user: String) =
         db.collection("users")
             .whereEqualTo("user_id", id_user)
+
 
     fun getAllUser() =
         db.collection("users")
@@ -182,6 +196,43 @@ class FirestoreService {
             .document(userId)
             .update("token", token)
 
+    fun incrementNotifPersonal(senderId: String, receiverId: String, roomId: String) {
+        db.collection("notif")
+            .document(receiverId)
+            .collection(receiverId)
+            .document(senderId)
+            .update("count", FieldValue.increment(1)).addOnSuccessListener {
+                Timber.e("Sukses Ah")
+            }.addOnFailureListener {
+                if (it.message.toString().contains("NOT_FOUND")) {
+                    db.collection("notif")
+                        .document(receiverId)
+                        .collection(receiverId)
+                        .document(senderId)
+                        .set(
+                            mapOf(
+                                "senderId" to senderId,
+                                "receiverId" to receiverId,
+                                "roomid" to roomId,
+                                "count" to 1
+                            )
+                        )
+                }
+            }
+    }
+
+    fun getAllCountNotif(userId: String) =
+        db.collection("notif")
+            .document(userId)
+            .collection(userId)
+
+    fun decrementNotifPersonal(senderId: String, receiverId: String) =
+        db.collection("notif")
+            .document(senderId)
+            .collection(senderId)
+            .document(receiverId)
+            .update("count", FieldValue.increment(-1))
+
     fun pushNotif(
         userId: String,
         receiverId: String,
@@ -204,7 +255,8 @@ class FirestoreService {
             .document(userId)
             .delete()
     }
-    fun addFile(file: Files, listen: (String) -> Unit){
+
+    fun addFile(file: Files, listen: (String) -> Unit) {
         db.collection("files")
             .add(file)
             .onSuccessTask { doc ->
@@ -215,7 +267,7 @@ class FirestoreService {
             }
     }
 
-    fun getFiles(divisi:String): Query =
+    fun getFiles(divisi: String): Query =
         db.collection("files")
             .whereEqualTo("author_div", divisi)
 
