@@ -31,7 +31,7 @@ class PersonalChatAdapter constructor(
         notifyDataSetChanged()
     }
 
-    inner class PersonalChatViewHolder(private val binding: ItemListChatBinding) :
+    inner class PersonalChatViewHolder(val binding: ItemListChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         var detail: Detail? = null
@@ -45,15 +45,32 @@ class PersonalChatAdapter constructor(
 
                         binding.tvLastMessage.text =
                             if (senderId == detail?.author_id) "me: ${detail?.last_chat}" else detail?.last_chat
-                        binding.tvIncomingChat.isVisible = detail?.isread == false
+
+                        Timber.e(detail?.isread.toString())
+                        if (detail?.isread == false) {
+                            service.getNotifUserByReceiver(senderId, model.receiver_id)
+                                .get()
+                                .addOnSuccessListener {
+                                    if (it?.get("count") != null) {
+                                        val count = it.get("count") as Long
+                                        Timber.e(count.toString())
+                                        binding.tvIncomingChat.isVisible = true
+                                        binding.tvIncomingChat.text = count.toString()
+                                    } else {
+                                        binding.tvIncomingChat.isVisible = true
+                                        binding.tvIncomingChat.text = 1.toString()
+                                    }
+                                }
+                        } else {
+                            binding.tvIncomingChat.isVisible = false
+                            binding.tvIncomingChat.text = "0"
+                        }
                         binding.tvDate.text =
                             detail?.last_date?.let { DateUtils.reformatToClock(it) }
                     } else {
                         Timber.e("Tidak ada List Chat")
                     }
                 }
-
-            service.getUserProfile(model.receiver_id)
 
             service.getUserProfile(model.receiver_id)
                 .addSnapshotListener { snapshot, e ->

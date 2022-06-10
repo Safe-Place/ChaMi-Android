@@ -211,12 +211,18 @@ class FirestoreService {
             .document(userId)
             .collection(userId)
 
+    fun getNotifUserByReceiver(senderId: String, receiverId: String) =
+        db.collection("notif")
+            .document(senderId)
+            .collection(senderId)
+            .document(receiverId)
+
     fun decrementNotifPersonal(senderId: String, receiverId: String) =
         db.collection("notif")
             .document(senderId)
             .collection(senderId)
             .document(receiverId)
-            .update("count", FieldValue.increment(-1))
+            .delete()
 
     fun pushNotif(
         userId: String,

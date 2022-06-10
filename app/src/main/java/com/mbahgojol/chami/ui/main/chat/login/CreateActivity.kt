@@ -6,9 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
@@ -17,7 +15,6 @@ import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityCreateBinding
 import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -55,14 +52,6 @@ class CreateActivity : AppCompatActivity() {
             Log.e("TOKEN => ", it)
             token = it
         }
-
-        Firebase.firestore.collection("notif")
-            .document("8ElrYXWJaP8Juzj4HVrt")
-            .collection("8ElrYXWJaP8Juzj4HVrt")
-            .get()
-            .addOnCompleteListener {
-                Timber.e(it.result.size().toString())
-            }
 
         /*Firebase.auth.signInAnonymously()
             .addOnCompleteListener(this) { task ->

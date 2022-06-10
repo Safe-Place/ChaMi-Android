@@ -62,7 +62,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         .addOnSuccessListener {
                             val size = it.documents.size
                             sendNotification(
-                                "($size) Pesan Baru",
+                                "(${if (size == 0) 1 else size}) Pesan Baru",
                                 "Ketuk untuk melihat"
                             )
                         }.addOnFailureListener {
