@@ -9,16 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ShareCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.Files
 import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.FragmentFilesBinding
-import com.mbahgojol.chami.di.FirestoreService
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -99,26 +101,22 @@ class FilesFragment : Fragment() {
     }
 
     private fun getDivisi(){
-        firestoreModule.getUserProfile(sharedPref.userId)
-            .addSnapshotListener { snapshot, e ->
+        firestoreModule.getUserFromId(LoginPref(requireActivity()).getId())
+            .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
                     return@addSnapshotListener
                 }
-
-                if (snapshot != null && snapshot.exists()) {
-                    val user = snapshot.toObject<Users>()
-                    val user_div = user?.jabatan ?: ""
-
-                    getfile(user_div)
-
-                } else {
-                    Timber.e("Tidak ada jabatan")
+                var divisi : String?
+                for (doc in value!!) {
+                    divisi = doc.getString("jabatan")
+                    getfile (divisi)
                 }
+
             }
     }
 
-    fun getfile(user_div : String){
+    fun getfile (user_div : String?){
         firestoreModule.getFiles(user_div)
             .addSnapshotListener { value, e ->
                 if (e != null) {
@@ -185,22 +183,20 @@ class FilesFragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     private fun uploadtoFirestore(downloadUri:Uri, nameFile:String?, sizeFile:Long, createAt:Long){
-        val author_id = sharedPref.userId
+        val author_id = LoginPref(requireActivity()).getId()
         val typeFile : Long = 5
         val format = SimpleDateFormat("dd-MM-yyyy HH:mm")
         val createDate = format.format(Date(createAt))
 
-        firestoreModule.getUserProfile(author_id)
-            .addSnapshotListener { snapshot, e ->
+        firestoreModule.getUserFromId(author_id)
+            .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
                     return@addSnapshotListener
                 }
-
-                if (snapshot != null && snapshot.exists()) {
-                    val user = snapshot.toObject<Users>()
-                    val author_div = user?.jabatan
-
+                var divisi : String?
+                for (doc in value!!) {
+                    divisi = doc.getString("jabatan")
                     val file = Files(
                         nameFile,
                         typeFile,
@@ -208,13 +204,10 @@ class FilesFragment : Fragment() {
                         sizeFile.toInt().toString(),
                         createDate.toString(),
                         author_id,
-                        author_div = author_div
+                        author_div = divisi
                     )
-                    firestoreModule.addFile(file){ id ->
-                        sharedPref.userId = id
+                    firestoreModule.addFile(file){
                     }
-                } else {
-                    Timber.e("Tidak ada user")
                 }
             }
     }

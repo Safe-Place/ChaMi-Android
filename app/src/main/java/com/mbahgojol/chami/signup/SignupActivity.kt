@@ -16,8 +16,8 @@ import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -202,7 +202,7 @@ class SignupActivity : AppCompatActivity() {
                         username = username
                     )
 
-                    service.searchUser(user.id_pegawai)
+                    service.searchUsers(user.id_pegawai)
                         .get()
                         .addOnSuccessListener {
                             if (it != null && it.documents.isNotEmpty()) {
@@ -211,7 +211,7 @@ class SignupActivity : AppCompatActivity() {
                                 showLoading(false)
 //                    binding.progress.isVisible = false
                             } else {
-                                service.addUser(users, user.id_pegawai) { id ->
+                                service.addUsers(users, user.id_pegawai) { id ->
                                     sharedPref.userId = id
                                     LoginPref(this@SignupActivity).setSession(true)
 //                        binding.progress.isVisible = false

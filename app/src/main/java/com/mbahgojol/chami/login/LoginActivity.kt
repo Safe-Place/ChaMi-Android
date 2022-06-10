@@ -6,17 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.LoginPref
-import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityLoginBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.signup.SignupActivity
 import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint

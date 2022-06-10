@@ -15,7 +15,6 @@ import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.databinding.FragmentOthersBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.signup.SignupActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

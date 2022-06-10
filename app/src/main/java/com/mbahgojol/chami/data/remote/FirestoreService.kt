@@ -256,6 +256,10 @@ class FirestoreService {
             .delete()
     }
 
+    fun getUserFromId(userId: String?): Query =
+        db.collection("users")
+            .whereEqualTo("user_id", userId)
+
     fun addFile(file: Files, listen: (String) -> Unit) {
         db.collection("files")
             .add(file)
@@ -267,7 +271,7 @@ class FirestoreService {
             }
     }
 
-    fun getFiles(divisi: String): Query =
+    fun getFiles(divisi: String?): Query =
         db.collection("files")
             .whereEqualTo("author_div", divisi)
 

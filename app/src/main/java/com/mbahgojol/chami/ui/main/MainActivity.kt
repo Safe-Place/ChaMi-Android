@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -20,6 +21,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityMainBinding
+import com.mbahgojol.chami.signup.SignupActivity
 import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 

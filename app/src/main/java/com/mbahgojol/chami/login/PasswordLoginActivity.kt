@@ -11,8 +11,8 @@ import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityPasswordLoginBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.login.forgotPassword.ForgotPasswordActivity
 import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,7 +69,7 @@ class PasswordLoginActivity : AppCompatActivity() {
 //                        setSession(true)
 //                    }
 
-                    service.searchUser(id)
+                    service.searchUsers(id)
                         .get()
                         .addOnSuccessListener {
                             if (it != null && it.documents.isNotEmpty()) {
