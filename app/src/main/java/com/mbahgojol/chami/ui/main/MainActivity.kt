@@ -67,6 +67,12 @@ class MainActivity : AppCompatActivity() {
             bottomNavView.setupWithNavController(navController)
         }
 
+        navController.getBackStackEntry(R.id.chatFragment)
+            .savedStateHandle.getLiveData<Boolean>("haveCount")
+            .observe(this) {
+                binding.bottomNavView.getOrCreateBadge(R.id.chatFragment).isVisible = it
+            }
+
 //        val user = intent.getParcelableExtra<User>(EXTRA_USER) as User
     }
 
