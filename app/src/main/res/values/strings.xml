@@ -95,4 +95,6 @@
     <string name="lupa_password"><u>Lupa Password?</u></string>
     <string name="kode_verifikasi">Kode Verifikasi</string>
     <string name="hint_otp">Masukkan kode OTP yang sudah dikirimkan ke email</string>
+    <string name="password_baru">Password baru</string>
+    <string name="simpan">Simpan</string>
 </resources>

@@ -16,6 +16,7 @@
         tools:layout_editor_absoluteX="10dp">
 
         <ImageView
+            android:id="@+id/ivAvatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src= "@drawable/ic_baseline_person_24"/>
@@ -38,7 +39,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvStatus"
+                android:id="@+id/tvDivisi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -173,6 +174,7 @@
                 android:src="@drawable/ic_baseline_edit_24"
                 app:tint="@color/grey"/>
             <LinearLayout
+                android:id="@+id/linearEditData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

@@ -37,7 +37,7 @@ class SignupViewModel : ViewModel() {
                 response: Response<SignupResponse>
             ) {
                 val responseBody = response.body()
-                _isLoading.value = false
+//                _isLoading.value = false
                 if (response.isSuccessful) {
                     _message.value = responseBody?.message
                     Toast.makeText(

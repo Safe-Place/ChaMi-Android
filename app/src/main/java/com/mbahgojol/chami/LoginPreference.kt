@@ -10,6 +10,7 @@ class LoginPref(context : Context) {
     private val prefEmailPegawai = context.getSharedPreferences(PREFS_EMAIL, Context.MODE_PRIVATE)
     private val prefDivPegawai = context.getSharedPreferences(PREFS_DIV, Context.MODE_PRIVATE)
     private val prefPosisiPegawai = context.getSharedPreferences(PREFS_POSISI, Context.MODE_PRIVATE)
+    private val prefAvatarPegawai = context.getSharedPreferences(PREFS_AVATAR, Context.MODE_PRIVATE)
 
     fun setSession(isLogin: Boolean){
         val editor = prefIsLogin.edit()
@@ -25,8 +26,8 @@ class LoginPref(context : Context) {
 //        val editor = prefIsLogin.edit()
 //        editor.clear().apply()
         prefIsLogin.edit().clear().apply()
-        prefEmailPegawai.edit().clear().apply()
-        prefPosisiPegawai.edit().clear().apply() //divisi sama nama blm di clear
+//        prefEmailPegawai.edit().clear().apply()
+//        prefPosisiPegawai.edit().clear().apply()
     }
 
     fun setId(idPegawai: String?){
@@ -41,7 +42,7 @@ class LoginPref(context : Context) {
 
     fun setNama(namaPegawai: String?){
         val editor = prefNamaPegawai.edit()
-        editor.putString(ID, namaPegawai)
+        editor.putString(NAMA, namaPegawai)
         editor.apply()
     }
 
@@ -51,7 +52,7 @@ class LoginPref(context : Context) {
 
     fun setEmail(emailPegawai: String?){
         val editor = prefEmailPegawai.edit()
-        editor.putString(ID, emailPegawai)
+        editor.putString(EMAIL, emailPegawai)
         editor.apply()
     }
 
@@ -60,7 +61,7 @@ class LoginPref(context : Context) {
     }
 
     fun setDivisi(divPegawai: String?){
-        val editor = prefIdPegawai.edit()
+        val editor = prefDivPegawai.edit()
         editor.putString(DIV, divPegawai)
         editor.apply()
     }
@@ -79,6 +80,16 @@ class LoginPref(context : Context) {
         return prefPosisiPegawai.getString(POSISI, null)
     }
 
+    fun setAvatar(avatar: String?){
+        val editor = prefAvatarPegawai.edit()
+        editor.putString(AVATAR, avatar)
+        editor.apply()
+    }
+
+    fun getAvatar() : String?{
+        return prefAvatarPegawai.getString(AVATAR, null)
+    }
+
     companion object{
         private const val PREFS_ISLOGIN = "isLogin_pref"
         private const val SESSION = "session"
@@ -92,5 +103,7 @@ class LoginPref(context : Context) {
         private const val POSISI = "posisi_pegawai"
         private const val PREFS_EMAIL = "email_pref"
         private const val EMAIL = "email_pegawai"
+        private const val PREFS_AVATAR = "avatar_prefs"
+        private const val AVATAR = "avatar"
     }
 }

@@ -27,8 +27,6 @@ import javax.inject.Inject
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
 
-    private var getFile: File? = null
-
     @Inject
     lateinit var service: FirestoreService
 
@@ -62,7 +60,7 @@ class SignupActivity : AppCompatActivity() {
         val adapterPosisi = ArrayAdapter.createFromResource(this,
             R.array.posisi_list, R.layout.spinner_item)
         adapterPosisi.setDropDownViewResource(R.layout.spinner_list)
-        binding.spinnerDivisi.adapter = adapterPosisi
+        binding.spinnerPosisi.adapter = adapterPosisi
     }
 
     private fun signup() {
@@ -165,6 +163,8 @@ class SignupActivity : AppCompatActivity() {
 ////                        file.name,
 ////                        requestImageFile
 ////                    )
+
+                val avatar = image.random()
                 signupViewModel.signup(
                     idPegawai,
                     namaPegawai,
@@ -187,6 +187,7 @@ class SignupActivity : AppCompatActivity() {
                         setEmail(user.email)
                         setDivisi(user.divisi)
                         setPosisi(user.posisi)
+                        setAvatar(avatar)
                     }
 
 //                    val isLogin = LoginPref(this@SignupActivity)
@@ -197,7 +198,7 @@ class SignupActivity : AppCompatActivity() {
                         true,
                         user.divisi, //Agent Divisi Digital Center
                         user.posisi,
-                        image.random(),
+                        avatar,
                         username = username
                     )
 
@@ -207,14 +208,17 @@ class SignupActivity : AppCompatActivity() {
                             if (it != null && it.documents.isNotEmpty()) {
                                 Toast.makeText(this@SignupActivity, "Akun sudah ada", Toast.LENGTH_LONG).show()
 
+                                showLoading(false)
 //                    binding.progress.isVisible = false
                             } else {
                                 service.addUser(users, user.id_pegawai) { id ->
                                     sharedPref.userId = id
                                     LoginPref(this@SignupActivity).setSession(true)
 //                        binding.progress.isVisible = false
+                                    showLoading(false)
                                     Intent(this, MainActivity::class.java).apply {
                                         putExtra("user_id", id)
+                                        this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                         startActivity(this)
                                     }
                                 }

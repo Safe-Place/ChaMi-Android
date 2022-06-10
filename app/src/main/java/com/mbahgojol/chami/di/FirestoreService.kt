@@ -8,6 +8,7 @@ import com.mbahgojol.chami.data.model.*
 class FirestoreService {
     private val db = Firebase.firestore
 
+
     fun addUser(users: CreateUsers, id_user :String, listen: (String) -> Unit) =
         db.collection("users")
             .add(users)
@@ -17,6 +18,7 @@ class FirestoreService {
                         listen(doc.id)
                     }
             }
+
 
     fun searchUser(id_user: String) =
         db.collection("users")

@@ -113,7 +113,7 @@ class FilesFragment : Fragment() {
                     getfile(user_div)
 
                 } else {
-                    Timber.e("Tidak ada file")
+                    Timber.e("Tidak ada jabatan")
                 }
             }
     }
