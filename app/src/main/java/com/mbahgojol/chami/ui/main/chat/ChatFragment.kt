@@ -1,8 +1,11 @@
 package com.mbahgojol.chami.ui.main.chat
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mbahgojol.chami.R
@@ -14,8 +17,8 @@ class ChatFragment : Fragment() {
     private lateinit var binding: FragmentChatBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentChatBinding.inflate(inflater, container, false)
         return binding.root
@@ -34,8 +37,8 @@ class ChatFragment : Fragment() {
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(
-                R.string.tab_chat_1,
-                R.string.tab_chat_2
+            R.string.tab_chat_1,
+            R.string.tab_chat_2
         )
     }
 

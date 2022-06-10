@@ -8,7 +8,7 @@
         <shape android:shape="oval">
             <gradient
                 android:startColor="@color/purple_500"
-                android:endColor="@color/light_blue"/>
+                android:endColor="@color/white"/>
         </shape>
     </item>
 </layer-list>

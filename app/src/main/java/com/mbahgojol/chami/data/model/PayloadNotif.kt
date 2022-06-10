@@ -7,6 +7,7 @@ data class PayloadNotif(
     data class Data(
         val idReceiver: String? = null,
         val idSender: String? = null,
+        val roomId: String? = null,
         val title: String? = null,
         val message: String? = null,
         val type: String? = null

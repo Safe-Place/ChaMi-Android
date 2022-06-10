@@ -12,8 +12,8 @@ import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.data.model.Detail
 import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ItemListChatBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.utils.DateUtils
 import timber.log.Timber
 
@@ -21,7 +21,7 @@ class PersonalChatAdapter constructor(
     private val senderId: String,
     private val service: FirestoreService,
     private val data: MutableList<ChatRoom> = mutableListOf(),
-    private var listener: (ChatRoom) -> Unit
+    private var listener: (ChatRoom, Boolean) -> Unit
 ) :
     RecyclerView.Adapter<PersonalChatAdapter.PersonalChatViewHolder>() {
 
@@ -34,14 +34,17 @@ class PersonalChatAdapter constructor(
     inner class PersonalChatViewHolder(private val binding: ItemListChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        var detail: Detail? = null
+
         fun bind(model: ChatRoom) {
             service.getChatDetail(senderId, model.roomid)
                 .get()
                 .addOnSuccessListener { snapshot ->
                     if (snapshot != null && snapshot.exists()) {
-                        val detail = snapshot.toObject<Detail>()
+                        detail = snapshot.toObject<Detail>()
 
-                        binding.tvLastMessage.text = detail?.last_chat
+                        binding.tvLastMessage.text =
+                            if (senderId == detail?.author_id) "me: ${detail?.last_chat}" else detail?.last_chat
                         binding.tvIncomingChat.isVisible = detail?.isread == false
                         binding.tvDate.text =
                             detail?.last_date?.let { DateUtils.reformatToClock(it) }
@@ -49,6 +52,8 @@ class PersonalChatAdapter constructor(
                         Timber.e("Tidak ada List Chat")
                     }
                 }
+
+            service.getUserProfile(model.receiver_id)
 
             service.getUserProfile(model.receiver_id)
                 .addSnapshotListener { snapshot, e ->
@@ -89,7 +94,7 @@ class PersonalChatAdapter constructor(
         val item = data[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            listener(item)
+            listener(item, holder.detail?.isread ?: false)
         }
     }
 

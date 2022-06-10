@@ -6,15 +6,18 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
 import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityCreateBinding
-import com.mbahgojol.chami.di.FirestoreService
 import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -46,12 +49,20 @@ class CreateActivity : AppCompatActivity() {
             "https://i.pinimg.com/originals/f9/ba/90/f9ba90e3eba7af18a0ca139844ed08d5.jpg",
             "https://i.pinimg.com/originals/3f/c3/d2/3fc3d2a90e45cc51b9c2f2ec67992050.png",
             "https://i.pinimg.com/originals/eb/7f/a7/eb7fa775f1ee3ca4f8beeaff5dc9d468.jpg",
-            )
+        )
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             Log.e("TOKEN => ", it)
             token = it
         }
+
+        Firebase.firestore.collection("notif")
+            .document("8ElrYXWJaP8Juzj4HVrt")
+            .collection("8ElrYXWJaP8Juzj4HVrt")
+            .get()
+            .addOnCompleteListener {
+                Timber.e(it.result.size().toString())
+            }
 
         /*Firebase.auth.signInAnonymously()
             .addOnCompleteListener(this) { task ->
@@ -87,6 +98,7 @@ class CreateActivity : AppCompatActivity() {
                     if (it != null && it.documents.isNotEmpty()) {
                         val user = it.documents[0].toObject<Users>()
                         sharedPref.userId = user?.user_id ?: ""
+                        sharedPref.userName = user?.username ?: ""
                         service.updateToken(sharedPref.userId, token)
 
                         Intent(this, MainActivity::class.java).apply {
@@ -98,6 +110,7 @@ class CreateActivity : AppCompatActivity() {
                     } else {
                         service.addUser(users) { id ->
                             sharedPref.userId = id
+                            sharedPref.userName = username
                             binding.progress.isVisible = false
                             Intent(this, MainActivity::class.java).apply {
                                 putExtra("user_id", id)

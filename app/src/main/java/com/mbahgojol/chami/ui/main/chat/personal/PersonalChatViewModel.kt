@@ -5,7 +5,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.data.model.Users
-import com.mbahgojol.chami.di.FirestoreService
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.utils.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable

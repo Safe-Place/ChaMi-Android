@@ -6,7 +6,6 @@
         android:bottomRightRadius="0dp"
         android:radius="20dp" />
 
-    <solid
-        android:color="@color/light_blue_2" />
+    <solid android:color="@color/boxChatLog" />
 
 </shape>

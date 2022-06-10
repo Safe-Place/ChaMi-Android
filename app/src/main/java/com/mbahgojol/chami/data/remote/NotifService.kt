@@ -14,5 +14,5 @@ interface NotifService {
     fun pushNotif(
         @Header("Authorization") token: String,
         @Body payloadNotif: PayloadNotif
-    ): Single<String>
+    ): Single<ResponsePushNotif>
 }
