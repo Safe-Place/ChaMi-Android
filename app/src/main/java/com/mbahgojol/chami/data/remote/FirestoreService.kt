@@ -4,6 +4,7 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mbahgojol.chami.data.model.*
+import timber.log.Timber
 
 class FirestoreService {
     private val db = Firebase.firestore
@@ -180,19 +181,30 @@ class FirestoreService {
             .document(userId)
             .update("token", token)
 
-    fun incrementNotifPersonal(senderId: String, receiverId: String, roomId: String) =
+    fun incrementNotifPersonal(senderId: String, receiverId: String, roomId: String) {
         db.collection("notif")
             .document(receiverId)
             .collection(receiverId)
             .document(senderId)
-            .update(
-                mapOf(
-                    "senderId" to senderId,
-                    "receiverId" to receiverId,
-                    "roomid" to roomId,
-                    "count" to 0
-                )
-            )
+            .update("count", FieldValue.increment(1)).addOnSuccessListener {
+                Timber.e("Sukses Ah")
+            }.addOnFailureListener {
+                if (it.message.toString().contains("NOT_FOUND")) {
+                    db.collection("notif")
+                        .document(receiverId)
+                        .collection(receiverId)
+                        .document(senderId)
+                        .set(
+                            mapOf(
+                                "senderId" to senderId,
+                                "receiverId" to receiverId,
+                                "roomid" to roomId,
+                                "count" to 1
+                            )
+                        )
+                }
+            }
+    }
 
     fun getAllCountNotif(userId: String) =
         db.collection("notif")
@@ -204,7 +216,7 @@ class FirestoreService {
             .document(senderId)
             .collection(senderId)
             .document(receiverId)
-            .delete()
+            .update("count", FieldValue.increment(-1))
 
     fun pushNotif(
         userId: String,

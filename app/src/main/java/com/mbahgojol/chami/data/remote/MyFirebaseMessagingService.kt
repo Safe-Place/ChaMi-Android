@@ -65,6 +65,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                                 "($size) Pesan Baru",
                                 "Ketuk untuk melihat"
                             )
+                        }.addOnFailureListener {
+                            sendNotification(
+                                "Pesan Baru",
+                                "Ketuk untuk melihat"
+                            )
                         }
                 }
             }
