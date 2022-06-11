@@ -100,4 +100,5 @@
     <string name="hint_otp">Masukkan kode OTP yang sudah dikirimkan ke email</string>
     <string name="password_baru">Password baru</string>
     <string name="simpan">Simpan</string>
+    <string name="ganti_foto">Ganti Foto Profil</string>
 </resources>
