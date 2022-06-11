@@ -34,7 +34,6 @@ class PersonalChatFragment : Fragment() {
         PersonalChatAdapter(sharedPref.userId, firestoreModule) { room, isread ->
             Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
                 putExtra("data", room)
-                putExtra("isread", isread)
                 putExtra("isInit", false)
                 startActivity(this)
             }

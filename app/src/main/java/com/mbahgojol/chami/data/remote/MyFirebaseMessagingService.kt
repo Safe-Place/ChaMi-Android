@@ -115,7 +115,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.icon)
             .setContentTitle(msg[0])
             .setContentText(msg[1])
             .setColor(ContextCompat.getColor(this, android.R.color.transparent))

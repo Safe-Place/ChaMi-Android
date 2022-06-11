@@ -73,9 +73,14 @@ class DetailPersonalChatActivity : AppCompatActivity() {
         }
 
         val model = intent.getParcelableExtra<ChatRoom>("data")
-        val isread = intent.getBooleanExtra("isread", false)
         if (intent.hasExtra("data") && model != null) {
-            if (!isread) service.decrementNotifPersonal(senderId, model.receiver_id)
+            service.getNotifUserByReceiver(senderId, model.receiver_id)
+                .get()
+                .addOnSuccessListener {
+                    if (it?.get("count") != null) {
+                        service.decrementNotifPersonal(senderId, model.receiver_id)
+                    }
+                }
 
             binding.btnAttach.setOnClickListener {
                 AttachBottomSheetDialog.newInstance(senderId, model.receiver_id, model.roomid)
