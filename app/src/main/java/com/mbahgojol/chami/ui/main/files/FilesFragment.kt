@@ -96,6 +96,7 @@ class FilesFragment : Fragment() {
 
         if (requestCode == 777) {
             uri= data!!.data!!
+            val path = data!!.data!!.path.toString()
             uploadtoStorage(uri)
         }
     }
@@ -121,6 +122,7 @@ class FilesFragment : Fragment() {
             .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
+                    binding.progressBar.isVisible = false
                     return@addSnapshotListener
                 }
 
@@ -143,6 +145,7 @@ class FilesFragment : Fragment() {
     }
 
     private fun uploadtoStorage (uri: Uri){
+        binding.progressBar.isVisible = true
         val storageRef = storage.reference
         val path : String = "files/"+UUID.randomUUID()
         val filesRef = storageRef.child(path)
@@ -151,6 +154,7 @@ class FilesFragment : Fragment() {
         uploadFile
             .addOnFailureListener {
                 Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
+                binding.progressBar.isVisible = false
             }
             .addOnSuccessListener { taskSnapshot ->
                 Toast.makeText(requireActivity(), "Upload Berhasil", Toast.LENGTH_LONG).show()
@@ -175,6 +179,7 @@ class FilesFragment : Fragment() {
                     uploadtoFirestore(downloadUri,nameFile,sizeFile,createAt)
                 }.addOnFailureListener {
                     Timber.e("Gagal mendapatkan metadata")
+                    binding.progressBar.isVisible = false
                 }
 
             }
@@ -192,6 +197,7 @@ class FilesFragment : Fragment() {
             .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
+                    binding.progressBar.isVisible = false
                     return@addSnapshotListener
                 }
                 var divisi : String?
@@ -206,6 +212,7 @@ class FilesFragment : Fragment() {
                         author_id,
                         author_div = divisi
                     )
+                    binding.progressBar.isVisible = false
                     firestoreModule.addFile(file){
                     }
                 }

@@ -77,45 +77,12 @@ class SignupActivity : AppCompatActivity() {
             "https://i.pinimg.com/originals/eb/7f/a7/eb7fa775f1ee3ca4f8beeaff5dc9d468.jpg",
 
             )
-//
-//        val username = "ghozi"
-//        val users = CreateUsers(
-//            true,
-//            "Agent Divisi Digital Center",
-//            image.random(),
-//            username = username
-//        )
-//        service.searchUser(username)
-//            .get()
-//            .addOnSuccessListener {
-//                if (it != null && it.documents.isNotEmpty()) {
-//                    val user = it.documents[0].toObject<Users>()
-//                    sharedPref.userId = user?.user_id ?: ""
-//
-//                    Intent(this, MainActivity::class.java).apply {
-//                        putExtra("user_id", user?.user_id)
-//                        startActivity(this)
-//                    }
-//
-////                    binding.progress.isVisible = false
-//                } else {
-//                    service.addUser(users) { id ->
-//                        sharedPref.userId = id
-////                        binding.progress.isVisible = false
-//                        Intent(this, MainActivity::class.java).apply {
-//                            putExtra("user_id", id)
-//                            startActivity(this)
-//                        }
-//                    }
-//                }
-//            }
 
         val signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
 
         val namaPegawai = binding.nama.text.toString()
         val idPegawai = binding.idPegawai.text.toString()
         val emailPegawai = binding.email.text.toString()
-//        val divPegawai = binding.divisi.text.toString()
         val divPegawai = binding.spinnerDivisi2.selectedItem.toString()
         val posisiPegawai = binding.spinnerPosisi2.selectedItem.toString()
         val passwordPegawai = binding.password.text.toString()
@@ -131,12 +98,6 @@ class SignupActivity : AppCompatActivity() {
             emailPegawai.isEmpty() -> {
                 binding.email.error = "Masukkan email"
             }
-//            divPegawai.isEmpty() -> {
-//                binding.divisi.error = "Masukkan divisi"
-//            }
-//            posisiPegawai.isEmpty() -> {
-//                binding.posisi.error = "Masukkan posisi"
-//            }
             passwordPegawai.isEmpty() -> {
                 binding.password.error = "Masukkan password"
             }
@@ -147,22 +108,6 @@ class SignupActivity : AppCompatActivity() {
                 binding.konfirmPassword.error = "Password tidak sama"
             }
             else -> {
-////                if(getFile!=null){
-////                    val file = reduceFileImage(getFile as File)
-////
-////                    val divisi = divPegawai.toRequestBody("text/plain".toMediaType())
-////                    val email = emailPegawai.toRequestBody("text/plain".toMediaType())
-////                    val id = idPegawai.toRequestBody("text/plain".toMediaType())
-////                    val name = namaPegawai.toRequestBody("text/plain".toMediaType())
-////                    val password = passwordPegawai.toRequestBody("text/plain".toMediaType())
-////                    val posisi = posisiPegawai.toRequestBody("text/plain".toMediaType())
-////
-////                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-////                    val image: MultipartBody.Part = MultipartBody.Part.createFormData(
-////                        "photo",
-////                        file.name,
-////                        requestImageFile
-////                    )
 
                 val avatar = image.random()
                 signupViewModel.signup(
@@ -190,8 +135,6 @@ class SignupActivity : AppCompatActivity() {
                         setAvatar(avatar)
                     }
 
-//                    val isLogin = LoginPref(this@SignupActivity)
-//                    isLogin.setSession(true)
 
                     val username = user.name
                     val users = CreateUsers(
@@ -209,12 +152,10 @@ class SignupActivity : AppCompatActivity() {
                                 Toast.makeText(this@SignupActivity, "Akun sudah ada", Toast.LENGTH_LONG).show()
 
                                 showLoading(false)
-//                    binding.progress.isVisible = false
                             } else {
                                 service.addUsers(users, user.id_pegawai) { id ->
                                     sharedPref.userId = id
                                     LoginPref(this@SignupActivity).setSession(true)
-//                        binding.progress.isVisible = false
                                     showLoading(false)
                                     Intent(this, MainActivity::class.java).apply {
                                         putExtra("user_id", id)
@@ -224,25 +165,7 @@ class SignupActivity : AppCompatActivity() {
                                 }
                             }
                         }
-
-//                    val intent = Intent(this@SignupActivity, MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
                 }
-//
-////                     ini nyoba aja, nanti hapus
-////                    val avatar = resources.obtainTypedArray(R.array.avatar)
-////                    val user = User(namaPegawai,idPegawai,emailPegawai,divPegawai,posisiPegawai,passwordPegawai,avatar.getResourceId(0,-1))
-////
-////                    val isLogin = LoginPref(this@SignupActivity)
-////                    isLogin.setSession(true)
-////
-////
-////                    val moveWithObjectIntent = Intent(this@SignupActivity, MainActivity::class.java)
-////                    moveWithObjectIntent.putExtra(MainActivity.EXTRA_USER, user)
-////                    startActivity(moveWithObjectIntent)
-////                    finish()
-////                }
             }
         }
     }
