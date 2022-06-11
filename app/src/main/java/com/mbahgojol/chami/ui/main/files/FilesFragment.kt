@@ -1,9 +1,12 @@
 package com.mbahgojol.chami.ui.main.files
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +15,16 @@ import androidx.core.app.ShareCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.Files
-import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.FragmentFilesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -47,14 +49,6 @@ class FilesFragment : Fragment() {
                 putExtra("data", it)
                 startActivity(this)
             }
-//            val pdfUri = Uri.parse(it.file_url)
-//            val shareIntent = ShareCompat.IntentBuilder.from(requireActivity())
-//                .setText("Share PDF doc")
-//                .setType("application/pdf")
-//                .setStream(pdfUri)
-//                .intent
-//                .setPackage("com.google.android.apps.docs")
-//            startActivity(shareIntent)
         }
     }
 
@@ -96,8 +90,9 @@ class FilesFragment : Fragment() {
 
         if (requestCode == 777) {
             uri= data!!.data!!
-            val path = data!!.data!!.path.toString()
-            uploadtoStorage(uri)
+//            val path = data!!.data!!.path.toString()
+            val nameFile = getFileNameFromUri(requireContext(),uri)
+            uploadtoStorage(uri, nameFile)
         }
     }
 
@@ -144,10 +139,11 @@ class FilesFragment : Fragment() {
             }
     }
 
-    private fun uploadtoStorage (uri: Uri){
+    private fun uploadtoStorage (uri: Uri, nameFile: String?){
         binding.progressBar.isVisible = true
         val storageRef = storage.reference
-        val path : String = "files/"+UUID.randomUUID()
+        val path : String = "files/"+UUID.randomUUID()+"/"+nameFile
+//        val path : String = "files/"+nameFile
         val filesRef = storageRef.child(path)
         val uploadFile = filesRef.putFile(uri)
 
@@ -217,5 +213,15 @@ class FilesFragment : Fragment() {
                     }
                 }
             }
+    }
+
+    @SuppressLint("Range")
+    fun getFileNameFromUri(context: Context, uri: Uri): String? {
+        val fileName: String?
+        val cursor : Cursor? = context.contentResolver.query(uri, null, null, null, null)
+        cursor?.moveToFirst()
+        fileName = cursor?.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        cursor?.close()
+        return fileName
     }
 }

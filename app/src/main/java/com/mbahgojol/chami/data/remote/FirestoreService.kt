@@ -274,5 +274,6 @@ class FirestoreService {
     fun getFiles(divisi: String?): Query =
         db.collection("files")
             .whereEqualTo("author_div", divisi)
+            .orderBy("create_at", Query.Direction.DESCENDING)
 
 }
