@@ -177,7 +177,6 @@ class FilesFragment : Fragment() {
                     Timber.e("Gagal mendapatkan metadata")
                     binding.progressBar.isVisible = false
                 }
-
             }
         }
     }

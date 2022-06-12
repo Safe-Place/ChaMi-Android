@@ -1,4 +1,4 @@
-package com.mbahgojol.chami.ui.main.others
+package com.mbahgojol.chami.ui.main.others.supervisor
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,27 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
-import com.mbahgojol.chami.data.SharedPref
-import com.mbahgojol.chami.data.model.Users
-import com.mbahgojol.chami.databinding.ActivitySignupBinding
+import com.mbahgojol.chami.databinding.FragmentLainnyaSuperBinding
 import com.mbahgojol.chami.databinding.FragmentOthersBinding
 import com.mbahgojol.chami.signup.SignupActivity
-import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
-import javax.inject.Inject
+import com.mbahgojol.chami.ui.main.others.EditDataActivity
+import com.mbahgojol.chami.ui.main.others.KeamananActivity
 
-class OthersFragment : Fragment() {
-
-    private lateinit var binding : FragmentOthersBinding
+class LainnyaSuperFragment : Fragment() {
+    private lateinit var binding : FragmentLainnyaSuperBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOthersBinding.inflate(layoutInflater, container, false)
+        binding = FragmentLainnyaSuperBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -38,11 +33,11 @@ class OthersFragment : Fragment() {
         setProfil()
 
         binding.tvLogout.setOnClickListener{ logout() }
-        binding.linearDaftarTransaksi.setOnClickListener {
-            val intent = Intent(requireActivity(), DaftarTransaksiActivity::class.java)
+        binding.riwayatChallenge.setOnClickListener {
+            val intent = Intent(requireActivity(), RiwayatChallengeActivity::class.java)
             startActivity(intent)
         }
-        binding.linearEditData.setOnClickListener {
+        binding.editData.setOnClickListener {
             val intent = Intent(requireActivity(), EditDataActivity::class.java)
             startActivity(intent)
         }
@@ -69,6 +64,4 @@ class OthersFragment : Fragment() {
         i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(i)
     }
-
-
 }

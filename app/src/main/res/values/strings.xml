@@ -52,6 +52,7 @@
         <item>Supervisor</item>
     </string-array>
 
+<!--    dummy data challenge-->
     <integer-array name="avatar">
         <item>@drawable/avatar</item>
     </integer-array>
@@ -84,8 +85,33 @@
         <item>Sedang Berlangsung</item>
         <item>Sedang Berlangsung</item>
         <item>Sedang Berlangsung</item>
-
     </string-array>
+
+<!--        dummy data riwayat transaksi-->
+    <string-array name="data_tanggal_trx">
+        <item>12 Juni 2022 12:00</item>
+        <item>10 April 2022 11:00</item>
+        <item>9 April 2022 18:17</item>
+    </string-array>
+
+    <string-array name="data_nama_trx">
+        <item>Unlimited PUBG</item>
+        <item>Yellow 4GB</item>
+        <item>Yellow 1GB</item>
+    </string-array>
+
+    <integer-array name="data_harga_trx">
+        <item>500</item>
+        <item>1000</item>
+        <item>700</item>
+    </integer-array>
+
+    <string-array name="data_status_trx">
+        <item>Diproses</item>
+        <item>Selesai</item>
+        <item>Selesai</item>
+    </string-array>
+
     <string name="search">Search</string>
     <string name="document">Document</string>
     <string name="gallery">Gallery</string>
@@ -101,4 +127,12 @@
     <string name="password_baru">Password baru</string>
     <string name="simpan">Simpan</string>
     <string name="ganti_foto">Ganti Foto Profil</string>
+    <string name="keamanan_akun">Keamanan Akun</string>
+    <string name="chami_pict">CHAMI PICT</string>
+    <string name="pict_hint">Akses chat lebih cepat dan aman dengan verifikasi wajah saat membuka aplikasi.</string>
+    <string name="chami_pictt">Chami Pict</string>
+    <string name="sidik_jari">Sidik Jari</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="riwayat_challenge">Riwayat Challenge</string>
+    <string name="daftar_transaksi">Daftar Transaksi</string>
 </resources>

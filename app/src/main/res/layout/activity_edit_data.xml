@@ -10,7 +10,7 @@
         android:id="@+id/tbDetailChat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500"
+        android:background="@drawable/custom_bg_gradient"
         android:minHeight="?attr/actionBarSize"
         android:orientation="horizontal"
         android:theme="?attr/actionBarTheme"
@@ -90,6 +90,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvGantiAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_medium"
