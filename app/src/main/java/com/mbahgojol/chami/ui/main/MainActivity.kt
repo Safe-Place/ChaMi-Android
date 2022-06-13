@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -17,8 +18,10 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityMainBinding
+import com.mbahgojol.chami.signup.SignupActivity
 import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,12 +56,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.elevation = 0f
 
-//        val loginPref = LoginPref(this@MainActivity)
-//        val isLogin = loginPref.getSession()
-//        if (!isLogin) {
-//            startActivity(Intent(this, SignupActivity::class.java))
-//            finish()
-//        }
+        val loginPref = LoginPref(this@MainActivity)
+        val isLogin = loginPref.getSession()
+        if (!isLogin) {
+            startActivity(Intent(this, SignupActivity::class.java))
+            finish()
+        }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHost) as NavHostFragment

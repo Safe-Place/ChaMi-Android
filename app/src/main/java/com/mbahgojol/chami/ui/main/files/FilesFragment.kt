@@ -1,28 +1,34 @@
 package com.mbahgojol.chami.ui.main.files
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ShareCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.Files
-import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.FragmentFilesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class FilesFragment : Fragment() {
@@ -31,13 +37,10 @@ class FilesFragment : Fragment() {
 
     @Inject
     lateinit var firestoreModule: FirestoreService
-
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val storage by lazy {
-        Firebase.storage("gs://chami-dev-8390a.appspot.com")
-    }
+    val storage = Firebase.storage("gs://chami-dev-8390a.appspot.com")
     lateinit var uri: Uri
 
     private val listAdapter by lazy {
@@ -86,36 +89,35 @@ class FilesFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 777) {
-            uri = data!!.data!!
-            uploadtoStorage(uri)
+            uri= data!!.data!!
+//            val path = data!!.data!!.path.toString()
+            val nameFile = getFileNameFromUri(requireContext(),uri)
+            uploadtoStorage(uri, nameFile)
         }
     }
 
-    private fun getDivisi() {
-        firestoreModule.getUserProfile(sharedPref.userId)
-            .addSnapshotListener { snapshot, e ->
+    private fun getDivisi(){
+        firestoreModule.getUserFromId(LoginPref(requireActivity()).getId())
+            .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
                     return@addSnapshotListener
                 }
-
-                if (snapshot != null && snapshot.exists()) {
-                    val user = snapshot.toObject<Users>()
-                    val user_div = user?.jabatan ?: ""
-
-                    getfile(user_div)
-
-                } else {
-                    Timber.e("Tidak ada file")
+                var divisi : String?
+                for (doc in value!!) {
+                    divisi = doc.getString("jabatan")
+                    getfile (divisi)
                 }
+
             }
     }
 
-    fun getfile(user_div: String) {
+    fun getfile (user_div : String?){
         firestoreModule.getFiles(user_div)
             .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
+                    binding.progressBar.isVisible = false
                     return@addSnapshotListener
                 }
 
@@ -130,31 +132,25 @@ class FilesFragment : Fragment() {
                     var file_id = doc.getString("file_id")
                     var author_div = doc.getString("author_div")
 
-                    var file = Files(
-                        nama_file,
-                        type,
-                        file_url,
-                        size_byte,
-                        create_at,
-                        author_id,
-                        file_id,
-                        author_div
-                    )
+                    var file = Files(nama_file,type,file_url,size_byte,create_at,author_id,file_id,author_div)
                     data.add(file)
                 }
                 listAdapter.setData(data)
             }
     }
 
-    private fun uploadtoStorage(uri: Uri) {
+    private fun uploadtoStorage (uri: Uri, nameFile: String?){
+        binding.progressBar.isVisible = true
         val storageRef = storage.reference
-        val path: String = "files/" + UUID.randomUUID()
+        val path : String = "files/"+UUID.randomUUID()+"/"+nameFile
+//        val path : String = "files/"+nameFile
         val filesRef = storageRef.child(path)
         val uploadFile = filesRef.putFile(uri)
 
         uploadFile
             .addOnFailureListener {
                 Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
+                binding.progressBar.isVisible = false
             }
             .addOnSuccessListener { taskSnapshot ->
                 Toast.makeText(requireActivity(), "Upload Berhasil", Toast.LENGTH_LONG).show()
@@ -176,38 +172,32 @@ class FilesFragment : Fragment() {
                     val sizeFile = metadata.sizeBytes
                     val createAt = metadata.creationTimeMillis
 
-                    uploadtoFirestore(downloadUri, nameFile, sizeFile, createAt)
+                    uploadtoFirestore(downloadUri,nameFile,sizeFile,createAt)
                 }.addOnFailureListener {
                     Timber.e("Gagal mendapatkan metadata")
+                    binding.progressBar.isVisible = false
                 }
-
             }
         }
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun uploadtoFirestore(
-        downloadUri: Uri,
-        nameFile: String?,
-        sizeFile: Long,
-        createAt: Long
-    ) {
-        val author_id = sharedPref.userId
-        val typeFile: Long = 5
+    private fun uploadtoFirestore(downloadUri:Uri, nameFile:String?, sizeFile:Long, createAt:Long){
+        val author_id = LoginPref(requireActivity()).getId()
+        val typeFile : Long = 5
         val format = SimpleDateFormat("dd-MM-yyyy HH:mm")
         val createDate = format.format(Date(createAt))
 
-        firestoreModule.getUserProfile(author_id)
-            .addSnapshotListener { snapshot, e ->
+        firestoreModule.getUserFromId(author_id)
+            .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")
+                    binding.progressBar.isVisible = false
                     return@addSnapshotListener
                 }
-
-                if (snapshot != null && snapshot.exists()) {
-                    val user = snapshot.toObject<Users>()
-                    val author_div = user?.jabatan
-
+                var divisi : String?
+                for (doc in value!!) {
+                    divisi = doc.getString("jabatan")
                     val file = Files(
                         nameFile,
                         typeFile,
@@ -215,14 +205,22 @@ class FilesFragment : Fragment() {
                         sizeFile.toInt().toString(),
                         createDate.toString(),
                         author_id,
-                        author_div = author_div
+                        author_div = divisi
                     )
-                    firestoreModule.addFile(file) { id ->
-                        sharedPref.userId = id
+                    binding.progressBar.isVisible = false
+                    firestoreModule.addFile(file){
                     }
-                } else {
-                    Timber.e("Tidak ada user")
                 }
             }
+    }
+
+    @SuppressLint("Range")
+    fun getFileNameFromUri(context: Context, uri: Uri): String? {
+        val fileName: String?
+        val cursor : Cursor? = context.contentResolver.query(uri, null, null, null, null)
+        cursor?.moveToFirst()
+        fileName = cursor?.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        cursor?.close()
+        return fileName
     }
 }

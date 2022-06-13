@@ -17,6 +17,7 @@
         tools:layout_editor_absoluteX="10dp">
 
         <ImageView
+            android:id="@+id/ivAvatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src= "@drawable/ic_baseline_person_24"/>
@@ -39,7 +40,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvStatus"
+                android:id="@+id/tvDivisi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -97,6 +98,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"/>
         <LinearLayout
+            android:id="@+id/linearDaftarTransaksi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -105,7 +107,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_view_list_24"
-                app:tint="@color/grey"/>
+                app:tint="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,6 +118,7 @@
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearTukarPoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -124,7 +127,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_shopping_cart_24"
-                app:tint="@color/grey"/>
+                app:tint="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,6 +138,7 @@
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearRiwayatPoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -143,12 +147,12 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_history"
-                app:tint="@color/grey"/>
+                app:tint="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_reguler"
-                android:text="Riwayat Challenge"
+                android:text="Riwayat Point"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginStart="10dp"/>
@@ -172,8 +176,9 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_edit_24"
-                app:tint="@color/grey"/>
+                app:tint="@color/black"/>
             <LinearLayout
+                android:id="@+id/linearEditData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -205,8 +210,9 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_security_24"
-                app:tint="@color/grey"/>
+                app:tint="@color/black"/>
             <LinearLayout
+                android:id="@+id/keamananAkun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -237,7 +243,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_exit_to_app_24"
-                app:tint="@color/grey"/>
+                app:tint="@color/black"/>
             <TextView
                 android:id="@+id/tvLogout"
                 android:layout_width="wrap_content"

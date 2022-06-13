@@ -79,7 +79,7 @@ class DetailFileActivity : AppCompatActivity() {
 
 
         model?.file_url?.let {
-            webView.loadUrl("https://docs.google.com/gview?embedded=true&url=$it")
+            webView.loadUrl(it)
 //            webView.loadUrl(it+".pdf")
         }
     }

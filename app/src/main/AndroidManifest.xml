@@ -20,6 +20,33 @@
         android:theme="@style/FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.others.TukarPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.RiwayatPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.DaftarTransaksiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.LainnyaSuperActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.KeamananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.forgotPassword.NewPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.forgotPassword.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.EditDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.files.DetailFileActivity"
             android:exported="false" />
         <activity
@@ -29,15 +56,7 @@
             android:name=".login.PasswordLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LoginActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".signup.SignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.chat.login.CreateActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,11 +65,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".signup.SignupActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.chat.personal.detail.DetailPersonalChatActivity"
             android:exported="false"
             android:theme="@style/FullScreen" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".login.LoginActivity"
             android:exported="false" />
 
         <service

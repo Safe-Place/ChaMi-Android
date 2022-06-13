@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.dummyData.Challenge
+import com.mbahgojol.chami.dummyData.RiwayatChallenge
 
 class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : RecyclerView.Adapter<ListChallengeAdapter.ListViewHolder>() {
 //    private lateinit var onItemClickCallback: OnItemClickCallback
@@ -32,12 +33,11 @@ class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : Re
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (judul, desc, reward, tenggat, status) = listChallenge[position]
+        val (judul, desc, reward, tenggat) = listChallenge[position]
         holder.tvJudul.text = judul
         holder.tvDeskripsi.text = desc
         holder.tvReward.text = reward.toString()
         holder.tvTenggat.text = tenggat
-        holder.tvStatus.text = status
 //        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listChallenge[holder.adapterPosition]) }
     }
 

@@ -6,34 +6,64 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
+import coil.transform.CircleCropTransformation
+import com.google.firebase.firestore.ktx.toObject
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.data.SharedPref
+import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.databinding.FragmentOthersBinding
 import com.mbahgojol.chami.signup.SignupActivity
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import javax.inject.Inject
 
 class OthersFragment : Fragment() {
 
     private lateinit var binding : FragmentOthersBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_others, container, false)
         binding = FragmentOthersBinding.inflate(layoutInflater, container, false)
-        binding.tvLogout.setOnClickListener{
-            logout()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setProfil()
+
+        binding.tvLogout.setOnClickListener{ logout() }
+        binding.linearDaftarTransaksi.setOnClickListener {
+            val intent = Intent(requireActivity(), DaftarTransaksiActivity::class.java)
+            startActivity(intent)
+        }
+        binding.linearRiwayatPoint.setOnClickListener {
+            val intent = Intent(requireActivity(), RiwayatPointActivity::class.java)
+            startActivity(intent)
+        }
+        binding.linearEditData.setOnClickListener {
+            val intent = Intent(requireActivity(), EditDataActivity::class.java)
+            startActivity(intent)
+        }
+        binding.keamananAkun.setOnClickListener {
+            val intent = Intent(requireActivity(), KeamananActivity::class.java)
+            startActivity(intent)
         }
 
+    }
 
-        return binding.root
+    private fun setProfil(){
+        val pref = LoginPref(requireActivity())
+        binding.tvName.text = pref.getNama().toString()
+        binding.tvDivisi.text = pref.getDivisi().toString()
+        binding.ivAvatar.load(pref.getAvatar()) {
+            transformations(CircleCropTransformation())
+        }
     }
 
     private fun logout(){
