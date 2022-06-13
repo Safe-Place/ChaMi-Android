@@ -2,9 +2,102 @@
     <string name="app_name">ChaMi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="challange">Challange</string>
+    <string name="challange">Challenge</string>
     <string name="files">Files</string>
     <string name="meeting">Meeting</string>
     <string name="chat">Chat</string>
     <string name="others">Lainnya</string>
+    <string name="tab_chat_1">Personal</string>
+    <string name="tab_chat_2">Grup</string>
+    <string name="chami">ChaMi</string>
+    <string name="search_hint_user">Masukkan nama</string>
+    <string name="nama_pegawai">Nama pegawai</string>
+    <string name="last_chat">Ini adalah preview last chat</string>
+    <string name="hint_input_pesan">Masukkan Pesan</string>
+    <string name="posisi_pegawai">Divisi Pegawai</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="id_pegawai">Id Pegawai</string>
+    <string name="nama">Nama</string>
+    <string name="email">Alamat Email</string>
+    <string name="divisi">Divisi</string>
+    <string name="posisi">Posisi</string>
+    <string name="password">Password</string>
+    <string name="hint_upload_foto">Tambah Foto Profil</string>
+    <string name="asking_login">Sudah punya akun?</string>
+    <string name="login">Log In</string>
+    <string name="login_underline"><u>Login</u></string>
+    <string name="forgot_pw">Lupa Password</string>
+    <string name="asking_signup">Belum punya akun?</string>
+    <string name="signup_underline"><u>Signup</u></string>
+    <string name="using_login">Login dengan</string>
+    <string name="hello">Hello!</string>
+    <string name="desc_password_login">Masukkan password untuk login</string>
+    <string name="tab_challenge_1">List Challenge</string>
+    <string name="tab_challenge_2">History Challenge</string>
+    <string name="tenggat">Tenggat :</string>
+    <string name="pemenang">Pemenang</string>
+    <string name="your_sub">Your Submission</string>
+    <string name="kirim">Kirim</string>
+    <string name="tambah_lampiran">+ Tambah Lampiran</string>
+    <string name="tandai_selesai">Tandai Selesai</string>
+
+    <string-array name="divisi_list">
+        <item>Divisi Digital Center</item>
+        <item>Divisi Customer Relation</item>
+        <item>Divisi Customer Resolution</item>
+    </string-array>
+
+    <string-array name="posisi_list">
+        <item>Agent</item>
+        <item>Supervisor</item>
+    </string-array>
+
+    <integer-array name="avatar">
+        <item>@drawable/avatar</item>
+    </integer-array>
+
+    <string-array name="data_judul">
+        <item>Membuat Prototype</item>
+        <item>Merancang user flow</item>
+        <item>Mencari ide</item>
+    </string-array>
+
+    <string-array name="data_deskripsi">
+        <item>Silakan submit file yang sudah dibuat</item>
+        <item>Silakan submit file yang sudah dibuat</item>
+        <item>Silakan submit file yang sudah dibuat</item>
+    </string-array>
+
+    <integer-array name="data_reward">
+        <item>100</item>
+        <item>200</item>
+        <item>150</item>
+    </integer-array>
+
+    <string-array name="due_date">
+        <item>12 Juni 2022</item>
+        <item>13 Juni 2022</item>
+        <item>14 Juni 2022</item>
+    </string-array>
+
+    <string-array name="data_status">
+        <item>Sedang Berlangsung</item>
+        <item>Sedang Berlangsung</item>
+        <item>Sedang Berlangsung</item>
+
+    </string-array>
+    <string name="search">Search</string>
+    <string name="document">Document</string>
+    <string name="gallery">Gallery</string>
+    <string name="location">Location</string>
+    <string name="dibuat_pada">"Dibuat pada : "</string>
+    <string name="edit_data">Edit Data</string>
+    <string name="sibuk">Sibuk</string>
+    <string name="masukkan_password">Masukkan Password</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="lupa_password"><u>Lupa Password?</u></string>
+    <string name="kode_verifikasi">Kode Verifikasi</string>
+    <string name="hint_otp">Masukkan kode OTP yang sudah dikirimkan ke email</string>
+    <string name="password_baru">Password baru</string>
+    <string name="simpan">Simpan</string>
 </resources>

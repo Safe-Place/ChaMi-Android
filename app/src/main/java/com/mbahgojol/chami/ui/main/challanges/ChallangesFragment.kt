@@ -5,30 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.ui.main.chat.SectionsPagerAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ChallangesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ChallangesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,23 +24,26 @@ class ChallangesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_challanges, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?){
+        super.onActivityCreated(savedInstanceState)
+
+        val fragmentView = requireNotNull(view) {"View should not be null when calling onActivityCreated"}
+
+        val sectionsPagerAdapter = ChallengePagerAdapter(childFragmentManager, lifecycle)
+        viewPager = fragmentView.findViewById(R.id.viewPager)
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = fragmentView.findViewById(R.id.tbChallenge)
+
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ChallangesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ChallangesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_challenge_1,
+            R.string.tab_challenge_2
+        )
     }
 }
