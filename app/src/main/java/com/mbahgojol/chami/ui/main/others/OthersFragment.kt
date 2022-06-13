@@ -42,6 +42,10 @@ class OthersFragment : Fragment() {
             val intent = Intent(requireActivity(), DaftarTransaksiActivity::class.java)
             startActivity(intent)
         }
+        binding.linearRiwayatPoint.setOnClickListener {
+            val intent = Intent(requireActivity(), RiwayatPointActivity::class.java)
+            startActivity(intent)
+        }
         binding.linearEditData.setOnClickListener {
             val intent = Intent(requireActivity(), EditDataActivity::class.java)
             startActivity(intent)

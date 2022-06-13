@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
-import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.RiwayatTransaksi
 
-class ListTransaksiAdapter(private val listTransaksi: ArrayList<RiwayatTransaksi>) : RecyclerView.Adapter<ListTransaksiAdapter.ListViewHolder>() {
+class DaftarTransaksiAdapter(private val listTransaksi: ArrayList<RiwayatTransaksi>) : RecyclerView.Adapter<DaftarTransaksiAdapter.ListViewHolder>() {
 //    private lateinit var onItemClickCallback: OnItemClickCallback
 
 //    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {

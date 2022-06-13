@@ -63,12 +63,14 @@ class EditDataActivity : AppCompatActivity() {
         val email = pref.getEmail()
         val divisi = pref.getDivisi()
         val id = pref.getId()
+        val posisi = pref.getPosisi()
         val avatar = pref.getAvatar()
 
         binding.nama.text = nama.toString().toEditable()
         binding.email.text = email.toString().toEditable()
         binding.divisi.text = divisi.toString().toEditable()
         binding.idPegawai.text = id.toString().toEditable()
+        binding.posisi.text = posisi.toString().toEditable()
         binding.avatar.load(avatar) {
             transformations(CircleCropTransformation())
         }

@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityDaftarTransaksiBinding
-import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.RiwayatTransaksi
-import com.mbahgojol.chami.ui.main.challanges.ListChallengeAdapter
 
 class DaftarTransaksiActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDaftarTransaksiBinding
@@ -47,7 +45,7 @@ class DaftarTransaksiActivity : AppCompatActivity() {
 
     private fun showRecyclerList() {
         rvTransaksi.layoutManager = LinearLayoutManager(this)
-        val listTransaksiAdapter = ListTransaksiAdapter(list)
+        val listTransaksiAdapter = DaftarTransaksiAdapter(list)
         rvTransaksi.adapter = listTransaksiAdapter
     }
 }

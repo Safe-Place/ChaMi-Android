@@ -8,8 +8,10 @@
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_background_id.xml" value="0.1195" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_background_last_chat.xml" value="0.1265" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_background_otp.xml" value="0.1195" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_background_round_stroke.xml" value="0.1265" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_background_send.xml" value="0.1195" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_bg_gradient.xml" value="0.1755" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_bg_round_stroke_green.xml" value="0.1265" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_curvy_background.xml" value="0.1" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_input_chat.xml" value="0.1755" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/drawable/custom_message_receive.xml" value="0.1755" />
@@ -23,15 +25,18 @@
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_create.xml" value="0.12182971014492754" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_daftar_transaksi.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_detail_personal_chat.xml" value="0.22" />
-        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_edit_data.xml" value="0.22" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_edit_data.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_forgot_password.xml" value="0.1796875" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_keamanan.xml" value="0.22" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_lainnya_super.xml" value="0.22" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_login.xml" value="0.10507246376811594" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_new_password.xml" value="0.1796875" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_password_login.xml" value="0.22" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_riwayat_challenge.xml" value="0.1796875" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_riwayat_point.xml" value="0.1796875" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_signup.xml" value="0.22" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/activity_tukar_point.xml" value="0.1796875" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/fragment_files.xml" value="0.22" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/fragment_lainnya_super.xml" value="0.1" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/fragment_list_challenge.xml" value="0.1796875" />
@@ -39,7 +44,9 @@
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/item_list_challenge.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/item_list_daftar_trx.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/item_list_files.xml" value="0.1796875" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/item_list_produk.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/item_list_riwayat_challenge.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/item_list_riwayat_point.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/list_item_riwayat_celen.xml" value="0.22" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/spinner_iten.xml" value="0.1796875" />
         <entry key="..\:/Users/ANNISA/Documents/ChaMi-Android/app/src/main/res/layout/spinner_list.xml" value="0.1796875" />
