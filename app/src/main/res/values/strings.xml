@@ -138,10 +138,33 @@
         <item>Berhasil</item>
     </string-array>
 
-<!--    dummy data produk-->
+    <!--    dummy data produk-->
     <string-array name="data_foto_produk">
         <item>https://www.simcard.sg/wp-content/uploads/Indosat-Ooredoo-SIM-Card-450x450.png</item>
-        <item>https://www.simcard.sg/wp-content/uploads/Indosat-Ooredoo-SIM-Card-450x450.pngl</item>
+        <item>https://www.simcard.sg/wp-content/uploads/Indosat-Ooredoo-SIM-Card-450x450.png</item>
+        <item>https://s1.bukalapak.com/img/118996754/w-1000/PERDANA_INDOSAT_OOREDOO_28GB__8GB___20GB_4G__24JAM_3BULAN.jpg</item>
+        <item>https://s0.bukalapak.com/img/545268103/w-1000/Indosat_Pulsa_200000_HARGA_PROMO___.png</item>
+    </string-array>
+
+    <string-array name="data_nama_produk">
+        <item>YELLOW 1GB</item>
+        <item>Unlimited PUBG</item>
+        <item>YELLOW 3GB</item>
+        <item>Unlimited Booster</item>
+    </string-array>
+
+    <integer-array name="data_harga_produk">
+        <item>1000</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>700</item>
+    </integer-array>
+
+    <string-array name="data_desc_produk">
+        <item>Masa aktif Kuota Unlimited adalah 24 jam sejak registrasi paket dan berlaku batas pemakaian wajar.</item>
+        <item>Penggunaan internet di luar aplikasi PUBG akan mengkonsumsi Kuota Utama.</item>
+        <item>Kuota Unlimited PUBG hanya berlaku untuk akses ke aplikasi PUBG.</item>
+        <item>Penggunaan internet di luar aplikasi PUBG akan mengkonsumsi Kuota Utama.</item>
     </string-array>
 
     <string name="search">Search</string>

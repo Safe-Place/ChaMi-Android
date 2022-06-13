@@ -20,6 +20,9 @@
         android:theme="@style/FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.others.DetailTukarPointActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.others.TukarPointActivity"
             android:exported="false" />
         <activity
