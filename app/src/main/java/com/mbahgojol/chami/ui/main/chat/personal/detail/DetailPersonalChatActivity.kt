@@ -2,6 +2,7 @@ package com.mbahgojol.chami.ui.main.chat.personal.detail
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -41,18 +42,6 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     private val senderId by lazy { sharedPref.userId }
     private var roomId: String? = null
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    fun setStatusBarGradiant(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window: Window = activity.window
-            val background = ContextCompat.getDrawable(activity, R.drawable.toolbar_color)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-            window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
-            window.setBackgroundDrawable(background)
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
@@ -63,6 +52,14 @@ class DetailPersonalChatActivity : AppCompatActivity() {
         binding = ActivityDetailPersonalChatBinding.inflate(layoutInflater)
         setStatusBarGradiant(this)
         setContentView(binding.root)
+
+        listOf(binding.image, binding.detail).forEach {
+            it.setOnClickListener {
+                val i = Intent(this, DetailPersonalActivity::class.java)
+                i.putExtra("user", user)
+                startActivity(i)
+            }
+        }
 
         binding.apply {
             rvChat.apply {
@@ -318,5 +315,17 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         roomId?.let { it1 -> service.updateStatusInRoom(senderId, it1, false) }
+    }
+}
+
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+fun setStatusBarGradiant(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        val window: Window = activity.window
+        val background = ContextCompat.getDrawable(activity, R.drawable.toolbar_color)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+        window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
+        window.setBackgroundDrawable(background)
     }
 }
