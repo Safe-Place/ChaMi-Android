@@ -35,9 +35,6 @@
             android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.others.supervisor.LainnyaSuperActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.others.KeamananActivity"
             android:exported="false" />
         <activity
@@ -60,7 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="false" />
         <activity
             android:name=".signup.SignupActivity"
             android:exported="false" />
