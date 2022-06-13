@@ -38,8 +38,12 @@ class PersonalChatAdapter constructor(
 
         fun bind(model: ChatRoom) {
             service.getChatDetail(senderId, model.roomid)
-                .get()
-                .addOnSuccessListener { snapshot ->
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        Timber.d("Listen failed.")
+                        return@addSnapshotListener
+                    }
+
                     if (snapshot != null && snapshot.exists()) {
                         detail = snapshot.toObject<Detail>()
 

@@ -38,9 +38,6 @@
             android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.others.supervisor.LainnyaSuperActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.others.KeamananActivity"
             android:exported="false" />
         <activity
@@ -69,6 +66,13 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.chat.login.CreateActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.main.chat.personal.detail.DetailPersonalChatActivity"
+            android:exported="false"
+            android:theme="@style/FullScreen" />
+        <activity
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,13 +80,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.chat.personal.detail.DetailPersonalChatActivity"
-            android:exported="false"
-            android:theme="@style/FullScreen" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="false" />
 
         <service
             android:name=".data.remote.MyFirebaseMessagingService"

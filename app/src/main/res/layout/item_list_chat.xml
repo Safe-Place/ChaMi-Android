@@ -92,12 +92,4 @@
         card_view:layout_constraintBottom_toBottomOf="@+id/avatar"
         card_view:layout_constraintRight_toRightOf="parent" />
 
-    <ImageView
-        android:id="@+id/ivSeparator"
-        android:layout_width="305dp"
-        android:layout_height="1dp"
-        android:background="@color/stream_gray"
-        card_view:layout_constraintBottom_toBottomOf="parent"
-        card_view:layout_constraintStart_toStartOf="@+id/tvLastMessage" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
