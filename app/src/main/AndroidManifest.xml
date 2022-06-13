@@ -23,6 +23,33 @@
             android:name=".ui.main.chat.personal.detail.DetailPersonalActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.main.others.TukarPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.RiwayatPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.DaftarTransaksiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.LainnyaSuperActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.KeamananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.forgotPassword.NewPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.forgotPassword.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.EditDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.files.DetailFileActivity"
             android:exported="false" />
         <activity

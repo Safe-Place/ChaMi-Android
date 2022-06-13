@@ -19,9 +19,24 @@ class FirestoreService {
                     }
             }
 
+    fun addUsers(users: CreateUsers, id_user :String, listen: (String) -> Unit) =
+        db.collection("users")
+            .add(users)
+            .onSuccessTask { doc ->
+                doc.update("user_id", id_user)
+                    .addOnSuccessListener {
+                        listen(doc.id)
+                    }
+            }
+
     fun searchUser(username: String) =
         db.collection("users")
             .whereEqualTo("username", username)
+
+    fun searchUsers(id_user: String) =
+        db.collection("users")
+            .whereEqualTo("user_id", id_user)
+
 
     fun getAllUser() =
         db.collection("users")
@@ -247,6 +262,13 @@ class FirestoreService {
             .delete()
     }
 
+    fun getUserFromId(userId: String?): Query =
+        db.collection("users")
+            .whereEqualTo("user_id", userId)
+
+    fun getUserFromDocId(docId: String) = db.collection("users")
+        .document(docId)
+
     fun addFile(file: Files, listen: (String) -> Unit) {
         db.collection("files")
             .add(file)
@@ -258,8 +280,9 @@ class FirestoreService {
             }
     }
 
-    fun getFiles(divisi: String): Query =
+    fun getFiles(divisi: String?): Query =
         db.collection("files")
             .whereEqualTo("author_div", divisi)
+            .orderBy("create_at", Query.Direction.DESCENDING)
 
 }

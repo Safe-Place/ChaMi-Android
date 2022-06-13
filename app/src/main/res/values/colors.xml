@@ -18,5 +18,8 @@
     <color name="oren">#FF7514</color>
     <color name="endOren">#FFCB05</color>
     <color name="startOren">#F96633</color>
+    <color name="lightOren">#FFF4E0</color>
     <color name="boxChatLog">#40FFCB05</color>
+    <color name="lightGreen">#E4FFE7</color>
+    <color name="greenTua">#2ECC40</color>
 </resources>
