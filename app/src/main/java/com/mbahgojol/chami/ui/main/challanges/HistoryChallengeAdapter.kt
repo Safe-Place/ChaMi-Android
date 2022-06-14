@@ -7,8 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.dummyData.Challenge
+import com.mbahgojol.chami.dummyData.HistoryChallenge
 
-class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : RecyclerView.Adapter<ListChallengeAdapter.ListViewHolder>() {
+class HistoryChallengeAdapter(private val listChallenge: ArrayList<HistoryChallenge>) : RecyclerView.Adapter<HistoryChallengeAdapter.ListViewHolder>() {
 //    private lateinit var onItemClickCallback: OnItemClickCallback
 
 //    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -21,7 +22,6 @@ class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : Re
         var tvTenggat: TextView = itemView.findViewById(R.id.tenggat)
         var tvReward: TextView = itemView.findViewById(R.id.point)
         var tvStatus: TextView = itemView.findViewById(R.id.status)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {

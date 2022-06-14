@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.firebase.firestore.ktx.toObject
@@ -16,6 +17,7 @@ import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.databinding.FragmentOthersBinding
 import com.mbahgojol.chami.signup.SignupActivity
+import com.mbahgojol.chami.ui.main.others.supervisor.RiwayatChallengeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -36,6 +38,7 @@ class OthersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setProfil()
+        setMenu()
 
         binding.tvLogout.setOnClickListener{ logout() }
         binding.linearDaftarTransaksi.setOnClickListener {
@@ -58,6 +61,23 @@ class OthersFragment : Fragment() {
             val intent = Intent(requireActivity(), KeamananActivity::class.java)
             startActivity(intent)
         }
+        binding.linearRiwayatChallenge.setOnClickListener {
+            val intent = Intent(requireActivity(), RiwayatChallengeActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    private fun setMenu(){
+        val posisi = LoginPref(requireActivity()).getPosisi()
+        if (posisi=="Agent"){
+            binding.linearValidasiUser.isVisible = false
+            binding.linearRiwayatChallenge.isVisible = false
+        } else {
+            binding.linearDaftarTransaksi.isVisible = false
+            binding.linearRiwayatPoint.isVisible = false
+            binding.linearTukarPoint.isVisible = false
+        }
 
     }
 
@@ -76,6 +96,11 @@ class OthersFragment : Fragment() {
         val i = Intent(requireActivity(), SignupActivity::class.java)
         i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(i)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setProfil()
     }
 
 

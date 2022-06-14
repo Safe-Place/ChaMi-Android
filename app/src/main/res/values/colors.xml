@@ -22,4 +22,5 @@
     <color name="boxChatLog">#40FFCB05</color>
     <color name="lightGreen">#E4FFE7</color>
     <color name="greenTua">#2ECC40</color>
+    <color name="greeyTua">#BE000000</color>
 </resources>

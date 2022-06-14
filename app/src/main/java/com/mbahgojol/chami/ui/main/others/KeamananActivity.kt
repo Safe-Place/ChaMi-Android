@@ -1,5 +1,6 @@
 package com.mbahgojol.chami.ui.main.others
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mbahgojol.chami.R
@@ -12,6 +13,21 @@ class KeamananActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityKeamananBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.linearChamiPict.setOnClickListener {
+            val intent = Intent(this, ChamiPictActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.linearUbahSandi.setOnClickListener {
+            val intent = Intent(this, UbahSandiActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.linearSidikJari.setOnClickListener {
+            val intent = Intent(this, RegistrasiFingerActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.btnBack.setOnClickListener { this.finish() }
     }

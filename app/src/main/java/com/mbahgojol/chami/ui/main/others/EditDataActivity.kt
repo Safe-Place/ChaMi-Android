@@ -89,9 +89,69 @@ class EditDataActivity : AppCompatActivity() {
             }
         }
 
-        uriAvatar?.let { updateAvatar(it) }
+        if(uriAvatar == null){
+            updateData(namaBaru,divisiBaru)
+        } else {
+            updateDataWithFoto(namaBaru,divisiBaru, uriAvatar!!)
+        }
+    }
 
-        updateData(namaBaru,divisiBaru)
+    private fun updateDataWithFoto(namaBaru:String, divisiBaru:String, uriAvatar:Uri){
+        val storageRef = storage.reference
+        val path : String = "avatar/"+ UUID.randomUUID()
+        val filesRef = storageRef.child(path)
+        val uploadFile = filesRef.putFile(uriAvatar)
+
+        uploadFile
+            .addOnFailureListener {
+                Timber.e(it.message)
+//                binding.progressBar.isVisible = false
+                Timber.e("Gagal upload avatar ke storage")
+            }
+            .addOnSuccessListener { taskSnapshot ->
+//                Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_LONG).show()
+                Timber.e("berhasil upload avatar ke storage")
+            }
+
+        uploadFile.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            filesRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+
+                //update avatar to firestore & preference
+                service.getUserFromDocId(sharedPref.userId)
+                    .update("profile_url",downloadUri)
+                    .addOnSuccessListener {
+                        LoginPref(this).setAvatar(downloadUri.toString())
+                        Timber.d("Sukses update avatar ke firestore") }
+                    .addOnFailureListener { e -> Timber.tag(TAG).w(e, "Gagal update avatar ke firestore") }
+
+                service.getUserFromDocId(sharedPref.userId)
+                    .update("username",namaBaru)
+                    .addOnSuccessListener {
+                        LoginPref(this).setNama(namaBaru)
+                        Timber.d("Sukses update nama ke firestore") }
+                    .addOnFailureListener{ e -> Timber.tag(TAG).w(e, "Gagal update nama ke firestore") }
+
+                // update divisi ke firestore & preference
+                service.getUserFromDocId(sharedPref.userId)
+                    .update("jabatan",divisiBaru)
+                    .addOnSuccessListener {
+                        LoginPref(this).setDivisi(divisiBaru)
+                        Timber.d("Sukses update divisi ke firestore")
+                        finish()}
+                    .addOnFailureListener { e -> Timber.tag(TAG).w(e, "Gagal update divisi ke firestore")
+                        Toast.makeText(this@EditDataActivity, "Perubahan Gagal", Toast.LENGTH_SHORT).show()}
+
+
+            }
+        }
     }
 
     private fun updateData(nama: String, divisi: String){
@@ -101,7 +161,7 @@ class EditDataActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 LoginPref(this).setNama(nama)
                 Timber.d("Sukses update nama ke firestore") }
-            .addOnFailureListener { e -> Timber.tag(TAG).w(e, "Gagal update nama ke firestore") }
+            .addOnFailureListener{ e -> Timber.tag(TAG).w(e, "Gagal update nama ke firestore") }
 
         // update divisi ke firestore & preference
         service.getUserFromDocId(sharedPref.userId)
@@ -109,9 +169,9 @@ class EditDataActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 LoginPref(this).setDivisi(divisi)
                 Timber.d("Sukses update divisi ke firestore")
-                val intent = Intent(this, OthersFragment::class.java)
-                startActivity(intent) }
-            .addOnFailureListener { e -> Timber.tag(TAG).w(e, "Gagal update divisi ke firestore") }
+                finish()}
+            .addOnFailureListener { e -> Timber.tag(TAG).w(e, "Gagal update divisi ke firestore")
+                Toast.makeText(this@EditDataActivity, "Perubahan Berhasil", Toast.LENGTH_SHORT).show()}
     }
 
     private fun updateAvatar (uri: Uri){
@@ -126,6 +186,7 @@ class EditDataActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Timber.e(it.message)
 //                binding.progressBar.isVisible = false
+                Timber.e("Gagal upload avatar ke storage")
             }
             .addOnSuccessListener { taskSnapshot ->
 //                Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_LONG).show()

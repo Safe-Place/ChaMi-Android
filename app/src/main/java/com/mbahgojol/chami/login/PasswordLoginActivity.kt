@@ -74,7 +74,7 @@ class PasswordLoginActivity : AppCompatActivity() {
                         .addOnSuccessListener {
                             if (it != null && it.documents.isNotEmpty()) {
                                 val user = it.documents[0].toObject<Users>()
-                                sharedPref.userId = user?.user_id ?: ""
+//                                sharedPref.userId = user?.user_id ?: ""
 
                                 loginViewModel.login(id,password, this@PasswordLoginActivity)
                                 loginViewModel.isLoading.observe(this@PasswordLoginActivity) {

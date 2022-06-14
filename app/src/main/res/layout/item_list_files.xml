@@ -25,7 +25,7 @@
             android:layout_marginVertical="5dp"
             android:layout_marginStart="0dp"
             android:src="@drawable/ic_baseline_insert_drive_file_24"
-            app:tint="@color/grey"
+            app:tint="@color/greeyTua"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +40,7 @@
             android:textSize="16sp"
             android:maxLines="1"
             android:singleLine="true"
+            android:textColor="@color/greeyTua"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toEndOf="@id/ivFile"
             card_view:layout_constraintTop_toTopOf="parent"

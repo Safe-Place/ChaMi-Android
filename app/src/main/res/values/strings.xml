@@ -112,6 +112,37 @@
         <item>Selesai</item>
     </string-array>
 
+<!--    dummy data history challenge-->
+    <string-array name="data_ric_avatar">
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7b6f5523240799.5632176f43717.png</item>
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
+    </string-array>
+
+    <string-array name="data_ric_judul">
+        <item>Membuat Brief Video</item>
+        <item>Menyelesaikan 10 masalah customer</item>
+    </string-array>
+
+    <string-array name="data_ric_desc">
+        <item>Silakan submit file yang sudah dibuat</item>
+        <item>Silakan submit file yang sudah dibuat</item>
+    </string-array>
+
+    <integer-array name="data_ric_reward">
+        <item>100</item>
+        <item>200</item>
+    </integer-array>
+
+    <string-array name="data_ric_tenggat">
+        <item>12 Mei 2022</item>
+        <item>13 Mei 2022</item>
+    </string-array>
+
+    <string-array name="data_ric_status">
+        <item>Selesai</item>
+        <item>Selesai</item>
+    </string-array>
+
     <!--    dummy data riwayat point-->
     <string-array name="data_jenis_riwayat">
         <item>Pembelian</item>
@@ -192,4 +223,5 @@
     <string name="daftar_transaksi">Daftar Transaksi</string>
     <string name="riwayat_point">Riwayat Point</string>
     <string name="tukar_point">Tukar Point</string>
+    <string name="tukar">Tukar</string>
 </resources>
