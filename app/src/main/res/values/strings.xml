@@ -112,7 +112,7 @@
         <item>Selesai</item>
     </string-array>
 
-<!--    dummy data history challenge-->
+    <!--    dummy data history challenge-->
     <string-array name="data_ric_avatar">
         <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7b6f5523240799.5632176f43717.png</item>
         <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>

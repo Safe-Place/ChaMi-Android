@@ -24,6 +24,9 @@
         android:theme="@style/FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.challanges.TambahChallengeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.others.RegistrasiFingerActivity"
             android:exported="false" />
         <activity
