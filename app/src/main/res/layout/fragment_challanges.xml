@@ -22,6 +22,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"/>
 
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

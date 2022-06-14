@@ -100,4 +100,13 @@
     <string name="hint_otp">Masukkan kode OTP yang sudah dikirimkan ke email</string>
     <string name="password_baru">Password baru</string>
     <string name="simpan">Simpan</string>
+    <string name="tambah_challenge">Tambah Challenge</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="poin">Poin</string>
+    <string name="reminder">Reminder</string>
+    <string name="participant">Participant</string>
+    <string name="participant2">Participant 2</string>
+    <string name="tambah_acara_baru">Tambah Acara Baru</string>
+
+
 </resources>
