@@ -40,6 +40,7 @@
     <string name="kirim">Kirim</string>
     <string name="tambah_lampiran">+ Tambah Lampiran</string>
     <string name="tandai_selesai">Tandai Selesai</string>
+    <string name="req_validasi">Edit Profil</string>
 
     <integer-array name="avatar">
         <item>@drawable/avatar</item>

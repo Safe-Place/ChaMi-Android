@@ -13,5 +13,9 @@
     <color name="light_grey">#F2F2F2</color>
     <color name="stream_gray">#828282</color>
     <color name="green">#00FF0A</color>
+    <color name="green_lid">#2ECC40</color>
+    <color name="green_lid_bg">#E4FFE7</color>
+    <color name="red_lid_bg">#FFE4DB</color>
+    <color name="red_lid">#FF0000</color>
     <color name="red">#ED1809</color>
 </resources>
