@@ -138,7 +138,7 @@
         <item>Berhasil</item>
     </string-array>
 
-<!--    dummy data produk-->
+    <!--    dummy data produk-->
     <string-array name="data_foto_produk">
         <item>https://www.simcard.sg/wp-content/uploads/Indosat-Ooredoo-SIM-Card-450x450.png</item>
         <item>https://www.simcard.sg/wp-content/uploads/Indosat-Ooredoo-SIM-Card-450x450.pngl</item>
