@@ -113,11 +113,6 @@
     </string-array>
 
     <!--    dummy data history challenge-->
-    <string-array name="data_ric_avatar">
-        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7b6f5523240799.5632176f43717.png</item>
-        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
-    </string-array>
-
     <string-array name="data_ric_judul">
         <item>Membuat Brief Video</item>
         <item>Menyelesaikan 10 masalah customer</item>
@@ -197,6 +192,28 @@
         <item>Kuota Unlimited PUBG hanya berlaku untuk akses ke aplikasi PUBG.</item>
         <item>Penggunaan internet di luar aplikasi PUBG akan mengkonsumsi Kuota Utama.</item>
     </string-array>
+
+    <!--    dummy data participant challenge-->
+    <string-array name="data_participant_avatar">
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7b6f5523240799.5632176f43717.png</item>
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
+    </string-array>
+
+    <string-array name="data_participant_nama">
+        <item>Rinandi Sari</item>
+        <item>Srikandi Tampo</item>
+    </string-array>
+
+    <string-array name="data_participant_file">
+        <item>submission.pdf</item>
+        <item>proposal.pdf</item>
+    </string-array>
+
+    <string-array name="data_participant_pesan">
+        <item>ini adakah pesan</item>
+        <item>ide sudah terlampir di file</item>
+    </string-array>
+
 
     <string name="search">Search</string>
     <string name="document">Document</string>

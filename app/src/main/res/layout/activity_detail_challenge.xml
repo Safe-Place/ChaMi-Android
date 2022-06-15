@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.LoginActivity">
+    tools:context=".ui.main.challanges.DetailChallengeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tbTambahChallenge"
+        android:id="@+id/tbDetailChallenge"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/custom_bg_gradient"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="Tambah Challenge Baru"
+            android:text="Detail Challenge"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/btnSave"
+            android:id="@+id/btnParticipant"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
@@ -54,7 +54,8 @@
             android:src="@drawable/ic_baseline_people_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnBack"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -65,7 +66,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tbTambahChallenge">
+        app:layout_constraintTop_toBottomOf="@id/tbDetailChallenge">
         <TextView
             android:id="@+id/pointDetail"
             android:layout_width="wrap_content"
@@ -133,6 +134,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearSubmission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -184,8 +186,8 @@
             android:visibility="visible"
             android:text="@string/tandai_selesai"/>
 
-
         <TextView
+            android:id="@+id/tvFile"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -202,17 +204,6 @@
             app:drawableTint="@color/grey"
             app:drawableStartCompat="@drawable/ic_baseline_attach_file_24" />
 
-        <Button
-            android:id="@+id/btnKirim"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_rounded_button"
-            android:text="@string/kirim"
-            android:visibility="gone"
-            android:textAllCaps="false"/>
-
         <TextView
             android:id="@+id/btnBatalSubmit"
             android:layout_width="300dp"
@@ -226,8 +217,19 @@
             android:textColor="@color/purple_500"
             android:background="@drawable/custom_round_stroke_bg"
             android:layout_marginTop="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:text="Batal"/>
+
+        <Button
+            android:id="@+id/btnKirim"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_rounded_button"
+            android:text="@string/kirim"
+            android:visibility="gone"
+            android:textAllCaps="false"/>
 
         <LinearLayout
             android:layout_width="300dp"
@@ -237,6 +239,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp">
             <EditText
+                android:id="@+id/inputPesan"
                 android:layout_width="247dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_reguler"

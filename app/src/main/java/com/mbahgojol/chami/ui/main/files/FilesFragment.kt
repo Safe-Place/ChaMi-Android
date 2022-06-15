@@ -77,13 +77,11 @@ class FilesFragment : Fragment() {
         getDivisi()
 
         binding.fbAdd.setOnClickListener {
-
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
 //            intent.type = "application/pdf"
             intent.type = "*/*"
             startActivityForResult(intent, 777)
-
         }
     }
 

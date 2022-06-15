@@ -7,13 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.dummyData.Challenge
+import com.mbahgojol.chami.ui.main.others.TukarPointAdapter
 
 class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : RecyclerView.Adapter<ListChallengeAdapter.ListViewHolder>() {
-//    private lateinit var onItemClickCallback: OnItemClickCallback
+    private lateinit var onItemClickCallback: OnItemClickCallback
 
-//    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-//        this.onItemClickCallback = onItemClickCallback
-//    }
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvJudul: TextView = itemView.findViewById(R.id.judulChallenge)
@@ -37,13 +38,13 @@ class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : Re
         holder.tvReward.text = reward.toString()
         holder.tvTenggat.text = tenggat
         holder.tvStatus.text = status
-//        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listChallenge[holder.adapterPosition]) }
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listChallenge[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int = listChallenge.size
 
 
-//    interface OnItemClickCallback {
-//        fun onItemClicked(data: Challenge)
-//    }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Challenge)
+    }
 }

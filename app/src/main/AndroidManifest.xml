@@ -24,6 +24,15 @@
         android:theme="@style/FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.challanges.DetailParticipantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.ListParticipantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.DetailChallengeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.challanges.TambahChallengeActivity"
             android:exported="false" />
         <activity
