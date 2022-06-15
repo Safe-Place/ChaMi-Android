@@ -214,6 +214,30 @@
         <item>ide sudah terlampir di file</item>
     </string-array>
 
+<!--    dummy data approval user-->
+    <string-array name="data_validasi_nama">
+        <item>Jane Doe</item>
+        <item>Liam Harris</item>
+        <item>Conan Edogawa</item>
+    </string-array>
+
+    <string-array name="data_validasi_divisi">
+        <item>Divisi Digital Center</item>
+        <item>Divisi Call Center</item>
+        <item>Divisi Customer Relation</item>
+    </string-array>
+
+    <string-array name="data_validasi_desc">
+        <item>User mencoba untuk login</item>
+        <item>User mencoba untuk login</item>
+        <item>User mencoba untuk login</item>
+    </string-array>
+
+    <string-array name="data_validasi_avatar">
+        <item>https://pbs.twimg.com/profile_images/815696249873690625/yDvJTEqk.jpg</item>
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
+        <item>https://www.technolearn.in/images/tes-img4.jpg</item>
+    </string-array>
 
     <string name="search">Search</string>
     <string name="document">Document</string>
@@ -242,4 +266,5 @@
     <string name="tukar_point">Tukar Point</string>
     <string name="tukar">Tukar</string>
     <string name="deskripsimeeting">Siapkan file meeting yang sesuai brief, Gunakan virtual background, dan Datanglah tepat waktu</string>
+    <string name="req_validasi">Mencoba untuk login</string>
 </resources>

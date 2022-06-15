@@ -24,6 +24,12 @@
         android:theme="@style/FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.others.DetailAprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.ApprovalActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.meeting.DetailMeetingActivity"
             android:exported="false" />
         <activity
