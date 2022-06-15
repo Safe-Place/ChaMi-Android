@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".ui.main.others.OthersFragment">
+    tools:context=".ui.main.others.supervisor.LainnyaSuperFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout01"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:fontFamily="@font/inter_bold"
-                android:text="@string/nama_pegawai"
+                android:text="Nama Supervisor"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -45,32 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:fontFamily="@font/inter_reguler"
-                android:text="@string/posisi_pegawai"
+                android:text="Divisi Supervisor"
                 android:textColor="@color/stream_gray"
                 android:textSize="14sp" />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout02"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout01">
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:tint="@color/black"
-            android:src="@drawable/ic_point"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/inter_reguler"
-            android:textSize="14sp"
-            android:layout_marginStart="10dp"
-            android:text="1000 Point"/>
     </LinearLayout>
 
     <ImageView
@@ -79,8 +57,8 @@
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
         android:background="@color/light_grey"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout02"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout02" />
+        app:layout_constraintStart_toStartOf="@+id/linearLayout01"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout01" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +76,6 @@
             android:textColor="@color/black"
             android:textSize="16sp"/>
         <LinearLayout
-            android:id="@+id/linearDaftarTransaksi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -107,38 +84,18 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_view_list_24"
-                app:tint="@color/black"/>
+                app:tint="@color/grey"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_reguler"
-                android:text="Daftar Transaksi"
+                android:text="Validasi User"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/linearTukarPoint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_baseline_shopping_cart_24"
-                app:tint="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_reguler"
-                android:text="Tukar Point"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginStart="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linearRiwayatPoint"
+            android:id="@+id/riwayatChallenge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -147,12 +104,12 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_history"
-                app:tint="@color/black"/>
+                app:tint="@color/grey"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_reguler"
-                android:text="Riwayat Point"
+                android:text="Riwayat Challenge"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginStart="10dp"/>
@@ -167,6 +124,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"/>
         <LinearLayout
+            android:id="@+id/editData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -176,9 +134,9 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_edit_24"
-                app:tint="@color/black"/>
+                app:tint="@color/grey"/>
             <LinearLayout
-                android:id="@+id/linearEditData"
+                android:id="@+id/tvEditData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -201,6 +159,7 @@
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/keamananAkun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -210,9 +169,9 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_security_24"
-                app:tint="@color/black"/>
+                app:tint="@color/grey"/>
             <LinearLayout
-                android:id="@+id/keamananAkun"
+                android:id="@+id/tvKeamananAkun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -243,7 +202,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_exit_to_app_24"
-                app:tint="@color/black"/>
+                app:tint="@color/grey"/>
             <TextView
                 android:id="@+id/tvLogout"
                 android:layout_width="wrap_content"
@@ -255,8 +214,5 @@
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
     </LinearLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

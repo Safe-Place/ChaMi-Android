@@ -260,6 +260,9 @@ class FirestoreService {
         db.collection("users")
             .whereEqualTo("user_id", userId)
 
+    fun getUserFromDocId(docId: String) = db.collection("users")
+        .document(docId)
+
     fun addFile(file: Files, listen: (String) -> Unit) {
         db.collection("files")
             .add(file)
@@ -274,5 +277,6 @@ class FirestoreService {
     fun getFiles(divisi: String?): Query =
         db.collection("files")
             .whereEqualTo("author_div", divisi)
+            .orderBy("create_at", Query.Direction.DESCENDING)
 
 }

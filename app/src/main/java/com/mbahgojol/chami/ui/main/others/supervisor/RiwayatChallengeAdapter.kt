@@ -1,16 +1,15 @@
-package com.mbahgojol.chami.ui.main.challanges
+package com.mbahgojol.chami.ui.main.others.supervisor
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.RiwayatChallenge
 
-class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : RecyclerView.Adapter<ListChallengeAdapter.ListViewHolder>() {
+class RiwayatChallengeAdapter(private val listChallenge: ArrayList<RiwayatChallenge>) : RecyclerView.Adapter<RiwayatChallengeAdapter.ListViewHolder>() {
 //    private lateinit var onItemClickCallback: OnItemClickCallback
 
 //    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -22,13 +21,12 @@ class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : Re
         var tvDeskripsi: TextView = itemView.findViewById(R.id.descChallenge)
         var tvTenggat: TextView = itemView.findViewById(R.id.tenggat)
         var tvReward: TextView = itemView.findViewById(R.id.point)
-        var tvStatus: TextView = itemView.findViewById(R.id.status)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_challenge, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_riwayat_celen, parent, false)
         return ListViewHolder(view)
     }
 

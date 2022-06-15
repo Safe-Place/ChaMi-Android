@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:paddingBottom="8dp"
+    android:layout_marginBottom="10dp"
+    android:padding="10dp"
+    android:background="@drawable/custom_round_shadow_bg">
+
+    <TextView
+        android:id="@+id/tvTanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_reguler"
+        android:text="12 Juli 2021 12:12"
+        android:textSize="12sp"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/namaProduk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:text="Unlimited PUBG"
+        android:textSize="12sp"
+        card_view:layout_constraintStart_toStartOf="@id/tvTanggal"
+        card_view:layout_constraintTop_toBottomOf="@id/tvTanggal"
+        android:layout_marginTop="5dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        card_view:layout_constraintStart_toStartOf="@id/namaProduk"
+        card_view:layout_constraintTop_toBottomOf="@id/namaProduk">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_point"
+            app:tint="@color/teal_200"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tvHarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:textSize="12sp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/inter_reguler"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_background_round_stroke"
+        android:fontFamily="@font/inter_reguler"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="3dp"
+        android:text="Diproses"
+        android:textColor="@color/teal_200"
+        android:textSize="12sp"
+        card_view:layout_constraintBottom_toTopOf="@+id/namaProduk"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintTop_toTopOf="@+id/tvTanggal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_rounded_btn_oren"
+        android:fontFamily="@font/inter_bold"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:text="Beli Lagi"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        card_view:layout_constraintEnd_toEndOf="@+id/tvStatus"
+        card_view:layout_constraintTop_toBottomOf="@+id/tvStatus" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

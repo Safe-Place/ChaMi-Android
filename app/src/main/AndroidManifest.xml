@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mbahgojol.chami" >
+    package="com.mbahgojol.chami">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -18,7 +18,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FullScreen"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.main.others.TukarPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.RiwayatPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.DaftarTransaksiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.LainnyaSuperActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.KeamananActivity"
+            android:exported="false" />
         <activity
             android:name=".login.forgotPassword.NewPasswordActivity"
             android:exported="false" />
@@ -39,7 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,7 +77,7 @@
 
         <service
             android:name=".data.remote.MyFirebaseMessagingService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -77,7 +95,7 @@
 
         <receiver
             android:name=".data.remote.MyBroadcast"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
