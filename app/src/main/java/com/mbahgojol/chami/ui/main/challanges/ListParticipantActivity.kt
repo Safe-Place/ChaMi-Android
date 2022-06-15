@@ -59,12 +59,12 @@ class ListParticipantActivity : AppCompatActivity() {
         val listParticipantAdapter = ListParticipantAdapter(list)
         rvParticipant.adapter = listParticipantAdapter
 
-//        listParticipantAdapter.setOnItemClickCallback(object : TukarPointAdapter.OnItemClickCallback {
-//            override fun onItemClicked(data: Produk) {
-//                val moveWithObjectIntent = Intent(this, DetailTukarPointActivity::class.java)
-//                moveWithObjectIntent.putExtra(DetailTukarPointActivity.EXTRA_PRODUK, data)
-//                startActivity(moveWithObjectIntent)
-//            }
-//        })
+        listParticipantAdapter.setOnItemClickCallback(object : ListParticipantAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Participant) {
+                val moveWithObjectIntent = Intent(this@ListParticipantActivity, DetailParticipantActivity::class.java)
+                    moveWithObjectIntent.putExtra(DetailParticipantActivity.EXTRA_PARTICIPANT, data)
+                startActivity(moveWithObjectIntent)
+            }
+        })
     }
 }

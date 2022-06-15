@@ -34,7 +34,7 @@ class HistoryChallengeAdapter(private val listChallenge: ArrayList<HistoryChalle
         val (judul, desc, reward, tenggat, status) = listChallenge[position]
         holder.tvJudul.text = judul
         holder.tvDeskripsi.text = desc
-        holder.tvReward.text = reward.toString()
+        holder.tvReward.text = reward.toString()+" Point"
         holder.tvTenggat.text = tenggat
         holder.tvStatus.text = status
 //        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listChallenge[holder.adapterPosition]) }

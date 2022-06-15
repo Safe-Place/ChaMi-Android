@@ -13,11 +13,11 @@ import com.mbahgojol.chami.dummyData.Participant
 import com.mbahgojol.chami.dummyData.Produk
 
 class ListParticipantAdapter(private val listParticipant: ArrayList<Participant>) : RecyclerView.Adapter<ListParticipantAdapter.ListViewHolder>() {
-//    private lateinit var onItemClickCallback: OnItemClickCallback
-//
-//    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-//        this.onItemClickCallback = onItemClickCallback
-//    }
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ivFoto: ImageView = itemView.findViewById(R.id.participantAvatar)
@@ -36,7 +36,7 @@ class ListParticipantAdapter(private val listParticipant: ArrayList<Participant>
             transformations(CircleCropTransformation())
         }
         holder.tvNama.text = nama
-//        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listProduk[holder.adapterPosition]) }
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listParticipant[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int = listParticipant.size

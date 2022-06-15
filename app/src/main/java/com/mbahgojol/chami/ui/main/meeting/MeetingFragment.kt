@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.ui.main.challanges.TambahChallengeActivity
@@ -17,6 +18,7 @@ class MeetingFragment : Fragment() {
     lateinit var dateTV: TextView
     lateinit var calendarView: CalendarView
     lateinit var fbAdd : FloatingActionButton
+    lateinit var listMeeting : ConstraintLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +35,12 @@ class MeetingFragment : Fragment() {
         dateTV = fragmentView.findViewById(R.id.tvDate)
         calendarView = fragmentView.findViewById(R.id.calendarView)
         fbAdd = fragmentView.findViewById(R.id.fb_add_jadwal)
+        listMeeting = fragmentView.findViewById(R.id.listMeeting)
 
+        listMeeting.setOnClickListener {
+            val intent = Intent(requireContext(), DetailMeetingActivity::class.java)
+            startActivity(intent)
+        }
         fbAdd.setOnClickListener {
             val intent = Intent(requireContext(), AddMeetingActivity::class.java)
             startActivity(intent)
