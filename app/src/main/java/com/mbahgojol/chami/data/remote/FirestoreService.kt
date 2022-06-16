@@ -385,4 +385,18 @@ class FirestoreService {
             .whereEqualTo("author_div", divisi)
             .orderBy("create_at", Query.Direction.DESCENDING)
 
+    fun addChallenge(challenge: Challenges, listen: (String) -> Unit) {
+        db.collection("challenge")
+            .add(challenge)
+            .onSuccessTask { doc ->
+                doc.update("challenge_id", doc.id)
+                    .addOnSuccessListener {
+                        listen(doc.id)
+                    }
+            }
+    }
+
+    fun getListChallenge(date: Long) =
+        db.collection("challenge")
+            .whereGreaterThanOrEqualTo("due_date", date)
 }

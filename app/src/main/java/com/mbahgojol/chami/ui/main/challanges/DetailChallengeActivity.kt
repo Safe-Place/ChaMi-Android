@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -17,12 +18,14 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.data.model.Challenges
 import com.mbahgojol.chami.databinding.ActivityDetailChallengeBinding
 import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.Produk
 import com.mbahgojol.chami.ui.main.files.DetailFileActivity
 import com.mbahgojol.chami.ui.main.others.DetailTukarPointActivity
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DetailChallengeActivity : AppCompatActivity() {
@@ -37,7 +40,7 @@ class DetailChallengeActivity : AppCompatActivity() {
         binding = ActivityDetailChallengeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val data = intent.getParcelableExtra<Challenge>(EXTRA_CHALLENGE) as Challenge
+        val data = intent.getParcelableExtra<Challenges>(EXTRA_CHALLENGE) as Challenges
 
         val image = listOf(
             "https://i.pinimg.com/736x/84/6c/72/846c720bbb1ec76af83d290f1b8cc97c.jpg",
@@ -67,16 +70,25 @@ class DetailChallengeActivity : AppCompatActivity() {
             }
         }
 
-        binding.pointDetail.text = data.reward.toString() +" Point"
-        binding.tenggatDetail.text = data.due_date
+        val tenggat = convertLongToTime(data.due_date!!)
+        binding.pointDetail.text = data.point.toString() +" Point"
+        binding.tenggatDetail.text = tenggat
         binding.judulDetail.text = data.judul
         binding.deskDetail.text = data.deskripsi
-        binding.avatarWinner.load(avatar){
-            transformations(CircleCropTransformation())
-        }
+//        binding.avatarWinner.load(avatar){
+//            transformations(CircleCropTransformation())
+//        }
+
+        binding.avatarWinner.isInvisible = false
+        binding.tvPemenang.isVisible = false
 
         binding.btnBack.setOnClickListener {
             finishAndRemoveTask()
+        }
+
+        binding.btnKirim.setOnClickListener {
+            Toast.makeText(this@DetailChallengeActivity, "Pesan Terkirim", Toast.LENGTH_LONG).show()
+
         }
 
         binding.btnTambahLampiran.setOnClickListener {
@@ -99,10 +111,6 @@ class DetailChallengeActivity : AppCompatActivity() {
 //            }
         }
 
-//        binding.btnKirim.setOnClickListener {
-//            binding.btnKirim.background = getDrawable(R.drawable.custom_rounded_button)
-//            binding.btnKirim.setTextColor(ContextCompat.getColor(this,R.color.white))
-//        }
 
         binding.btnKirimPesan.setOnClickListener {
             binding.inputPesan.text = null
@@ -115,7 +123,7 @@ class DetailChallengeActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
 //            intent.type = "application/pdf"
-        intent.type = "*/*"
+        intent.type = "application/pdf"
         startActivityForResult(intent, 777)
     }
 
@@ -124,7 +132,6 @@ class DetailChallengeActivity : AppCompatActivity() {
 
         if (requestCode == 777) {
             uri= data!!.data!!
-//            val path = data!!.data!!.path.toString()
             val nameFile = getFileNameFromUri(this,uri)
             uploadtoStorage(uri, nameFile)
         }
@@ -134,7 +141,6 @@ class DetailChallengeActivity : AppCompatActivity() {
     private fun uploadtoStorage (uri: Uri, nameFile: String?){
         val storageRef = storage.reference
         val path : String = "submission/"+ UUID.randomUUID()+"/"+nameFile
-//        val path : String = "files/"+nameFile
         val filesRef = storageRef.child(path)
         val uploadFile = filesRef.putFile(uri)
 
@@ -168,8 +174,7 @@ class DetailChallengeActivity : AppCompatActivity() {
                     binding.tvFile.isVisible = true
                     binding.btnKirim.isVisible = true
                     binding.btnKirim.setOnClickListener {
-                        binding.btnKirim.background = getDrawable(R.drawable.custom_round_stroke_bg)
-                        binding.btnKirim.setTextColor(ContextCompat.getColor(this,R.color.yellow))
+                        uploadtoFirestore()
                     }
 
                     binding.tvFile.text = nameFile
@@ -181,6 +186,10 @@ class DetailChallengeActivity : AppCompatActivity() {
         }
     }
 
+    private fun uploadtoFirestore(){
+
+    }
+
     @SuppressLint("Range")
     fun getFileNameFromUri(context: Context, uri: Uri): String? {
         val fileName: String?
@@ -189,6 +198,12 @@ class DetailChallengeActivity : AppCompatActivity() {
         fileName = cursor?.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
         cursor?.close()
         return fileName
+    }
+
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("dd-MM-yyyy")
+        return format.format(date)
     }
 
 
