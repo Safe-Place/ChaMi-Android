@@ -36,30 +36,35 @@ class FirestoreService {
         db.collection("group")
             .document(grupId)
 
+    fun getAllNotifCountGroup(userId: String) = db.collection("notif")
+        .document(userId)
+        .collection("groupList")
+        .whereNotEqualTo("count", 0)
+
     fun getNotifCountGroup(
         grupId: String,
         userId: String
-    ) = db.collection("group")
-        .document(grupId)
-        .collection("participant")
+    ) = db.collection("notif")
         .document(userId)
+        .collection("groupList")
+        .document(grupId)
 
     fun addNotifCountGrup(
         grupId: String,
         userId: String,
         isread: Boolean
     ) =
-        db.collection("group")
-            .document(grupId)
-            .collection("participant")
+        db.collection("notif")
             .document(userId)
+            .collection("groupList")
+            .document(grupId)
             .update("count", FieldValue.increment(1))
             .addOnFailureListener {
                 if (it.message.toString().contains("NOT_FOUND")) {
-                    db.collection("group")
-                        .document(grupId)
-                        .collection("participant")
+                    db.collection("notif")
                         .document(userId)
+                        .collection("groupList")
+                        .document(grupId)
                         .set(
                             mapOf(
                                 "count" to 1,
@@ -70,17 +75,17 @@ class FirestoreService {
             }
 
     fun changeIsReadGroup(grupId: String, userId: String, isread: Boolean) =
-        db.collection("group")
-            .document(grupId)
-            .collection("participant")
+        db.collection("notif")
             .document(userId)
+            .collection("groupList")
+            .document(grupId)
             .update("isRead", isread)
 
     fun removeNotifCountGrup(grupId: String, userId: String) =
-        db.collection("group")
-            .document(grupId)
-            .collection("participant")
+        db.collection("notif")
             .document(userId)
+            .collection("groupList")
+            .document(grupId)
             .update(
                 mapOf(
                     "count" to 0,

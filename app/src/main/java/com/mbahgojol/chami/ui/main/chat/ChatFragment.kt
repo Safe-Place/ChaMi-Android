@@ -52,7 +52,6 @@ class ChatFragment : Fragment() {
                 }
 
                 if (value != null) {
-                    Timber.e("VAlue Exists")
                     val size = value.documents.size
                     if (size == 0) {
                         binding.tbHome.getTabAt(0)?.removeBadge()
@@ -68,6 +67,27 @@ class ChatFragment : Fragment() {
 
                         findNavController().getBackStackEntry(R.id.chatFragment)
                             .savedStateHandle["haveCount"] = true
+                    }
+                }
+            }
+
+        service.getAllNotifCountGroup(sharedPref.userId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Timber.d("Listen failed.")
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    val size = snapshot.documents.size
+                    if (size <= 0) {
+                        binding.tbHome.getTabAt(1)?.removeBadge()
+                    } else {
+                        binding.tbHome.getTabAt(1)?.orCreateBadge?.number = size
+                        binding.tbHome.getTabAt(1)?.badge?.backgroundColor =
+                            requireActivity().getColor(R.color.white)
+                        binding.tbHome.getTabAt(1)?.badge?.badgeTextColor =
+                            requireActivity().getColor(R.color.oren)
                     }
                 }
             }

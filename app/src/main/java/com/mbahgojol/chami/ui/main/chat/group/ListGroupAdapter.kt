@@ -18,7 +18,6 @@ class ListGroupAdapter constructor(
     private val data: MutableList<GrupChat> = mutableListOf(),
     private val listener: (GrupChat) -> Unit
 ) : RecyclerView.Adapter<ListGroupAdapter.PersonalChatViewHolder>() {
-
     fun setData(data: MutableList<GrupChat>) {
         this.data.clear()
         this.data.addAll(data)

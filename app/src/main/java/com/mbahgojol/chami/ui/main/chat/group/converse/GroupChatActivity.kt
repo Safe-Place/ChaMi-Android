@@ -62,6 +62,7 @@ class GroupChatActivity : AppCompatActivity() {
 
         if (intent.hasExtra("id")) {
             val id = intent.getStringExtra("id") ?: ""
+
             service.removeNotifCountGrup(id, sharedPref.userId)
 
             service.getGroupById(id)
