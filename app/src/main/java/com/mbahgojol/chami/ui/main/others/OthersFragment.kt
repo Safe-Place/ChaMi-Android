@@ -65,6 +65,10 @@ class OthersFragment : Fragment() {
             val intent = Intent(requireActivity(), RiwayatChallengeActivity::class.java)
             startActivity(intent)
         }
+        binding.linearValidasiUser.setOnClickListener {
+            val intent = Intent(requireActivity(),ApprovalActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

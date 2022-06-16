@@ -99,10 +99,10 @@ class DetailChallengeActivity : AppCompatActivity() {
 //            }
         }
 
-        binding.btnKirim.setOnClickListener {
-            binding.btnKirim.background = getDrawable(R.drawable.custom_rounded_button)
-            binding.btnKirim.setTextColor(ContextCompat.getColor(this,R.color.white))
-        }
+//        binding.btnKirim.setOnClickListener {
+//            binding.btnKirim.background = getDrawable(R.drawable.custom_rounded_button)
+//            binding.btnKirim.setTextColor(ContextCompat.getColor(this,R.color.white))
+//        }
 
         binding.btnKirimPesan.setOnClickListener {
             binding.inputPesan.text = null

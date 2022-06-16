@@ -9,4 +9,5 @@ data class Validasi(
     var nama: String,
     var divisi: String,
     var deskripsi: String,
+    var id : String,
 ) : Parcelable

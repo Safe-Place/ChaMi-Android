@@ -26,7 +26,7 @@ class DetailAprovalActivity : AppCompatActivity() {
             transformations(CircleCropTransformation())
         }
         binding.tvDeskripsi.text = data.deskripsi
-
+        binding.tvIdPegawai.text = data.id
 
     }
     companion object{
