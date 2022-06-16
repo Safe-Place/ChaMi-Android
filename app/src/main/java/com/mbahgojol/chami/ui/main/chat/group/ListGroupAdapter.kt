@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mbahgojol.chami.data.model.GrupChat
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ItemListChatBinding
 import com.mbahgojol.chami.utils.DateUtils
+import timber.log.Timber
 
 class ListGroupAdapter constructor(
     private val senderId: String,
+    private val service: FirestoreService,
     private val data: MutableList<GrupChat> = mutableListOf(),
     private val listener: (GrupChat) -> Unit
 ) : RecyclerView.Adapter<ListGroupAdapter.PersonalChatViewHolder>() {
@@ -26,9 +29,29 @@ class ListGroupAdapter constructor(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: GrupChat) {
+            service.getNotifCountGroup(model.id, senderId)
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        Timber.d("Listen failed.")
+                        return@addSnapshotListener
+                    }
+
+                    if (snapshot != null && snapshot.exists()) {
+                        if (snapshot.getLong("count") != null) {
+                            val count = snapshot.getLong("count")
+                            val isRead = snapshot.getBoolean("isRead")
+                            binding.tvIncomingChat.isVisible = count != 0L && isRead == false
+                            if (count != 0L) {
+                                binding.tvIncomingChat.text = count.toString()
+                            }
+                        }
+                    }
+                }
+
             binding.isOnline.isVisible = false
             binding.tvName.text = model.namaGroup
-            val author = model.lastAuthor.trim().split("\\s+".toRegex())[0]
+            var author = model.lastAuthor.trim().split("\\s+".toRegex())[0]
+            if (author == "") author = "me"
             binding.tvLastMessage.text =
                 if (senderId == model.lastAuthorId) "me: ${model.lastChat}" else "$author: ${model.lastChat}"
             binding.tvDate.text = model.lastDate.let { DateUtils.reformatToClock(it) }

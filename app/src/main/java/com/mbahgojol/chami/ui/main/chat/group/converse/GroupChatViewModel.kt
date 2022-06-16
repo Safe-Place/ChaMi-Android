@@ -55,6 +55,27 @@ class GroupChatViewModel @Inject constructor(
         }
     }
 
+    fun addAllCountNotif(
+        participants: List<String>?,
+        groupId: String
+    ) {
+        participants?.let { list ->
+            Observable.fromArray(list)
+                .observableIo()
+                .flatMapIterable { it }
+                .flatMap {
+                    val isRead = it == sharedPref.userId
+                    addCountNotif(groupId, it, isRead)
+                }
+                .subscribe({
+
+                }, {
+                    Timber.e(it)
+                })
+                .autoDispose()
+        }
+    }
+
     private fun getUser(userId: String) = Observable.create<Users> { ob ->
         service.getUserProfile(userId)
             .get()
@@ -69,4 +90,18 @@ class GroupChatViewModel @Inject constructor(
                 ob.onComplete()
             }
     }
+
+    private fun addCountNotif(groupId: String, userId: String, isRead: Boolean) =
+        Observable.create<String> { ob ->
+            service.addNotifCountGrup(groupId, userId, isRead)
+                .addOnSuccessListener {
+                    ob.onNext("Success")
+                }.addOnFailureListener {
+                    if (!it.message.toString().contains("NOT_FOUND")) {
+                        ob.onError(it)
+                    }
+                }.addOnCompleteListener {
+                    ob.onComplete()
+                }
+        }
 }

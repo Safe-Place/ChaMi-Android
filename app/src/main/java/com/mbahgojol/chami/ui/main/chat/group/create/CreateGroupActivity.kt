@@ -62,8 +62,8 @@ class CreateGroupActivity : AppCompatActivity() {
                     "https://cdn5.vectorstock.com/i/thumb-large/84/89/group-chat-contact-icon-office-team-or-teamwork-vector-23828489.jpg",
                     "",
                     "New Group",
-                    "",
-                    "",
+                    sharedPref.userId,
+                    sharedPref.userName,
                     DateUtils.getCurrentTime(),
                     UUID.randomUUID().toString(),
                     listUser

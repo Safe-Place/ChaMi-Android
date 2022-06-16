@@ -62,6 +62,8 @@ class GroupChatActivity : AppCompatActivity() {
 
         if (intent.hasExtra("id")) {
             val id = intent.getStringExtra("id") ?: ""
+            service.removeNotifCountGrup(id, sharedPref.userId)
+
             service.getGroupById(id)
                 .addSnapshotListener { snapshot, error ->
                     if (error != null) {
@@ -92,7 +94,10 @@ class GroupChatActivity : AppCompatActivity() {
 
                     if (snapshot != null && snapshot.exists()) {
                         val chatlog = snapshot.toObject<GetChatResponse>()
-                        chatlog?.chatlog?.let { myAdapter.setData(it) }
+                        chatlog?.chatlog?.let {
+                            myAdapter.setData(it)
+                            binding.rvChat.smoothScrollToPosition(myAdapter.itemCount)
+                        }
                     }
                 }
 
@@ -121,6 +126,8 @@ class GroupChatActivity : AppCompatActivity() {
                                 ""
                             )
                         )
+
+                        viewModel.addAllCountNotif(groupChat?.participants, id)
                         viewModel.sendNotif(payload)
                         service.updateLastChatGroup(sharedPref.userId, sharedPref.userName, id, msg)
                         binding.rvChat.smoothScrollToPosition(myAdapter.itemCount)
@@ -131,9 +138,21 @@ class GroupChatActivity : AppCompatActivity() {
             }
 
             binding.btnBack.setOnClickListener {
+                service.removeNotifCountGrup(id, sharedPref.userId)
+                    .addOnSuccessListener {
+                        service.changeIsReadGroup(groupChat?.id ?: "", sharedPref.userId, false)
+                    }
                 finish()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        service.removeNotifCountGrup(groupChat?.id ?: "", sharedPref.userId)
+            .addOnSuccessListener {
+                service.changeIsReadGroup(groupChat?.id ?: "", sharedPref.userId, false)
+            }
     }
 
     private fun <T> remove(list: MutableList<T>, predicate: Predicate<T>) {

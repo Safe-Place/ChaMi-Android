@@ -29,7 +29,7 @@ class ListGroupFragment : Fragment() {
     lateinit var sharedPref: SharedPref
 
     private val myAdapter by lazy {
-        ListGroupAdapter(sharedPref.userId) {
+        ListGroupAdapter(sharedPref.userId, service) {
             val i = Intent(requireActivity(), GroupChatActivity::class.java)
             i.putExtra("id", it.id)
             startActivity(i)

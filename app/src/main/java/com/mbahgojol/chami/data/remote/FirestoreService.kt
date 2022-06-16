@@ -36,6 +36,58 @@ class FirestoreService {
         db.collection("group")
             .document(grupId)
 
+    fun getNotifCountGroup(
+        grupId: String,
+        userId: String
+    ) = db.collection("group")
+        .document(grupId)
+        .collection("participant")
+        .document(userId)
+
+    fun addNotifCountGrup(
+        grupId: String,
+        userId: String,
+        isread: Boolean
+    ) =
+        db.collection("group")
+            .document(grupId)
+            .collection("participant")
+            .document(userId)
+            .update("count", FieldValue.increment(1))
+            .addOnFailureListener {
+                if (it.message.toString().contains("NOT_FOUND")) {
+                    db.collection("group")
+                        .document(grupId)
+                        .collection("participant")
+                        .document(userId)
+                        .set(
+                            mapOf(
+                                "count" to 1,
+                                "isRead" to isread
+                            )
+                        )
+                }
+            }
+
+    fun changeIsReadGroup(grupId: String, userId: String, isread: Boolean) =
+        db.collection("group")
+            .document(grupId)
+            .collection("participant")
+            .document(userId)
+            .update("isRead", isread)
+
+    fun removeNotifCountGrup(grupId: String, userId: String) =
+        db.collection("group")
+            .document(grupId)
+            .collection("participant")
+            .document(userId)
+            .update(
+                mapOf(
+                    "count" to 0,
+                    "isRead" to true
+                )
+            )
+
     fun updateLastChatGroup(
         senderId: String,
         senderName: String,
