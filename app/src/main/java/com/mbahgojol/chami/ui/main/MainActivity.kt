@@ -25,6 +25,8 @@ import com.mbahgojol.chami.signup.SignupActivity
 import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
+// ini project yg asli
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController

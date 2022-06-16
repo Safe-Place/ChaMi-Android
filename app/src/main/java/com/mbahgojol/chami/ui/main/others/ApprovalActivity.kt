@@ -26,9 +26,10 @@ class ApprovalActivity : AppCompatActivity() {
             val dataNama = resources.getStringArray(R.array.data_validasi_nama)
             val dataDivisi = resources.getStringArray(R.array.data_validasi_divisi)
             val dataDeskripsi = resources.getStringArray(R.array.data_validasi_desc)
+            val dataId = resources.getStringArray(R.array.data_validasi_id)
             val listValidasi = ArrayList<Validasi>()
             for (i in dataNama.indices) {
-                val validasi = Validasi(dataAvatar[i],dataNama[i],dataDivisi[i], dataDeskripsi[i])
+                val validasi = Validasi(dataAvatar[i],dataNama[i],dataDivisi[i], dataDeskripsi[i],dataId[i])
                 listValidasi.add(validasi)
             }
             return listValidasi

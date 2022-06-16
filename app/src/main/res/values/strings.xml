@@ -239,6 +239,12 @@
         <item>https://www.technolearn.in/images/tes-img4.jpg</item>
     </string-array>
 
+    <string-array name="data_validasi_id">
+        <item>11187878799</item>
+        <item>11165273910</item>
+        <item>11199882261</item>
+    </string-array>
+
     <string name="search">Search</string>
     <string name="document">Document</string>
     <string name="gallery">Gallery</string>
