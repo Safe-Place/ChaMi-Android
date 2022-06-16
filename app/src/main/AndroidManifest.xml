@@ -17,12 +17,21 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/FullScreen"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.main.chat.group.converse.GroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.group.create.CreateGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.personal.converse.detail.DetailPersonalActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.main.others.DetailAprovalActivity"
             android:exported="false" />
@@ -69,6 +78,9 @@
             android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.main.others.supervisor.LainnyaSuperActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.others.KeamananActivity"
             android:exported="false" />
         <activity
@@ -90,6 +102,19 @@
             android:name=".login.PasswordLoginActivity"
             android:exported="false" />
         <activity
+            android:name=".login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".signup.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.login.CreateActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.main.chat.personal.converse.PersonalChatActivity"
+            android:exported="false"
+            android:theme="@style/FullScreen" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -98,16 +123,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".signup.SignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.chat.personal.detail.DetailPersonalChatActivity"
-            android:exported="false"
-            android:theme="@style/FullScreen" />
-        <activity
-            android:name=".login.LoginActivity"
-            android:exported="false" />
 
         <service
             android:name=".data.remote.MyFirebaseMessagingService"
@@ -119,7 +134,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_background" />
+            android:resource="@drawable/icon" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/purple_200" />

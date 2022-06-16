@@ -43,7 +43,7 @@ class FilesFragment : Fragment() {
     lateinit var sharedPref: SharedPref
 
     val storage = Firebase.storage("gs://chami-dev-8390a.appspot.com")
-    lateinit var uri: Uri
+    private var uri: Uri? = null
 
     private val listAdapter by lazy {
         FileAdapter {
@@ -79,8 +79,7 @@ class FilesFragment : Fragment() {
         binding.fbAdd.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
-//            intent.type = "application/pdf"
-            intent.type = "*/*"
+            intent.type = "application/pdf"
             startActivityForResult(intent, 777)
         }
     }
@@ -89,10 +88,14 @@ class FilesFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 777) {
-            uri= data!!.data!!
+            data?.data?.let {
+                uri=it
+            }
 //            val path = data!!.data!!.path.toString()
-            val nameFile = getFileNameFromUri(requireContext(),uri)
-            uploadtoStorage(uri, nameFile)
+            uri?.let {
+                val nameFile = getFileNameFromUri(requireContext(),it)
+                uploadtoStorage(it, nameFile)
+            }
         }
     }
 

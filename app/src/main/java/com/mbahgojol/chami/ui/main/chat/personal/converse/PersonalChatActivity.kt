@@ -1,7 +1,8 @@
-package com.mbahgojol.chami.ui.main.chat.personal.detail
+package com.mbahgojol.chami.ui.main.chat.personal.converse
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -18,17 +19,18 @@ import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.*
 import com.mbahgojol.chami.data.remote.FirestoreService
-import com.mbahgojol.chami.databinding.ActivityDetailPersonalChatBinding
+import com.mbahgojol.chami.databinding.ActivityPersonalChatBinding
+import com.mbahgojol.chami.ui.main.chat.personal.converse.detail.DetailPersonalActivity
 import com.mbahgojol.chami.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailPersonalChatActivity : AppCompatActivity() {
+class PersonalChatActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDetailPersonalChatBinding
-    private val viewModel by viewModels<DetailPersonalChatViewModel>()
+    private lateinit var binding: ActivityPersonalChatBinding
+    private val viewModel by viewModels<PersonalChatViewModel>()
 
     @Inject
     lateinit var service: FirestoreService
@@ -36,22 +38,10 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private lateinit var listAdapter: DetailChatAdapter
+    private lateinit var listAdapter: PersonalChatAdapter
     private var user: Users? = null
     private val senderId by lazy { sharedPref.userId }
     private var roomId: String? = null
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    fun setStatusBarGradiant(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window: Window = activity.window
-            val background = ContextCompat.getDrawable(activity, R.drawable.toolbar_color)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-            window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
-            window.setBackgroundDrawable(background)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,22 +50,35 @@ class DetailPersonalChatActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_SECURE
         )
 
-        binding = ActivityDetailPersonalChatBinding.inflate(layoutInflater)
+        binding = ActivityPersonalChatBinding.inflate(layoutInflater)
         setStatusBarGradiant(this)
         setContentView(binding.root)
 
+        listOf(binding.image, binding.detail).forEach {
+            it.setOnClickListener {
+                val i = Intent(this, DetailPersonalActivity::class.java)
+                i.putExtra("user", user)
+                startActivity(i)
+            }
+        }
+
         binding.apply {
             rvChat.apply {
-                val myLayoutManager = LinearLayoutManager(this@DetailPersonalChatActivity)
+                val myLayoutManager = LinearLayoutManager(this@PersonalChatActivity)
                 layoutManager = myLayoutManager
                 myLayoutManager.stackFromEnd = true
             }
         }
 
         val model = intent.getParcelableExtra<ChatRoom>("data")
-        val isread = intent.getBooleanExtra("isread", false)
         if (intent.hasExtra("data") && model != null) {
-            if (!isread) service.decrementNotifPersonal(senderId, model.receiver_id)
+            service.getNotifUserByReceiver(senderId, model.receiver_id)
+                .get()
+                .addOnSuccessListener {
+                    if (it?.get("count") != null) {
+                        service.decrementNotifPersonal(senderId, model.receiver_id)
+                    }
+                }
 
             binding.btnAttach.setOnClickListener {
                 AttachBottomSheetDialog.newInstance(senderId, model.receiver_id, model.roomid)
@@ -107,7 +110,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                     model.roomid
                 )
 
-                service.addChat(data, model.roomid)
+                service.addChatLog(data)
                     .addOnSuccessListener {
                         service.getRoomChat(model.receiver_id, model.roomid)
                             .get()
@@ -152,7 +155,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                 binding.etPesan.text.clear()
             }
 
-            listAdapter = DetailChatAdapter(senderId) {
+            listAdapter = PersonalChatAdapter(senderId) {
 
             }
             binding.rvChat.adapter = listAdapter
@@ -182,7 +185,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
 
             service.createRoom(roomId)
 
-            listAdapter = DetailChatAdapter(senderId) {
+            listAdapter = PersonalChatAdapter(senderId) {
 
             }
             binding.rvChat.adapter = listAdapter
@@ -205,7 +208,7 @@ class DetailPersonalChatActivity : AppCompatActivity() {
                     roomId
                 )
 
-                service.addChat(data, roomId)
+                service.addChatLog(data)
                     .addOnSuccessListener {
                         service.getRoomChat(user?.user_id ?: "", roomId)
                             .get()
@@ -313,5 +316,17 @@ class DetailPersonalChatActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         roomId?.let { it1 -> service.updateStatusInRoom(senderId, it1, false) }
+    }
+}
+
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+fun setStatusBarGradiant(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        val window: Window = activity.window
+        val background = ContextCompat.getDrawable(activity, R.drawable.toolbar_color)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+        window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
+        window.setBackgroundDrawable(background)
     }
 }

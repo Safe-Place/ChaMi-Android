@@ -1,4 +1,4 @@
-package com.mbahgojol.chami.ui.main.chat.personal.detail
+package com.mbahgojol.chami.ui.main.chat.personal.converse
 
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.PayloadNotif
@@ -13,7 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailPersonalChatViewModel @Inject constructor(
+class PersonalChatViewModel @Inject constructor(
     private val notifService: NotifService,
     private val service: FirestoreService,
     private val sharedPref: SharedPref

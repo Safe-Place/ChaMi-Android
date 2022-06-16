@@ -1,4 +1,4 @@
-package com.mbahgojol.chami.ui.main.chat.personal.detail
+package com.mbahgojol.chami.ui.main.chat.personal.converse
 
 import android.app.Activity
 import android.content.Intent

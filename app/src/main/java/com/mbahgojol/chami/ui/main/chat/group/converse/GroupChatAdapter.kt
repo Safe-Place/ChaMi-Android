@@ -1,4 +1,4 @@
-package com.mbahgojol.chami.ui.main.chat.personal.detail
+package com.mbahgojol.chami.ui.main.chat.group.converse
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import com.mbahgojol.chami.databinding.ItemChatPersonalSendBinding
 import com.mbahgojol.chami.utils.DateUtils
 import com.mbahgojol.chami.utils.TypeMsg
 
-class DetailChatAdapter constructor(
+class GroupChatAdapter constructor(
     private val authorId: String,
     private val data: MutableList<ChatLog> = mutableListOf(),
     private var listener: (ChatLog) -> Unit
@@ -34,9 +34,12 @@ class DetailChatAdapter constructor(
                 binding.layoutSender.visibility = View.VISIBLE
             } else {
                 binding.layoutReceiver.contenReceiver.visibility = View.VISIBLE
+                binding.layoutReceiver.tvAuthor.visibility = View.VISIBLE
                 binding.layoutSender.visibility = View.GONE
+                binding.layoutReceiver.tvAuthor.text = model.author_name
                 binding.layoutReceiver.tvMessage.text = model.message
-                binding.layoutReceiver.tvTimestamp.text = DateUtils.reformatToClock(model.create_date)
+                binding.layoutReceiver.tvTimestamp.text =
+                    DateUtils.reformatToClock(model.create_date)
             }
         }
     }

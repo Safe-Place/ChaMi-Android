@@ -4,10 +4,111 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mbahgojol.chami.data.model.*
+import com.mbahgojol.chami.utils.DateUtils
 import timber.log.Timber
 
 class FirestoreService {
     private val db = Firebase.firestore
+
+    fun addGroup(grupChat: GrupChat) =
+        db.collection("group")
+            .document(grupChat.id)
+            .set(
+                mapOf(
+                    "adminId" to grupChat.adminId,
+                    "namaGroup" to grupChat.namaGroup,
+                    "imgGroup" to grupChat.imgGroup,
+                    "detail" to grupChat.detail,
+                    "lastChat" to grupChat.lastChat,
+                    "lastDate" to grupChat.lastDate,
+                    "id" to grupChat.id,
+                    "createAt" to FieldValue.serverTimestamp(),
+                    "participants" to grupChat.participants
+                )
+            )
+
+    fun getGroup(userId: String) =
+        db.collection("group")
+            .whereArrayContains("participants", userId)
+            .orderBy("createAt", Query.Direction.DESCENDING)
+
+    fun getGroupById(grupId: String) =
+        db.collection("group")
+            .document(grupId)
+
+    fun getAllNotifCountGroup(userId: String) = db.collection("notif")
+        .document(userId)
+        .collection("groupList")
+        .whereNotEqualTo("count", 0)
+
+    fun getNotifCountGroup(
+        grupId: String,
+        userId: String
+    ) = db.collection("notif")
+        .document(userId)
+        .collection("groupList")
+        .document(grupId)
+
+    fun addNotifCountGrup(
+        grupId: String,
+        userId: String,
+        isread: Boolean
+    ) =
+        db.collection("notif")
+            .document(userId)
+            .collection("groupList")
+            .document(grupId)
+            .update("count", FieldValue.increment(1))
+            .addOnFailureListener {
+                if (it.message.toString().contains("NOT_FOUND")) {
+                    db.collection("notif")
+                        .document(userId)
+                        .collection("groupList")
+                        .document(grupId)
+                        .set(
+                            mapOf(
+                                "count" to 1,
+                                "isRead" to isread
+                            )
+                        )
+                }
+            }
+
+    fun changeIsReadGroup(grupId: String, userId: String, isread: Boolean) =
+        db.collection("notif")
+            .document(userId)
+            .collection("groupList")
+            .document(grupId)
+            .update("isRead", isread)
+
+    fun removeNotifCountGrup(grupId: String, userId: String) =
+        db.collection("notif")
+            .document(userId)
+            .collection("groupList")
+            .document(grupId)
+            .update(
+                mapOf(
+                    "count" to 0,
+                    "isRead" to true
+                )
+            )
+
+    fun updateLastChatGroup(
+        senderId: String,
+        senderName: String,
+        grupId: String,
+        msg: String
+    ) =
+        getGroupById(grupId)
+            .update(
+                mapOf(
+                    "createAt" to FieldValue.serverTimestamp(),
+                    "lastChat" to msg,
+                    "lastAuthorId" to senderId,
+                    "lastAuthor" to senderName,
+                    "lastDate" to DateUtils.getCurrentTime()
+                )
+            )
 
     fun addUser(users: CreateUsers, listen: (String) -> Unit) =
         db.collection("users")
@@ -19,15 +120,10 @@ class FirestoreService {
                     }
             }
 
-    fun addUsers(users: CreateUsers, id_user :String, listen: (String) -> Unit) =
+    fun addUsers(users: CreateUsers) =
         db.collection("users")
-            .add(users)
-            .onSuccessTask { doc ->
-                doc.update("user_id", id_user)
-                    .addOnSuccessListener {
-                        listen(doc.id)
-                    }
-            }
+            .document(users.user_id)
+            .set(users)
 
     fun searchUser(username: String) =
         db.collection("users")
@@ -45,14 +141,18 @@ class FirestoreService {
         db.collection("chat")
             .document(roomId)
 
+    fun getChatLog(roomId: String) =
+        db.collection("chat")
+            .document(roomId)
+
     fun createRoom(roomId: String) =
         db.collection("chat")
             .document(roomId)
             .set(GetChatResponse(mutableListOf()))
 
-    fun addChat(data: ChatLog, roomId: String) =
+    fun addChatLog(data: ChatLog) =
         db.collection("chat")
-            .document(roomId)
+            .document(data.roomid)
             .update("chatlog", FieldValue.arrayUnion(data))
 
     fun getListChat(userId: String): CollectionReference =
@@ -226,12 +326,18 @@ class FirestoreService {
             .document(userId)
             .collection(userId)
 
+    fun getNotifUserByReceiver(senderId: String, receiverId: String) =
+        db.collection("notif")
+            .document(senderId)
+            .collection(senderId)
+            .document(receiverId)
+
     fun decrementNotifPersonal(senderId: String, receiverId: String) =
         db.collection("notif")
             .document(senderId)
             .collection(senderId)
             .document(receiverId)
-            .update("count", FieldValue.increment(-1))
+            .delete()
 
     fun pushNotif(
         userId: String,
