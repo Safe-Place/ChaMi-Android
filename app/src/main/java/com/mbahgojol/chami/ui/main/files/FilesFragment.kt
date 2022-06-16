@@ -1,12 +1,14 @@
 package com.mbahgojol.chami.ui.main.files
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,13 +77,11 @@ class FilesFragment : Fragment() {
         getDivisi()
 
         binding.fbAdd.setOnClickListener {
-
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
 //            intent.type = "application/pdf"
             intent.type = "*/*"
             startActivityForResult(intent, 777)
-
         }
     }
 
@@ -114,6 +114,27 @@ class FilesFragment : Fragment() {
 
     fun getfile (user_div : String?){
         firestoreModule.getFiles(user_div)
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                var data = ArrayList<Files>()
+//                for (doc in documents) {
+//                    var nama_file = doc.getString("nama_file")
+//                    var type = doc.getLong("type")
+//                    var file_url = doc.getString("file_url")
+//                    var size_byte = doc.getString("size_byte")
+//                    var create_at = doc.getString("create_at")
+//                    var author_id = doc.getString("author_id")
+//                    var file_id = doc.getString("file_id")
+//                    var author_div = doc.getString("author_div")
+//                    var file = Files(nama_file,type,file_url,size_byte,create_at,author_id,file_id,author_div)
+//                    data.add(file)
+//                    Log.d(TAG, "${doc.id} => ${doc.data}")
+//                }
+//                listAdapter.setData(data)
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w(TAG, "Error getting documents files: ", exception)
+//            }
             .addSnapshotListener { value, e ->
                 if (e != null) {
                     Timber.d("Listen failed.")

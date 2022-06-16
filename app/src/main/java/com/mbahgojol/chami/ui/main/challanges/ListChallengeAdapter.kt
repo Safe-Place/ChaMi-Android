@@ -3,19 +3,18 @@ package com.mbahgojol.chami.ui.main.challanges
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.dummyData.Challenge
-import com.mbahgojol.chami.dummyData.RiwayatChallenge
+import com.mbahgojol.chami.ui.main.others.TukarPointAdapter
 
 class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : RecyclerView.Adapter<ListChallengeAdapter.ListViewHolder>() {
-//    private lateinit var onItemClickCallback: OnItemClickCallback
+    private lateinit var onItemClickCallback: OnItemClickCallback
 
-//    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-//        this.onItemClickCallback = onItemClickCallback
-//    }
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvJudul: TextView = itemView.findViewById(R.id.judulChallenge)
@@ -33,18 +32,19 @@ class ListChallengeAdapter(private val listChallenge: ArrayList<Challenge>) : Re
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (judul, desc, reward, tenggat) = listChallenge[position]
+        val (judul, desc, reward, tenggat, status) = listChallenge[position]
         holder.tvJudul.text = judul
         holder.tvDeskripsi.text = desc
-        holder.tvReward.text = reward.toString()
+        holder.tvReward.text = reward.toString()+" Point"
         holder.tvTenggat.text = tenggat
-//        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listChallenge[holder.adapterPosition]) }
+        holder.tvStatus.text = status
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listChallenge[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int = listChallenge.size
 
 
-//    interface OnItemClickCallback {
-//        fun onItemClicked(data: Challenge)
-//    }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Challenge)
+    }
 }

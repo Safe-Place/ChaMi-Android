@@ -100,6 +100,7 @@
         app:layout_constraintTop_toBottomOf="@id/tbKemananAkun">
 
         <LinearLayout
+            android:id="@+id/linearChamiPict"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -123,6 +124,7 @@
             android:layout_height="3dp"
             android:background="@color/grey"/>
         <LinearLayout
+            android:id="@+id/linearUbahSandi"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -146,6 +148,7 @@
             android:layout_height="3dp"
             android:background="@color/grey"/>
         <LinearLayout
+            android:id="@+id/linearSidikJari"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

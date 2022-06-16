@@ -46,7 +46,7 @@ class SignupViewModel : ViewModel() {
                     ).show()
                     _user.value = responseBody?.data
                 } else {
-                    val jsonError = response.errorBody()?.string()?.let { JSONObject(it) }
+                    val jsonError = response.errorBody()?.string()?.let{ JSONObject(it) }
                     val responseStatus = jsonError?.getString("message")
                     _isLoading.value = false
                     Toast.makeText(

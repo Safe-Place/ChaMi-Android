@@ -6,29 +6,221 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.meeting.AddMeetingActivity">
 
+    <LinearLayout
+        android:id="@+id/tbDetailChat"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/custom_bg_gradient"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah Acara Baru"
+            android:gravity="center"
+            android:layout_marginStart="60dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"/>
+
+        <ImageView
+            android:id="@+id/btnSaveMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="1dp"
+            android:padding="12dp"
+            app:tint="@color/white"
+            android:src="@drawable/ic_baseline_check_24" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="92dp"
+        android:background="@null"
         android:fontFamily="@font/inter_bold"
-        android:hint="Judul Meeting"
+        android:hint="Judul acara"
         android:textColor="@color/black"
         android:textColorHint="@color/grey"
-        android:textSize="18sp"
-        android:background="@null"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="25dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="16dp"
         android:src="@drawable/ic_baseline_calendar_month_24"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintBottom_toBottomOf="@+id/tenggat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tenggat" />
+
+    <EditText
+        android:id="@+id/tenggat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="132dp"
+        android:background="@null"
+        android:fontFamily="@font/inter_reguler"
+        android:hint="Masukkan tanggal"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="@+id/location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/location" />
+
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="168dp"
+        android:background="@null"
+        android:fontFamily="@font/inter_reguler"
+        android:hint="Masukkan lokasi"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_notifications_24"
+        app:layout_constraintBottom_toBottomOf="@+id/reminder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/reminder"
+        app:tint="@color/black" />
+
+    <EditText
+        android:id="@+id/reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="204dp"
+        android:background="@null"
+        android:fontFamily="@font/inter_reguler"
+        android:hint="Masukkan notifikasi"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_short_text_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/deskripsi"
+        app:tint="@color/black" />
+
+    <EditText
+        android:id="@+id/deskripsi"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="240dp"
+        android:background="@null"
+        android:fontFamily="@font/inter_reguler"
+        android:hint="Masukkan deskripsi"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_baseline_people_24"
+        app:tint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/checkBox_container" />
+
+    <LinearLayout
+        android:id="@+id/checkBox_container"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deskripsi"
+        app:layout_constraintVertical_bias="0.18">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:fontFamily="@font/inter_reguler"
+            android:text="Divisi Digital Center"
+            android:textSize="12sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:fontFamily="@font/inter_reguler"
+            android:text="Divisi Call Center"
+            android:textSize="12sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:fontFamily="@font/inter_reguler"
+            android:text="Divisi Customer Relation"
+            android:textSize="12sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:fontFamily="@font/inter_reguler"
+            android:text="Divisi Customer Resolution"
+            android:textSize="12sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:fontFamily="@font/inter_reguler"
+            android:text="Divisi Customer Journey"
+            android:textSize="12sp" />
+    </LinearLayout>
 
 
 
