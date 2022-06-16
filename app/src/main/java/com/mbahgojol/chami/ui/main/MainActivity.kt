@@ -70,10 +70,26 @@ class MainActivity : AppCompatActivity() {
             bottomNavView.setupWithNavController(navController)
         }
 
+        var chatPersonal = false
+        var chatGroup = false
+
+        fun showBullets() {
+            binding.bottomNavView.getOrCreateBadge(R.id.chatFragment).isVisible =
+                chatPersonal or chatGroup
+        }
+
         navController.getBackStackEntry(R.id.chatFragment)
             .savedStateHandle.getLiveData<Boolean>("haveCount")
             .observe(this) {
-                binding.bottomNavView.getOrCreateBadge(R.id.chatFragment).isVisible = it
+                chatPersonal = it
+                showBullets()
+            }
+
+        navController.getBackStackEntry(R.id.chatFragment)
+            .savedStateHandle.getLiveData<Boolean>("haveCountGroup")
+            .observe(this) {
+                chatGroup = it
+                showBullets()
             }
 
 //        val user = intent.getParcelableExtra<User>(EXTRA_USER) as User

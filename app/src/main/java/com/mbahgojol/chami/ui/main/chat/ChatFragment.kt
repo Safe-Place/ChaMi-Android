@@ -82,12 +82,18 @@ class ChatFragment : Fragment() {
                     val size = snapshot.documents.size
                     if (size <= 0) {
                         binding.tbHome.getTabAt(1)?.removeBadge()
+
+                        findNavController().getBackStackEntry(R.id.chatFragment)
+                            .savedStateHandle["haveCountGroup"] = false
                     } else {
                         binding.tbHome.getTabAt(1)?.orCreateBadge?.number = size
                         binding.tbHome.getTabAt(1)?.badge?.backgroundColor =
                             requireActivity().getColor(R.color.white)
                         binding.tbHome.getTabAt(1)?.badge?.badgeTextColor =
                             requireActivity().getColor(R.color.oren)
+
+                        findNavController().getBackStackEntry(R.id.chatFragment)
+                            .savedStateHandle["haveCountGroup"] = true
                     }
                 }
             }
