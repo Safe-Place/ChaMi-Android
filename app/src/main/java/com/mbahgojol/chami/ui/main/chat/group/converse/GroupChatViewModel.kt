@@ -12,6 +12,7 @@ import com.mbahgojol.chami.utils.BaseViewModel
 import com.mbahgojol.chami.utils.observableIo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,17 +25,18 @@ class GroupChatViewModel @Inject constructor(
     val userList = MutableLiveData<List<Users>>()
 
     fun sendNotif(payloadNotif: PayloadNotif) {
-        Observable.fromArray(userList.value)
-            .flatMapIterable { it }
-            .observableIo()
-            .flatMap {
-                payloadNotif.to = it.token
-                payloadNotif.data?.idReceiver = it.user_id
-                notifService.pushNotif(AppConstant.SERVER_KEY, payloadNotif)
-                    .toObservable()
-            }
-            .subscribe()
-            .autoDispose()
+        if (userList.value != null)
+            Observable.fromArray(userList.value)
+                .flatMapIterable { it }
+                .observableIo()
+                .flatMap {
+                    payloadNotif.to = it.token
+                    payloadNotif.data?.idReceiver = it.user_id
+                    notifService.pushNotif(AppConstant.SERVER_KEY, payloadNotif)
+                        .toObservable()
+                }
+                .subscribe()
+                .autoDispose()
     }
 
     fun getAllUser(participants: List<String>?) {
@@ -47,7 +49,7 @@ class GroupChatViewModel @Inject constructor(
                 .subscribe({
                     userList.value = it
                 }, {
-
+                    Timber.e(it)
                 })
                 .autoDispose()
         }
@@ -57,8 +59,10 @@ class GroupChatViewModel @Inject constructor(
         service.getUserProfile(userId)
             .get()
             .addOnSuccessListener {
-                val model = it.toObject<Users>()
-                ob.onNext(model)
+                if (it != null && it.exists()) {
+                    val model = it.toObject<Users>()
+                    ob.onNext(model)
+                }
             }.addOnFailureListener {
                 ob.onError(it)
             }.addOnCompleteListener {

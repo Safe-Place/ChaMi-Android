@@ -75,6 +75,7 @@ class GroupChatActivity : AppCompatActivity() {
                             transformations(CircleCropTransformation())
                         }
                         binding.tvName.text = groupChat?.namaGroup
+                        Timber.e(groupChat?.participants.toString())
                         groupChat?.participants?.let { listUser ->
                             val participan = listUser.toMutableList()
                             participan.remove(sharedPref.userId)
