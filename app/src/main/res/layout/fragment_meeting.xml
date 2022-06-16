@@ -35,6 +35,7 @@
         tools:text="6 Januari 2022" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/listMeeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -74,7 +75,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fb_more"
+        android:id="@+id/fb_add_jadwal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/purple_500"

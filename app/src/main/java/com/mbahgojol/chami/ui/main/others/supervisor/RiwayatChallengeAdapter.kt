@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
-import com.mbahgojol.chami.dummyData.Challenge
+import com.mbahgojol.chami.dummyData.HistoryChallenge
 import com.mbahgojol.chami.dummyData.RiwayatChallenge
 
 class RiwayatChallengeAdapter(private val listChallenge: ArrayList<RiwayatChallenge>) : RecyclerView.Adapter<RiwayatChallengeAdapter.ListViewHolder>() {
@@ -34,7 +34,7 @@ class RiwayatChallengeAdapter(private val listChallenge: ArrayList<RiwayatChalle
         val (judul, desc, reward, tenggat) = listChallenge[position]
         holder.tvJudul.text = judul
         holder.tvDeskripsi.text = desc
-        holder.tvReward.text = reward.toString()
+        holder.tvReward.text = reward.toString()+" Point"
         holder.tvTenggat.text = tenggat
 //        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listChallenge[holder.adapterPosition]) }
     }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -32,6 +33,9 @@ class SignupActivity : AppCompatActivity() {
     private var token: String = ""
     private val signupViewModel by viewModels<SignupViewModel>()
 
+    private var posisi_user: String? = "Agent"
+    private var divisi_user: String? = "Kosong"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,7 +59,6 @@ class SignupActivity : AppCompatActivity() {
             "https://i.pinimg.com/originals/f9/ba/90/f9ba90e3eba7af18a0ca139844ed08d5.jpg",
             "https://i.pinimg.com/originals/3f/c3/d2/3fc3d2a90e45cc51b9c2f2ec67992050.png",
             "https://i.pinimg.com/originals/eb/7f/a7/eb7fa775f1ee3ca4f8beeaff5dc9d468.jpg",
-
             )
 
         val avatar = image.random()
@@ -121,20 +124,42 @@ class SignupActivity : AppCompatActivity() {
         }
 
         // divisi spinner
-        val adapterDiv = ArrayAdapter.createFromResource(
-            this,
-            R.array.divisi_list, R.layout.spinner_item
-        )
-        adapterDiv.setDropDownViewResource(R.layout.spinner_list)
+        val listDivisi = resources.getStringArray(R.array.divisi_list)
+        val adapterDiv = ArrayAdapter(this, R.layout.spinner_item, listDivisi)
         binding.spinnerDivisi.adapter = adapterDiv
 
+        binding.spinnerDivisi.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                divisi_user = listDivisi[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
+
         // posisi spinner
-        val adapterPosisi = ArrayAdapter.createFromResource(
-            this,
-            R.array.posisi_list, R.layout.spinner_item
-        )
-        adapterPosisi.setDropDownViewResource(R.layout.spinner_list)
-        binding.spinnerPosisi.adapter = adapterPosisi
+        val listPosisi = resources.getStringArray(R.array.posisi_list)
+        val adapter = ArrayAdapter(this, R.layout.spinner_item, listPosisi)
+        binding.spinnerPosisi.adapter = adapter
+
+        binding.spinnerPosisi.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                posisi_user = listPosisi[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
 
         signupViewModel.isLoading.observe(this@SignupActivity) {
             showLoading(it)
@@ -178,8 +203,8 @@ class SignupActivity : AppCompatActivity() {
                     passwordPegawai,
                     konfirmPassword,
                     emailPegawai,
-                    posisiPegawai,
-                    divPegawai,
+                    posisi_user!!,
+                    divisi_user!!,
                     this@SignupActivity
                 )
             }

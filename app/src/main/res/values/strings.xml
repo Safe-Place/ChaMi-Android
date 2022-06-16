@@ -112,6 +112,32 @@
         <item>Selesai</item>
     </string-array>
 
+    <!--    dummy data history challenge-->
+    <string-array name="data_ric_judul">
+        <item>Membuat Brief Video</item>
+        <item>Menyelesaikan 10 masalah customer</item>
+    </string-array>
+
+    <string-array name="data_ric_desc">
+        <item>Silakan submit file yang sudah dibuat</item>
+        <item>Silakan submit file yang sudah dibuat</item>
+    </string-array>
+
+    <integer-array name="data_ric_reward">
+        <item>100</item>
+        <item>200</item>
+    </integer-array>
+
+    <string-array name="data_ric_tenggat">
+        <item>12 Mei 2022</item>
+        <item>13 Mei 2022</item>
+    </string-array>
+
+    <string-array name="data_ric_status">
+        <item>Selesai</item>
+        <item>Selesai</item>
+    </string-array>
+
     <!--    dummy data riwayat point-->
     <string-array name="data_jenis_riwayat">
         <item>Pembelian</item>
@@ -167,6 +193,52 @@
         <item>Penggunaan internet di luar aplikasi PUBG akan mengkonsumsi Kuota Utama.</item>
     </string-array>
 
+    <!--    dummy data participant challenge-->
+    <string-array name="data_participant_avatar">
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7b6f5523240799.5632176f43717.png</item>
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
+    </string-array>
+
+    <string-array name="data_participant_nama">
+        <item>Rinandi Sari</item>
+        <item>Srikandi Tampo</item>
+    </string-array>
+
+    <string-array name="data_participant_file">
+        <item>submission.pdf</item>
+        <item>proposal.pdf</item>
+    </string-array>
+
+    <string-array name="data_participant_pesan">
+        <item>ini adakah pesan</item>
+        <item>ide sudah terlampir di file</item>
+    </string-array>
+
+<!--    dummy data approval user-->
+    <string-array name="data_validasi_nama">
+        <item>Jane Doe</item>
+        <item>Liam Harris</item>
+        <item>Conan Edogawa</item>
+    </string-array>
+
+    <string-array name="data_validasi_divisi">
+        <item>Divisi Digital Center</item>
+        <item>Divisi Call Center</item>
+        <item>Divisi Customer Relation</item>
+    </string-array>
+
+    <string-array name="data_validasi_desc">
+        <item>User mencoba untuk login</item>
+        <item>User mencoba untuk login</item>
+        <item>User mencoba untuk login</item>
+    </string-array>
+
+    <string-array name="data_validasi_avatar">
+        <item>https://pbs.twimg.com/profile_images/815696249873690625/yDvJTEqk.jpg</item>
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
+        <item>https://www.technolearn.in/images/tes-img4.jpg</item>
+    </string-array>
+
     <string name="search">Search</string>
     <string name="document">Document</string>
     <string name="gallery">Gallery</string>
@@ -193,4 +265,7 @@
     <string name="riwayat_point">Riwayat Point</string>
     <string name="tukar_point">Tukar Point</string>
     <string name="grupbaru">Grup Baru</string>
+    <string name="tukar">Tukar</string>
+    <string name="deskripsimeeting">Siapkan file meeting yang sesuai brief, Gunakan virtual background, dan Datanglah tepat waktu</string>
+    <string name="req_validasi">Mencoba untuk login</string>
 </resources>

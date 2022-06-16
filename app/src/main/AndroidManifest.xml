@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -29,6 +33,36 @@
             android:name=".ui.main.chat.personal.converse.detail.DetailPersonalActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.main.others.DetailAprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.ApprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.meeting.DetailMeetingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.DetailParticipantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.ListParticipantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.DetailChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.TambahChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.RegistrasiFingerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.UbahSandiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.ChamiPictActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.others.DetailTukarPointActivity"
             android:exported="false" />
         <activity
@@ -42,6 +76,9 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.LainnyaSuperActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.others.KeamananActivity"

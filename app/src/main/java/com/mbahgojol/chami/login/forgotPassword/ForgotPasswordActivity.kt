@@ -15,6 +15,8 @@ import com.mukesh.OtpView
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding : ActivityForgotPasswordBinding
 
+    var otpView: OtpView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
@@ -23,7 +25,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        binding.otpView.setOtpCompletionListener {
+        otpView = findViewById(R.id.otp_view)
+
+        otpView!!.setOtpCompletionListener {
             val intent = Intent(this@ForgotPasswordActivity, NewPasswordActivity::class.java)
             startActivity(intent)
         }

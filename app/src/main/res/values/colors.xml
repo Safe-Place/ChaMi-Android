@@ -23,4 +23,8 @@
     <color name="boxChatLog">#40FFCB05</color>
     <color name="lightGreen">#E4FFE7</color>
     <color name="greenTua">#2ECC40</color>
+    <color name="greeyTua">#BE000000</color>
+    <color name="red_lid_bg">#FFE4DB</color>
+    <color name="red_lid">#FF0000</color>
+    <color name="green_lid_bg">#E4FFE7</color>
 </resources>

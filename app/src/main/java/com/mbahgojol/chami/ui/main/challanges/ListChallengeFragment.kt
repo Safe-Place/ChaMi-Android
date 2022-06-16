@@ -58,12 +58,12 @@ class ListChallengeFragment : Fragment() {
         val listChallengeAdapter = ListChallengeAdapter(list)
         rvChallenge.adapter = listChallengeAdapter
 
-//        listHeroAdapter.setOnItemClickCallback(object : ListChallengeAdapter.OnItemClickCallback {
-//            override fun onItemClicked(data: Challenge) {
-//                val moveWithObjectIntent = Intent(requireActivity(), DetailChallengeFragment::class.java)
-//                moveWithObjectIntent.putExtra(DetailChallenge.EXTRA_Challenge, data)
-//                startActivity(moveWithObjectIntent)
-//            }
-//        })
+        listChallengeAdapter.setOnItemClickCallback(object : ListChallengeAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Challenge) {
+                val moveWithObjectIntent = Intent(requireActivity(), DetailChallengeActivity::class.java)
+                moveWithObjectIntent.putExtra(DetailChallengeActivity.EXTRA_CHALLENGE, data)
+                startActivity(moveWithObjectIntent)
+            }
+        })
     }
 }
