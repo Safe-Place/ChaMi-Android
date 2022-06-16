@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.chat.personal.detail.DetailPersonalActivity">
+        tools:context=".ui.main.chat.personal.converse.detail.DetailPersonalActivity">
 
         <ImageView
             android:id="@+id/btnBack"

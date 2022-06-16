@@ -13,7 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class PersonalChatViewModel @Inject constructor(private val service: FirestoreService) :
+class ListPersonalViewModel @Inject constructor(private val service: FirestoreService) :
     BaseViewModel() {
 
     val listenList = MutableLiveData<MutableList<Users>>()

@@ -20,7 +20,13 @@
         android:theme="@style/FullScreen"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.main.chat.personal.detail.DetailPersonalActivity"
+            android:name=".ui.main.chat.group.converse.GroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.group.create.CreateGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.personal.converse.detail.DetailPersonalActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.others.DetailTukarPointActivity"
@@ -68,7 +74,7 @@
             android:name=".ui.main.chat.login.CreateActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.main.chat.personal.detail.DetailPersonalChatActivity"
+            android:name=".ui.main.chat.personal.converse.PersonalChatActivity"
             android:exported="false"
             android:theme="@style/FullScreen" />
         <activity

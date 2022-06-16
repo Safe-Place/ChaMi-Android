@@ -1,26 +1,23 @@
 package com.mbahgojol.chami.signup
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
-import com.mbahgojol.chami.ui.main.MainActivity
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.CreateUsers
-import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.login.LoginActivity
+import com.mbahgojol.chami.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +29,8 @@ class SignupActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sharedPref: SharedPref
+    private var token: String = ""
+    private val signupViewModel by viewModels<SignupViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,25 +44,6 @@ class SignupActivity : AppCompatActivity() {
             signup()
         }
 
-        binding.tvMoveLogin.setOnClickListener {
-            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        // divisi spinner
-        val adapterDiv = ArrayAdapter.createFromResource(this,
-            R.array.divisi_list, R.layout.spinner_item)
-        adapterDiv.setDropDownViewResource(R.layout.spinner_list)
-        binding.spinnerDivisi.adapter = adapterDiv
-
-        // posisi spinner
-        val adapterPosisi = ArrayAdapter.createFromResource(this,
-            R.array.posisi_list, R.layout.spinner_item)
-        adapterPosisi.setDropDownViewResource(R.layout.spinner_list)
-        binding.spinnerPosisi.adapter = adapterPosisi
-    }
-
-    private fun signup() {
         val image = listOf(
             "https://i.pinimg.com/736x/84/6c/72/846c720bbb1ec76af83d290f1b8cc97c.jpg",
             "https://i.pinimg.com/474x/93/1a/8d/931a8d683d3377eb8bf216438959ec1d.jpg",
@@ -78,7 +58,91 @@ class SignupActivity : AppCompatActivity() {
 
             )
 
-        val signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
+        val avatar = image.random()
+
+        signupViewModel.user.observe(this@SignupActivity) { user ->
+            LoginPref(this@SignupActivity).apply {
+                setNama(user.name)
+                setId(user.id_pegawai)
+                setEmail(user.email)
+                setDivisi(user.divisi)
+                setPosisi(user.posisi)
+                setAvatar(avatar)
+            }
+
+
+            val username = user.name
+            val users = CreateUsers(
+                true,
+                user.divisi, //Agent Divisi Digital Center
+                user.posisi,
+                avatar,
+                username = username,
+                user_id = user.id_pegawai,
+                token = token
+            )
+
+            service.searchUsers(user.id_pegawai)
+                .get()
+                .addOnSuccessListener {
+                    if (it != null && it.documents.isNotEmpty()) {
+                        Toast.makeText(
+                            this@SignupActivity,
+                            "Akun sudah ada",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        showLoading(false)
+                    } else {
+                        service.addUsers(users).addOnSuccessListener {
+                            sharedPref.userId = user.id_pegawai
+                            sharedPref.userName = binding.nama.text.toString()
+                            LoginPref(this@SignupActivity).setSession(true)
+                            showLoading(false)
+                            Intent(this, MainActivity::class.java).apply {
+                                putExtra("user_id", sharedPref.userId)
+                                this.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(this)
+                            }
+                        }
+                    }
+                }
+        }
+
+        binding.tvMoveLogin.setOnClickListener {
+            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.e("TOKEN => ", it)
+            token = it
+        }
+
+        // divisi spinner
+        val adapterDiv = ArrayAdapter.createFromResource(
+            this,
+            R.array.divisi_list, R.layout.spinner_item
+        )
+        adapterDiv.setDropDownViewResource(R.layout.spinner_list)
+        binding.spinnerDivisi.adapter = adapterDiv
+
+        // posisi spinner
+        val adapterPosisi = ArrayAdapter.createFromResource(
+            this,
+            R.array.posisi_list, R.layout.spinner_item
+        )
+        adapterPosisi.setDropDownViewResource(R.layout.spinner_list)
+        binding.spinnerPosisi.adapter = adapterPosisi
+
+        signupViewModel.isLoading.observe(this@SignupActivity) {
+            showLoading(it)
+        }
+    }
+
+    private fun signup() {
+
 
         val namaPegawai = binding.nama.text.toString()
         val idPegawai = binding.idPegawai.text.toString()
@@ -108,8 +172,6 @@ class SignupActivity : AppCompatActivity() {
                 binding.konfirmPassword.error = "Password tidak sama"
             }
             else -> {
-
-                val avatar = image.random()
                 signupViewModel.signup(
                     idPegawai,
                     namaPegawai,
@@ -120,52 +182,6 @@ class SignupActivity : AppCompatActivity() {
                     divPegawai,
                     this@SignupActivity
                 )
-
-                signupViewModel.isLoading.observe(this@SignupActivity) {
-                    showLoading(it)
-                }
-
-                signupViewModel.user.observe(this@SignupActivity) { user ->
-                    LoginPref(this@SignupActivity).apply {
-                        setNama(user.name)
-                        setId(user.id_pegawai)
-                        setEmail(user.email)
-                        setDivisi(user.divisi)
-                        setPosisi(user.posisi)
-                        setAvatar(avatar)
-                    }
-
-
-                    val username = user.name
-                    val users = CreateUsers(
-                        true,
-                        user.divisi, //Agent Divisi Digital Center
-                        user.posisi,
-                        avatar,
-                        username = username
-                    )
-
-                    service.searchUsers(user.id_pegawai)
-                        .get()
-                        .addOnSuccessListener {
-                            if (it != null && it.documents.isNotEmpty()) {
-                                Toast.makeText(this@SignupActivity, "Akun sudah ada", Toast.LENGTH_LONG).show()
-
-                                showLoading(false)
-                            } else {
-                                service.addUsers(users, user.id_pegawai) { id ->
-                                    sharedPref.userId = id
-                                    LoginPref(this@SignupActivity).setSession(true)
-                                    showLoading(false)
-                                    Intent(this, MainActivity::class.java).apply {
-                                        putExtra("user_id", id)
-                                        this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                        startActivity(this)
-                                    }
-                                }
-                            }
-                        }
-                }
             }
         }
     }
@@ -174,8 +190,6 @@ class SignupActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
-
 
 
     companion object {

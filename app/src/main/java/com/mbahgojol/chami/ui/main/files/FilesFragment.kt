@@ -78,8 +78,7 @@ class FilesFragment : Fragment() {
 
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
-//            intent.type = "application/pdf"
-            intent.type = "*/*"
+            intent.type = "application/pdf"
             startActivityForResult(intent, 777)
 
         }

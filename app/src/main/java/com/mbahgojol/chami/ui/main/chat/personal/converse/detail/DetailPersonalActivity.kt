@@ -1,10 +1,11 @@
-package com.mbahgojol.chami.ui.main.chat.personal.detail
+package com.mbahgojol.chami.ui.main.chat.personal.converse.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.databinding.ActivityDetailPersonalBinding
+import com.mbahgojol.chami.ui.main.chat.personal.converse.setStatusBarGradiant
 
 class DetailPersonalActivity : AppCompatActivity() {
 

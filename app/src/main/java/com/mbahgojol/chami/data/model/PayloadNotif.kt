@@ -2,10 +2,10 @@ package com.mbahgojol.chami.data.model
 
 data class PayloadNotif(
     val data: Data? = null,
-    val to: String? = null
+    var to: String? = null
 ) {
     data class Data(
-        val idReceiver: String? = null,
+        var idReceiver: String? = null,
         val idSender: String? = null,
         val roomId: String? = null,
         val title: String? = null,

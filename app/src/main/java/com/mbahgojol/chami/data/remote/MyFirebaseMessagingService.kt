@@ -103,6 +103,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendRegistrationToServer(token: String?) {
+        if (sharedPref.userId != "") service.updateToken(sharedPref.userId, token.toString())
         Timber.tag(TAG).d("sendRegistrationTokenToServer($token)")
     }
 

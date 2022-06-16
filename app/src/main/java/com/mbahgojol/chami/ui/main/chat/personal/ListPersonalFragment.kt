@@ -12,15 +12,15 @@ import com.google.firebase.firestore.ktx.toObjects
 import com.mbahgojol.chami.data.SharedPref
 import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.data.remote.FirestoreService
-import com.mbahgojol.chami.databinding.FragmentPersonalChatBinding
-import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
+import com.mbahgojol.chami.databinding.FragmentPersonalListBinding
+import com.mbahgojol.chami.ui.main.chat.personal.converse.PersonalChatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PersonalChatFragment : Fragment() {
-    private var binding: FragmentPersonalChatBinding? = null
+class ListPersonalFragment : Fragment() {
+    private var binding: FragmentPersonalListBinding? = null
 
     @Inject
     lateinit var firestoreModule: FirestoreService
@@ -28,11 +28,11 @@ class PersonalChatFragment : Fragment() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val viewModel: PersonalChatViewModel by viewModels()
+    private val viewModel: ListPersonalViewModel by viewModels()
 
     private val listAdapter by lazy {
-        PersonalChatAdapter(sharedPref.userId, firestoreModule) { room, isread ->
-            Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
+        ListPersonalAdapter(sharedPref.userId, firestoreModule) { room, isread ->
+            Intent(requireActivity(), PersonalChatActivity::class.java).apply {
                 putExtra("data", room)
                 putExtra("isInit", false)
                 startActivity(this)
@@ -44,7 +44,7 @@ class PersonalChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPersonalChatBinding.inflate(inflater, container, false)
+        binding = FragmentPersonalListBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

@@ -17,13 +17,13 @@ import com.mbahgojol.chami.databinding.ItemListChatBinding
 import com.mbahgojol.chami.utils.DateUtils
 import timber.log.Timber
 
-class PersonalChatAdapter constructor(
+class ListPersonalAdapter constructor(
     private val senderId: String,
     private val service: FirestoreService,
     private val data: MutableList<ChatRoom> = mutableListOf(),
     private var listener: (ChatRoom, Boolean) -> Unit
 ) :
-    RecyclerView.Adapter<PersonalChatAdapter.PersonalChatViewHolder>() {
+    RecyclerView.Adapter<ListPersonalAdapter.PersonalChatViewHolder>() {
 
     fun setData(data: MutableList<ChatRoom>) {
         this.data.clear()
