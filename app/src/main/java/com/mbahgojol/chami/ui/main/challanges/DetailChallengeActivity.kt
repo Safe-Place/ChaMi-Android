@@ -171,6 +171,7 @@ class DetailChallengeActivity : BaseActivity() {
         uploadFile
             .addOnFailureListener {
                 Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                binding.progressBar.isVisible = false
             }
             .addOnSuccessListener { taskSnapshot ->
 //                Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_LONG).show()
@@ -202,10 +203,12 @@ class DetailChallengeActivity : BaseActivity() {
                     }
 
                     binding.tvFile.text = nameFile
-                    binding.btnKirim.isVisible = false
+                    binding.progressBar.isVisible = false
+
 
                 }.addOnFailureListener {
                     Timber.e("Gagal mendapatkan metadata")
+                    binding.progressBar.isVisible = false
                 }
             }
         }
