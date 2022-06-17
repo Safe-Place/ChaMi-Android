@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mbahgojol.chami.data.model.Files
 import com.mbahgojol.chami.databinding.ActivityDetailFileBinding
+import com.mbahgojol.chami.utils.BaseActivity
 import timber.log.Timber
 
-class DetailFileActivity : AppCompatActivity() {
+class DetailFileActivity : BaseActivity() {
     private lateinit var binding: ActivityDetailFileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

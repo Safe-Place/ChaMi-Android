@@ -9,8 +9,9 @@ import com.mbahgojol.chami.databinding.ActivityDaftarTransaksiBinding
 import com.mbahgojol.chami.databinding.ActivityRiwayatPointBinding
 import com.mbahgojol.chami.dummyData.RiwayatPoint
 import com.mbahgojol.chami.dummyData.RiwayatTransaksi
+import com.mbahgojol.chami.utils.BaseActivity
 
-class RiwayatPointActivity : AppCompatActivity() {
+class RiwayatPointActivity : BaseActivity() {
     private lateinit var binding : ActivityRiwayatPointBinding
 
     private lateinit var rvPoint : RecyclerView

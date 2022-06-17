@@ -45,11 +45,6 @@ class PersonalChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
-
         binding = ActivityPersonalChatBinding.inflate(layoutInflater)
         setStatusBarGradiant(this)
         setContentView(binding.root)
@@ -99,6 +94,8 @@ class PersonalChatActivity : AppCompatActivity() {
                 val currentDate = DateUtils.getCurrentTime()
 
                 val msg = binding.etPesan.text.toString()
+                if (msg == "") return@setOnClickListener
+
                 val data = ChatLog(
                     senderId,
                     sharedPref.userName,

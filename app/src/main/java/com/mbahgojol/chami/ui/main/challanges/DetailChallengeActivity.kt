@@ -29,6 +29,7 @@ import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.Produk
 import com.mbahgojol.chami.ui.main.files.DetailFileActivity
 import com.mbahgojol.chami.ui.main.others.DetailTukarPointActivity
+import com.mbahgojol.chami.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -36,7 +37,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailChallengeActivity : AppCompatActivity() {
+class DetailChallengeActivity : BaseActivity() {
     private lateinit var binding : ActivityDetailChallengeBinding
 
     @Inject

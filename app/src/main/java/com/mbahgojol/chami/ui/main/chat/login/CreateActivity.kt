@@ -14,12 +14,13 @@ import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityCreateBinding
 import com.mbahgojol.chami.ui.main.MainActivity
+import com.mbahgojol.chami.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class CreateActivity : AppCompatActivity() {
+class CreateActivity : BaseActivity() {
 
     @Inject
     lateinit var service: FirestoreService

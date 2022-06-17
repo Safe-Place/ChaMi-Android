@@ -13,8 +13,9 @@ import com.mbahgojol.chami.dummyData.Participant
 import com.mbahgojol.chami.dummyData.Validasi
 import com.mbahgojol.chami.ui.main.challanges.DetailParticipantActivity
 import com.mbahgojol.chami.ui.main.challanges.ListParticipantAdapter
+import com.mbahgojol.chami.utils.BaseActivity
 
-class ApprovalActivity : AppCompatActivity() {
+class ApprovalActivity : BaseActivity() {
     private lateinit var binding : ActivityApprovalBinding
 
     private lateinit var rvValidasi : RecyclerView

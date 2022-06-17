@@ -11,8 +11,9 @@ import com.mbahgojol.chami.databinding.ActivityRiwayatPointBinding
 import com.mbahgojol.chami.databinding.ActivityTukarPointBinding
 import com.mbahgojol.chami.dummyData.Produk
 import com.mbahgojol.chami.dummyData.RiwayatPoint
+import com.mbahgojol.chami.utils.BaseActivity
 
-class TukarPointActivity : AppCompatActivity() {
+class TukarPointActivity : BaseActivity() {
     private lateinit var binding : ActivityTukarPointBinding
 
     private lateinit var rvProduk : RecyclerView

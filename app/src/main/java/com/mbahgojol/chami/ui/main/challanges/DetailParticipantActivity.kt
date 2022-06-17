@@ -17,9 +17,10 @@ import com.mbahgojol.chami.dummyData.Produk
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+import com.mbahgojol.chami.utils.BaseActivity
 
 @AndroidEntryPoint
-class DetailParticipantActivity : AppCompatActivity() {
+class DetailParticipantActivity : BaseActivity() {
     private lateinit var binding : ActivityDetailParticipantBinding
 
     @Inject

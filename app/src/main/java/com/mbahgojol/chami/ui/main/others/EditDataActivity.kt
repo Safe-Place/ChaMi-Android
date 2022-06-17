@@ -21,6 +21,7 @@ import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityEditDataBinding
 import com.mbahgojol.chami.databinding.ActivityLoginBinding
 import com.mbahgojol.chami.signup.uriToFile
+import com.mbahgojol.chami.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
@@ -28,7 +29,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EditDataActivity : AppCompatActivity() {
+class EditDataActivity : BaseActivity() {
     private lateinit var binding : ActivityEditDataBinding
 
     val storage = Firebase.storage("gs://chami-dev-8390a.appspot.com")

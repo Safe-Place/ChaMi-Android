@@ -19,13 +19,14 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.utils.BaseActivity
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class ChamiPictActivity : AppCompatActivity() {
+class ChamiPictActivity : BaseActivity() {
 
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File

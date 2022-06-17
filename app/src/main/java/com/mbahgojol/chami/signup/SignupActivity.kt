@@ -18,11 +18,12 @@ import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.login.LoginActivity
 import com.mbahgojol.chami.ui.main.MainActivity
+import com.mbahgojol.chami.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SignupActivity : AppCompatActivity() {
+class SignupActivity : BaseActivity() {
     private lateinit var binding: ActivitySignupBinding
 
     @Inject

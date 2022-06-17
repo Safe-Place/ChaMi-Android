@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityDaftarTransaksiBinding
 import com.mbahgojol.chami.dummyData.RiwayatTransaksi
+import com.mbahgojol.chami.utils.BaseActivity
 
-class DaftarTransaksiActivity : AppCompatActivity() {
+class DaftarTransaksiActivity : BaseActivity() {
     private lateinit var binding : ActivityDaftarTransaksiBinding
 
     private lateinit var rvTransaksi : RecyclerView

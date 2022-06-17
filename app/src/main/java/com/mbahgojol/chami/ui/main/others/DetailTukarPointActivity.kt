@@ -6,8 +6,9 @@ import coil.load
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityDetailTukarPointBinding
 import com.mbahgojol.chami.dummyData.Produk
+import com.mbahgojol.chami.utils.BaseActivity
 
-class DetailTukarPointActivity : AppCompatActivity() {
+class DetailTukarPointActivity : BaseActivity() {
     private lateinit var binding : ActivityDetailTukarPointBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

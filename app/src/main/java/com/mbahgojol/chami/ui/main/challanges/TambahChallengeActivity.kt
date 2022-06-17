@@ -15,9 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import com.mbahgojol.chami.utils.BaseActivity
 
 @AndroidEntryPoint
-class TambahChallengeActivity : AppCompatActivity() {
+class TambahChallengeActivity : BaseActivity() {
 
     @Inject
     lateinit var firestoreModule: FirestoreService

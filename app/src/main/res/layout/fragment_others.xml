@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp"
     tools:context=".ui.main.others.OthersFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="10dp">
@@ -20,7 +20,7 @@
             android:id="@+id/ivAvatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src= "@drawable/ic_baseline_person_24"/>
+            android:src="@drawable/ic_baseline_person_24" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,28 +55,30 @@
         android:id="@+id/linearLayout02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@id/linearLayout01">
+
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            app:tint="@color/black"
-            android:src="@drawable/ic_point"/>
+            android:src="@drawable/ic_point"
+            app:tint="@color/startOren" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="18dp"
             android:layout_gravity="center"
-            android:fontFamily="@font/inter_reguler"
-            android:textSize="14sp"
             android:layout_marginStart="10dp"
-            android:text="1000 Point"/>
+            android:fontFamily="@font/inter_reguler"
+            android:text="1000 Point"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <ImageView
+    <View
         android:id="@+id/ivSeparator"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="5dp"
         android:layout_marginTop="10dp"
         android:background="@color/light_grey"
         app:layout_constraintStart_toStartOf="@+id/linearLayout02"
@@ -85,10 +87,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/ivSeparator">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,207 +98,234 @@
             android:fontFamily="@font/inter_bold"
             android:text="Aktivitas Saya"
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
+
         <LinearLayout
             android:id="@+id/linearDaftarTransaksi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_view_list_24"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/inter_reguler"
                 android:text="Daftar Transaksi"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginStart="10dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearTukarPoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_shopping_cart_24"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/inter_reguler"
                 android:text="Tukar Point"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginStart="10dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearRiwayatPoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_history"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/inter_reguler"
                 android:text="Riwayat Point"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginStart="10dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearValidasiUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_view_list_24"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/inter_reguler"
                 android:text="Validasi User"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginStart="10dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearRiwayatChallenge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_history"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/inter_reguler"
                 android:text="Riwayat Challenge"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginStart="10dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="6dp"
             android:fontFamily="@font/inter_bold"
             android:text="Pengaturan Akun"
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_edit_24"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <LinearLayout
                 android:id="@+id/linearEditData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_reguler"
                     android:text="Edit Data"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginStart="10dp"/>
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_reguler"
                     android:text="Ganti email, username"
                     android:textColor="@color/stream_gray"
-                    android:textSize="10sp"
-                    android:layout_marginStart="10dp"/>
+                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_security_24"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <LinearLayout
                 android:id="@+id/keamananAkun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_reguler"
                     android:text="Keamanan Akun"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginStart="10dp"/>
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_reguler"
                     android:text="Kata sandi, PIN dan verifikasi data diri"
                     android:textColor="@color/stream_gray"
-                    android:textSize="10sp"
-                    android:layout_marginStart="10dp"/>
+                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_baseline_exit_to_app_24"
-                app:tint="@color/black"/>
+                app:tint="@color/black" />
+
             <TextView
                 android:id="@+id/tvLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/inter_reguler"
                 android:text="Keluar Akun"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginStart="10dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

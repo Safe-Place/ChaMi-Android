@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityKeamananBinding
+import com.mbahgojol.chami.utils.BaseActivity
 
-class KeamananActivity : AppCompatActivity() {
+class KeamananActivity : BaseActivity() {
     private lateinit var binding : ActivityKeamananBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

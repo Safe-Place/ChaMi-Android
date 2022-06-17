@@ -225,7 +225,7 @@
         <item>ide sudah terlampir di file</item>
     </string-array>
 
-<!--    dummy data approval user-->
+    <!--    dummy data approval user-->
     <string-array name="data_validasi_nama">
         <item>Jane Doe</item>
         <item>Liam Harris</item>

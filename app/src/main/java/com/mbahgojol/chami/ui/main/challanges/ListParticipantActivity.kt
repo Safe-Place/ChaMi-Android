@@ -22,9 +22,10 @@ import com.mbahgojol.chami.ui.main.others.DetailTukarPointActivity
 import com.mbahgojol.chami.ui.main.others.TukarPointAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import com.mbahgojol.chami.utils.BaseActivity
 
 @AndroidEntryPoint
-class ListParticipantActivity : AppCompatActivity() {
+class ListParticipantActivity : BaseActivity() {
     private lateinit var binding : ActivityListParticipantBinding
 
     private lateinit var rvParticipant : RecyclerView
