@@ -19,20 +19,31 @@ import com.google.firebase.storage.ktx.storage
 import com.mbahgojol.chami.LoginPref
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.data.model.Challenges
+import com.mbahgojol.chami.data.model.Files
+import com.mbahgojol.chami.data.model.Peserta
+import com.mbahgojol.chami.data.model.Submission
+import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityDetailChallengeBinding
 import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.Produk
 import com.mbahgojol.chami.ui.main.files.DetailFileActivity
 import com.mbahgojol.chami.ui.main.others.DetailTukarPointActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailChallengeActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailChallengeBinding
 
+    @Inject
+    lateinit var firestoreModule: FirestoreService
+
     val storage = Firebase.storage("gs://chami-dev-8390a.appspot.com")
     lateinit var uri: Uri
+    private var challengeId: String? = ""
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,15 +68,20 @@ class DetailChallengeActivity : AppCompatActivity() {
 
         val avatar = image.random()
 
+        challengeId = data.challenge_id
+
         // cek jabatan user
         val jabatan = LoginPref(this@DetailChallengeActivity).getPosisi()
         if (jabatan != "Agent"){
             binding.linearSubmission.isVisible = false
             binding.btnParticipant.isVisible = true
+        } else{
+            ceksubmission()
         }
 
         binding.btnParticipant.setOnClickListener {
             Intent(this, ListParticipantActivity::class.java).apply {
+                putExtra(ListParticipantActivity.EXTRA_CHALLENGEID, challengeId)
                 startActivity(this)
             }
         }
@@ -78,17 +94,11 @@ class DetailChallengeActivity : AppCompatActivity() {
 //        binding.avatarWinner.load(avatar){
 //            transformations(CircleCropTransformation())
 //        }
-
         binding.avatarWinner.isInvisible = false
         binding.tvPemenang.isVisible = false
 
         binding.btnBack.setOnClickListener {
             finishAndRemoveTask()
-        }
-
-        binding.btnKirim.setOnClickListener {
-            Toast.makeText(this@DetailChallengeActivity, "Pesan Terkirim", Toast.LENGTH_LONG).show()
-
         }
 
         binding.btnTambahLampiran.setOnClickListener {
@@ -123,7 +133,7 @@ class DetailChallengeActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
 //            intent.type = "application/pdf"
-        intent.type = "application/pdf"
+        intent.type = "*/*"
         startActivityForResult(intent, 777)
     }
 
@@ -174,7 +184,7 @@ class DetailChallengeActivity : AppCompatActivity() {
                     binding.tvFile.isVisible = true
                     binding.btnKirim.isVisible = true
                     binding.btnKirim.setOnClickListener {
-                        uploadtoFirestore()
+                        uploadtoFirestore(nameFile, downloadUri)
                     }
 
                     binding.tvFile.text = nameFile
@@ -186,27 +196,75 @@ class DetailChallengeActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadtoFirestore(){
+    private fun uploadtoFirestore(namaFile: String?, fileUri: Uri) {
+        val avatar = LoginPref(this).getAvatar()
+        val namaUser = LoginPref(this).getNama()
+        val idUser = LoginPref(this).getId()
 
+        val submission = Submission(
+            fileUri.toString(),
+            namaFile,
+            avatar,
+            namaUser,
+            idUser,
+            "",
+            challenge_id = challengeId
+        )
+
+        val peserta = Peserta(
+            challengeId,
+            namaUser,
+            avatar,
+            idUser,
+            false
+        )
+//                    binding.progressBar.isVisible = false
+        firestoreModule.submitChallenge(submission, challengeId) {
+        }
+        firestoreModule.addPeserta(peserta, challengeId).addOnSuccessListener {
+            Toast.makeText(this, "Submission terkirim", Toast.LENGTH_LONG).show()
+            binding.btnKirim.isVisible = false
+        }
     }
 
-    @SuppressLint("Range")
-    fun getFileNameFromUri(context: Context, uri: Uri): String? {
-        val fileName: String?
-        val cursor : Cursor? = context.contentResolver.query(uri, null, null, null, null)
-        cursor?.moveToFirst()
-        fileName = cursor?.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-        cursor?.close()
-        return fileName
+        @SuppressLint("Range")
+        fun getFileNameFromUri(context: Context, uri: Uri): String? {
+            val fileName: String?
+            val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
+            cursor?.moveToFirst()
+            fileName = cursor?.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            cursor?.close()
+            return fileName
+        }
+
+        fun convertLongToTime(time: Long): String {
+            val date = Date(time)
+            val format = SimpleDateFormat("dd-MM-yyyy")
+            return format.format(date)
+        }
+
+    fun ceksubmission() {
+        var userId = LoginPref(this).getId()
+        firestoreModule.getOneSubmission(challengeId, userId)
+            .addSnapshotListener { value, e ->
+                if (e != null) {
+                    Timber.d("Listen failed.")
+//                    binding.progressBar.isVisible = false
+                    return@addSnapshotListener
+                }
+                var namaFile: String? = null
+                for (doc in value!!) {
+                    namaFile = doc.getString("nama_file")
+//                    binding.progressBar.isVisible = false
+                }
+                if (namaFile != null) {
+                    binding.btnTambahLampiran.isVisible = false
+                    binding.tvFile.isVisible = true
+                    binding.tvFile.text = namaFile
+                    binding.btnKirim.isVisible = false
+                }
+            }
     }
-
-    fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("dd-MM-yyyy")
-        return format.format(date)
-    }
-
-
 
     companion object{
         const val EXTRA_CHALLENGE = "extra challenge"

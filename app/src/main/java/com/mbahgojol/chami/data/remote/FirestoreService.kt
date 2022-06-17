@@ -1,5 +1,6 @@
 package com.mbahgojol.chami.data.remote
 
+import android.system.Os.listen
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -399,4 +400,35 @@ class FirestoreService {
     fun getListChallenge(date: Long) =
         db.collection("challenge")
             .whereGreaterThanOrEqualTo("due_date", date)
+
+    fun submitChallenge(sub : Submission, challengeId : String?, listen: (String) -> Unit) =
+        db.collection("challenge")
+            .document(challengeId!!)
+            .collection("submission")
+            .add(sub)
+            .onSuccessTask { doc ->
+                doc.update("submission_id", doc.id)
+                    .addOnSuccessListener {
+                        listen(doc.id)
+                    }
+            }
+
+    fun addPeserta(peserta : Peserta, challengeId : String?) =
+        db.collection("challenge")
+            .document(challengeId!!)
+            .collection("peserta")
+            .document(peserta.user_id!!)
+            .set(peserta)
+
+    fun getOneSubmission(challengeId: String?, userId: String?):Query =
+        db.collection("challenge")
+            .document(challengeId!!)
+            .collection("submission")
+            .whereEqualTo("user_id",userId)
+
+    fun getListPeserta(challengeId: String?) =
+        db.collection("challenge")
+            .document(challengeId!!)
+            .collection("peserta")
+
 }
