@@ -1,69 +1,109 @@
 package com.mbahgojol.chami.ui.main.challanges
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.toObjects
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.data.model.Challenges
+import com.mbahgojol.chami.data.model.Files
+import com.mbahgojol.chami.data.model.Users
+import com.mbahgojol.chami.data.remote.FirestoreService
+import com.mbahgojol.chami.databinding.FragmentFilesBinding
+import com.mbahgojol.chami.databinding.FragmentListChallengeBinding
 import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.ui.main.chat.SectionsPagerAdapter
+import com.mbahgojol.chami.ui.main.files.DetailFileActivity
+import com.mbahgojol.chami.ui.main.files.FileAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import javax.inject.Inject
+import kotlin.collections.ArrayList
 
+@AndroidEntryPoint
 class ListChallengeFragment : Fragment() {
 
-    private lateinit var rvChallenge : RecyclerView
-    private var list = ArrayList<Challenge>()
+    private lateinit var binding: FragmentListChallengeBinding
 
-    private val listChallenge: ArrayList<Challenge>
-    get(){
-        val dataJudul = resources.getStringArray(R.array.data_judul)
-        val dataDeskripsi = resources.getStringArray(R.array.data_deskripsi)
-        val dataReward = resources.getIntArray(R.array.data_reward)
-        val dataDueData = resources.getStringArray(R.array.due_date)
-        val dataStatus = resources.getStringArray(R.array.data_status)
-        val listChallenge = ArrayList<Challenge>()
-        for (i in dataJudul.indices) {
-            val challenge = Challenge(dataJudul[i],dataDeskripsi[i], dataReward[i],
-                dataDueData[i],dataStatus[i])
-            listChallenge.add(challenge)
+    @Inject
+    lateinit var firestoreModule: FirestoreService
+
+    private val listAdapter by lazy {
+        ListChallengeAdapter {
+            Intent(requireActivity(), DetailChallengeActivity::class.java).apply {
+                putExtra(DetailChallengeActivity.EXTRA_CHALLENGE, it)
+                startActivity(this)
+            }
         }
-        return listChallenge
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        list.addAll(listChallenge)
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_challenge, container, false)
-
+        binding = FragmentListChallengeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val fragmentView = requireNotNull(view) {"View should not be null when calling onActivityCreated"}
+        binding.apply {
+            rvChallenge.apply {
+                layoutManager = LinearLayoutManager(requireActivity())
+                adapter = listAdapter
+                setHasFixedSize(true)
+            }
+        }
 
-        rvChallenge = fragmentView.findViewById(R.id.rv_Challenge)
-        rvChallenge.setHasFixedSize(true)
-        showRecyclerList()
+        val date = Calendar.getInstance().time
+        val sdf = SimpleDateFormat("dd-MM-yyyy")
+        val todayString = sdf.format(date)
+        val today = convertDateToLong(todayString)
+
+        firestoreModule.getListChallenge(today)
+            .get()
+            .addOnSuccessListener { documents ->
+                var listChallenge = ArrayList<Challenges>()
+                for (doc in documents) {
+                    var judul = doc.getString("judul")
+                    var deskripsi = doc.getString("deskripsi")
+                    var point = doc.getString("point")
+                    var tenggat = doc.getLong("due_date")
+                    var challenges_id = doc.getString("challenge_id")
+                    var owner_id = doc.getString("ownerId")
+                    var challenge = Challenges(judul, deskripsi,point,tenggat,challenges_id,owner_id)
+                    listChallenge.add(challenge)
+                    Log.d(TAG, "${doc.id} => ${doc.data}")
+                }
+                listAdapter.setData(listChallenge)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents files: ", exception)
+            }
     }
 
-    private fun showRecyclerList(){
-        rvChallenge.layoutManager = LinearLayoutManager(requireActivity())
-        val listChallengeAdapter = ListChallengeAdapter(list)
-        rvChallenge.adapter = listChallengeAdapter
+    fun convertDateToLong(date: String): Long {
+        val df = SimpleDateFormat("dd-MM-yyy")
+        return df.parse(date).time
+    }
 
-//        listHeroAdapter.setOnItemClickCallback(object : ListChallengeAdapter.OnItemClickCallback {
-//            override fun onItemClicked(data: Challenge) {
-//                val moveWithObjectIntent = Intent(requireActivity(), DetailChallengeFragment::class.java)
-//                moveWithObjectIntent.putExtra(DetailChallenge.EXTRA_Challenge, data)
-//                startActivity(moveWithObjectIntent)
-//            }
-//        })
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("dd-MM-yyyy")
+        return format.format(date)
     }
 }

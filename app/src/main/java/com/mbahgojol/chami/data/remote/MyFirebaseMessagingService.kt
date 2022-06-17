@@ -62,7 +62,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         .addOnSuccessListener {
                             val size = it.documents.size
                             sendNotification(
-                                "($size) Pesan Baru",
+                                "(${if (size == 0) 1 else size}) Pesan Baru",
                                 "Ketuk untuk melihat"
                             )
                         }.addOnFailureListener {
@@ -103,6 +103,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendRegistrationToServer(token: String?) {
+        if (sharedPref.userId != "") service.updateToken(sharedPref.userId, token.toString())
         Timber.tag(TAG).d("sendRegistrationTokenToServer($token)")
     }
 
@@ -115,7 +116,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.icon)
             .setContentTitle(msg[0])
             .setContentText(msg[1])
             .setColor(ContextCompat.getColor(this, android.R.color.transparent))

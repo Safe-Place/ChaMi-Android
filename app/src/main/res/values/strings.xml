@@ -42,9 +42,20 @@
     <string name="tandai_selesai">Tandai Selesai</string>
 
     <string-array name="divisi_list">
-        <item>Divisi Digital Center</item>
         <item>Divisi Customer Relation</item>
-        <item>Divisi Customer Resolution</item>
+        <item>Divisi Digital</item>
+        <item>Divisi Call Center</item>
+        <item>Divisi VIP Services</item>
+        <item>Divisi Retail Customer Experience (Gerai)</item>
+        <item>Divisi Business Process dan Training</item>
+        <item>Divisi Service Quality dan Exp. Assurance</item>
+        <item>Divisi Customer Journey</item>
+        <item>Divisi Collection dan Payment</item>
+        <item>Divisi Billing dan Administration</item>
+        <item>Divisi Verification dan Credit Monitoring</item>
+        <item>Divisi Business Planning dan Project Tracking</item>
+        <item>Divisi Infra, Support dan Tech. Development</item>
+        <item>Divisi CX Reporting Teams</item>
     </string-array>
 
     <string-array name="posisi_list">
@@ -52,6 +63,7 @@
         <item>Supervisor</item>
     </string-array>
 
+    <!--    dummy data challenge-->
     <integer-array name="avatar">
         <item>@drawable/avatar</item>
     </integer-array>
@@ -84,8 +96,166 @@
         <item>Sedang Berlangsung</item>
         <item>Sedang Berlangsung</item>
         <item>Sedang Berlangsung</item>
-
     </string-array>
+
+    <!--        dummy data riwayat transaksi-->
+    <string-array name="data_tanggal_trx">
+        <item>12 Juni 2022 12:00</item>
+        <item>10 April 2022 11:00</item>
+        <item>9 April 2022 18:17</item>
+    </string-array>
+
+    <string-array name="data_nama_trx">
+        <item>Unlimited PUBG</item>
+        <item>Yellow 4GB</item>
+        <item>Yellow 1GB</item>
+    </string-array>
+
+    <integer-array name="data_harga_trx">
+        <item>500</item>
+        <item>1000</item>
+        <item>700</item>
+    </integer-array>
+
+    <string-array name="data_status_trx">
+        <item>Diproses</item>
+        <item>Selesai</item>
+        <item>Selesai</item>
+    </string-array>
+
+    <!--    dummy data history challenge-->
+    <string-array name="data_ric_judul">
+        <item>Membuat Brief Video</item>
+        <item>Menyelesaikan 10 masalah customer</item>
+    </string-array>
+
+    <string-array name="data_ric_desc">
+        <item>Silakan submit file yang sudah dibuat</item>
+        <item>Silakan submit file yang sudah dibuat</item>
+    </string-array>
+
+    <integer-array name="data_ric_reward">
+        <item>100</item>
+        <item>200</item>
+    </integer-array>
+
+    <string-array name="data_ric_tenggat">
+        <item>12 Mei 2022</item>
+        <item>13 Mei 2022</item>
+    </string-array>
+
+    <string-array name="data_ric_status">
+        <item>Selesai</item>
+        <item>Selesai</item>
+    </string-array>
+
+    <!--    dummy data riwayat point-->
+    <string-array name="data_jenis_riwayat">
+        <item>Pembelian</item>
+        <item>Adjustment</item>
+    </string-array>
+
+    <string-array name="data_nama_riwayat">
+        <item>Unlimited PUBG</item>
+        <item>Winner Challenge 1</item>
+    </string-array>
+
+    <string-array name="data_tanggal_riwayat">
+        <item>20 Mei 2022</item>
+        <item>27 April 2022</item>
+    </string-array>
+
+    <integer-array name="data_nominal_riwayat">
+        <item>1000</item>
+        <item>1000</item>
+    </integer-array>
+
+    <string-array name="data_status_riwayat">
+        <item>Berhasil</item>
+        <item>Berhasil</item>
+    </string-array>
+
+    <!--    dummy data produk-->
+    <string-array name="data_foto_produk">
+        <item>https://www.simcard.sg/wp-content/uploads/Indosat-Ooredoo-SIM-Card-450x450.png</item>
+        <item>https://www.simcard.sg/wp-content/uploads/Indosat-Ooredoo-SIM-Card-450x450.png</item>
+        <item>https://s1.bukalapak.com/img/118996754/w-1000/PERDANA_INDOSAT_OOREDOO_28GB__8GB___20GB_4G__24JAM_3BULAN.jpg</item>
+        <item>https://s0.bukalapak.com/img/545268103/w-1000/Indosat_Pulsa_200000_HARGA_PROMO___.png</item>
+    </string-array>
+
+    <string-array name="data_nama_produk">
+        <item>YELLOW 1GB</item>
+        <item>Unlimited PUBG</item>
+        <item>YELLOW 3GB</item>
+        <item>Unlimited Booster</item>
+    </string-array>
+
+    <integer-array name="data_harga_produk">
+        <item>1000</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>700</item>
+    </integer-array>
+
+    <string-array name="data_desc_produk">
+        <item>Masa aktif Kuota Unlimited adalah 24 jam sejak registrasi paket dan berlaku batas pemakaian wajar.</item>
+        <item>Penggunaan internet di luar aplikasi PUBG akan mengkonsumsi Kuota Utama.</item>
+        <item>Kuota Unlimited PUBG hanya berlaku untuk akses ke aplikasi PUBG.</item>
+        <item>Penggunaan internet di luar aplikasi PUBG akan mengkonsumsi Kuota Utama.</item>
+    </string-array>
+
+    <!--    dummy data participant challenge-->
+    <string-array name="data_participant_avatar">
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7b6f5523240799.5632176f43717.png</item>
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
+    </string-array>
+
+    <string-array name="data_participant_nama">
+        <item>Rinandi Sari</item>
+        <item>Srikandi Tampo</item>
+    </string-array>
+
+    <string-array name="data_participant_file">
+        <item>submission.pdf</item>
+        <item>proposal.pdf</item>
+    </string-array>
+
+    <string-array name="data_participant_pesan">
+        <item>ini adakah pesan</item>
+        <item>ide sudah terlampir di file</item>
+    </string-array>
+
+    <!--    dummy data approval user-->
+    <string-array name="data_validasi_nama">
+        <item>Jane Doe</item>
+        <item>Liam Harris</item>
+        <item>Conan Edogawa</item>
+    </string-array>
+
+    <string-array name="data_validasi_divisi">
+        <item>Divisi Digital Center</item>
+        <item>Divisi Call Center</item>
+        <item>Divisi Customer Relation</item>
+    </string-array>
+
+    <string-array name="data_validasi_desc">
+        <item>User mencoba untuk login</item>
+        <item>User mencoba untuk login</item>
+        <item>User mencoba untuk login</item>
+    </string-array>
+
+    <string-array name="data_validasi_avatar">
+        <item>https://pbs.twimg.com/profile_images/815696249873690625/yDvJTEqk.jpg</item>
+        <item>https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c491a823240799.5632176c3265c.png</item>
+        <item>https://www.technolearn.in/images/tes-img4.jpg</item>
+    </string-array>
+
+    <string-array name="data_validasi_id">
+        <item>11187878799</item>
+        <item>11165273910</item>
+        <item>11199882261</item>
+    </string-array>
+
     <string name="search">Search</string>
     <string name="document">Document</string>
     <string name="gallery">Gallery</string>
@@ -100,4 +270,19 @@
     <string name="hint_otp">Masukkan kode OTP yang sudah dikirimkan ke email</string>
     <string name="password_baru">Password baru</string>
     <string name="simpan">Simpan</string>
+    <string name="ganti_foto">Ganti Foto Profil</string>
+    <string name="keamanan_akun">Keamanan Akun</string>
+    <string name="chami_pict">CHAMI PICT</string>
+    <string name="pict_hint">Akses chat lebih cepat dan aman dengan verifikasi wajah saat membuka aplikasi.</string>
+    <string name="chami_pictt">Chami Pict</string>
+    <string name="sidik_jari">Sidik Jari</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="riwayat_challenge">Riwayat Challenge</string>
+    <string name="daftar_transaksi">Daftar Transaksi</string>
+    <string name="riwayat_point">Riwayat Point</string>
+    <string name="tukar_point">Tukar Point</string>
+    <string name="grupbaru">Grup Baru</string>
+    <string name="tukar">Tukar</string>
+    <string name="deskripsimeeting">Siapkan file meeting yang sesuai brief, Gunakan virtual background, dan Datanglah tepat waktu</string>
+    <string name="req_validasi">Mencoba untuk login</string>
 </resources>

@@ -15,7 +15,7 @@ import com.mbahgojol.chami.data.model.Detail
 import com.mbahgojol.chami.data.model.Users
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.FragmentSearchBinding
-import com.mbahgojol.chami.ui.main.chat.personal.detail.DetailPersonalChatActivity
+import com.mbahgojol.chami.ui.main.chat.personal.converse.PersonalChatActivity
 import com.mbahgojol.chami.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -47,7 +47,7 @@ class SearchFragment : Fragment() {
                                     val detail = snapshot.toObject<Detail>()
                                     Intent(
                                         requireActivity(),
-                                        DetailPersonalChatActivity::class.java
+                                        PersonalChatActivity::class.java
                                     ).apply {
                                         putExtra("data", room)
                                         putExtra("isread", detail?.isread)
@@ -56,7 +56,7 @@ class SearchFragment : Fragment() {
                                 }
                             }
                     } else {
-                        Intent(requireActivity(), DetailPersonalChatActivity::class.java).apply {
+                        Intent(requireActivity(), PersonalChatActivity::class.java).apply {
                             putExtra("users", it)
                             startActivity(this)
                         }

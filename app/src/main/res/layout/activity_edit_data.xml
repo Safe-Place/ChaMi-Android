@@ -3,75 +3,114 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".ui.main.others.EditDataActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tbDetailChat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500"
+        android:background="@drawable/custom_bg_gradient"
         android:minHeight="?attr/actionBarSize"
         android:orientation="horizontal"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="16dp"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/edit_data"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_gravity="center_vertical"/>
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSave"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_baseline_check_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBack"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/sibuk"-->
+<!--        android:textSize="14sp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/textView3"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView3" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="Ahmad Junaidi"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/avatar"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/avatar" />-->
 
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="78dp"
         android:layout_height="78dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="132dp"
         android:src="@drawable/ic_baseline_person_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvGantiAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
-        android:text="Ahmad Junaidi"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="@+id/avatar" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sibuk"
-        android:textSize="14sp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/ganti_foto"
+        android:textColor="@color/teal_200"
+        android:layout_marginTop="10dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/avatar"
+        app:layout_constraintStart_toStartOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@+id/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatar">
 
         <LinearLayout
@@ -90,8 +129,8 @@
                 android:id="@+id/nama"
                 style="@style/inputTextEditProfil"
                 android:layout_height="wrap_content"
-                android:text="Annisa"
-                android:backgroundTint="@color/black"/>
+                android:backgroundTint="@color/black"
+                android:text="Annisa" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,15 +143,15 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_email_24"
+                android:src="@drawable/ic_baseline_people_24"
                 app:tint="@color/black" />
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/divisi"
                 style="@style/inputTextEditProfil"
                 android:layout_height="wrap_content"
-                android:text="annisa@gmail.com"
-                android:backgroundTint="@color/black"/>
+                android:backgroundTint="@color/black"
+                android:text="Divisi Digital Center" />
         </LinearLayout>
 
         <LinearLayout
@@ -132,8 +171,8 @@
                 android:id="@+id/idPegawai"
                 style="@style/inputTextSignup"
                 android:layout_height="wrap_content"
-                android:text="IOH2020122"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:text="IOH2020122" />
         </LinearLayout>
 
         <LinearLayout
@@ -146,15 +185,35 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_people_24"
+                android:src="@drawable/ic_baseline_email_24"
                 app:tint="@color/grey" />
 
             <EditText
-                android:id="@+id/divisi"
+                android:id="@+id/email"
                 style="@style/inputTextSignup"
                 android:layout_height="wrap_content"
-                android:text="Agent Call Center"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:text="user@gmail.com" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/linearLayoutSignup"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_work_24"
+                app:tint="@color/grey" />
+
+            <EditText
+                android:id="@+id/posisi"
+                style="@style/inputTextSignup"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Agent" />
         </LinearLayout>
     </LinearLayout>
 

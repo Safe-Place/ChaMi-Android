@@ -15,11 +15,12 @@ import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.ActivityPasswordLoginBinding
 import com.mbahgojol.chami.login.forgotPassword.ForgotPasswordActivity
 import com.mbahgojol.chami.ui.main.MainActivity
+import com.mbahgojol.chami.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PasswordLoginActivity : AppCompatActivity() {
+class PasswordLoginActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPasswordLoginBinding
 
@@ -74,7 +75,7 @@ class PasswordLoginActivity : AppCompatActivity() {
                         .addOnSuccessListener {
                             if (it != null && it.documents.isNotEmpty()) {
                                 val user = it.documents[0].toObject<Users>()
-                                sharedPref.userId = user?.user_id ?: ""
+//                                sharedPref.userId = user?.user_id ?: ""
 
                                 loginViewModel.login(id,password, this@PasswordLoginActivity)
                                 loginViewModel.isLoading.observe(this@PasswordLoginActivity) {

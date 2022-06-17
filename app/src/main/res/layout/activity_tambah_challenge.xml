@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.challanges.TambahChallengeActivity">
+
+    <LinearLayout
+        android:id="@+id/tbTambahChallenge"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/custom_bg_gradient"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tambah Challenge"
+            android:gravity="center"
+            android:layout_marginEnd="45dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etJudulChallenge"
+        android:layout_width="wrap_content"
+        android:maxWidth="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="88dp"
+        android:background="@null"
+        android:fontFamily="@font/inter_bold"
+        android:hint="Judul Challenge"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_short_text_24"
+        app:layout_constraintBottom_toBottomOf="@+id/etDeskripsiChallenge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etDeskripsiChallenge" />
+
+    <EditText
+        android:id="@+id/etDeskripsiChallenge"
+        android:layout_width="wrap_content"
+        android:maxWidth="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:background="@null"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_reguler"
+        android:hint="Masukkan deskripsi"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etJudulChallenge" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="25dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_point"
+        app:tint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/etPointChallenge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etPointChallenge" />
+
+    <EditText
+        android:id="@+id/etPointChallenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:background="@null"
+        android:fontFamily="@font/inter_reguler"
+        android:hint="Masukkan poin"
+        android:inputType="phone"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDeskripsiChallenge" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="25dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_calendar_month_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tenggat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tenggat" />
+
+    <TextView
+        android:id="@+id/tenggat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:background="@null"
+        android:fontFamily="@font/inter_reguler"
+        android:text="Tenggat waktu :"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPointChallenge" />
+
+    <DatePicker
+        android:id="@+id/spinnerTenggat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintStart_toStartOf="@+id/tenggat"
+        app:layout_constraintTop_toBottomOf="@+id/tenggat" />
+
+    <Button
+        android:id="@+id/btnSimpan"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/custom_rounded_button"
+        android:text="Simpan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mbahgojol.chami" >
+    package="com.mbahgojol.chami">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -10,15 +10,79 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/FullScreen"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.main.chat.personal.create.CreateChatPersonalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.group.converse.GroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.group.create.CreateGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.personal.converse.detail.DetailPersonalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.DetailAprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.ApprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.meeting.DetailMeetingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.DetailParticipantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.ListParticipantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.DetailChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.challanges.TambahChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.RegistrasiFingerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.UbahSandiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.ChamiPictActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.DetailTukarPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.TukarPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.RiwayatPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.DaftarTransaksiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.supervisor.RiwayatChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.others.KeamananActivity"
+            android:exported="false" />
         <activity
             android:name=".login.forgotPassword.NewPasswordActivity"
             android:exported="false" />
@@ -38,28 +102,31 @@
             android:name=".login.PasswordLoginActivity"
             android:exported="false" />
         <activity
+            android:name=".login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".signup.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.chat.login.CreateActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.main.chat.personal.converse.PersonalChatActivity"
+            android:exported="false"
+            android:theme="@style/FullScreen" />
+        <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".signup.SignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.chat.personal.detail.DetailPersonalChatActivity"
-            android:exported="false"
-            android:theme="@style/FullScreen" />
-        <activity
-            android:name=".login.LoginActivity"
-            android:exported="false" />
 
         <service
             android:name=".data.remote.MyFirebaseMessagingService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -67,7 +134,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_background" />
+            android:resource="@drawable/icon" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/purple_200" />
@@ -77,7 +144,7 @@
 
         <receiver
             android:name=".data.remote.MyBroadcast"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>

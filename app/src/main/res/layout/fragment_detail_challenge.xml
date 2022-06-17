@@ -4,18 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".login.LoginActivity">
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_baseline_arrow_back_24"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tbTambahChallenge"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/custom_bg_gradient"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="Tambah Challenge Baru"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSave"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_baseline_people_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBack"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -23,9 +64,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="@id/ivBack"
-        app:layout_constraintTop_toBottomOf="@id/ivBack">
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbTambahChallenge">
         <TextView
+            android:id="@+id/pointDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_rounded_bg"
@@ -44,6 +87,7 @@
             android:textSize="12sp"
             android:text="@string/tenggat"/>
         <TextView
+            android:id="@+id/tenggatDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
@@ -60,12 +104,14 @@
         app:layout_constraintStart_toStartOf="@id/linearLayout1"
         app:layout_constraintTop_toBottomOf="@id/linearLayout1">
         <TextView
+            android:id="@+id/judulDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
             android:textSize="16sp"
             tools:text="Judul Challenge"/>
         <TextView
+            android:id="@+id/deskDetail"
             android:layout_width="385dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -80,6 +126,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/pemenang"/>
         <ImageView
+            android:id="@+id/avatarWinner"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
@@ -107,6 +154,7 @@
             android:layout_marginStart="15dp"/>
 
         <TextView
+            android:id="@+id/btnTambahLampiran"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -118,10 +166,11 @@
             android:textColor="@color/purple_500"
             android:background="@drawable/custom_round_stroke_bg"
             android:layout_marginTop="20dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="@string/tambah_lampiran"/>
 
         <TextView
+            android:id="@+id/btnTandaiSelesai"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -133,8 +182,9 @@
             android:textColor="@color/purple_500"
             android:background="@drawable/custom_round_stroke_bg"
             android:layout_marginTop="20dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="@string/tandai_selesai"/>
+
 
         <TextView
             android:layout_width="300dp"
@@ -148,7 +198,7 @@
             android:textColor="@color/purple_500"
             android:background="@drawable/custom_round_stroke_bg"
             android:layout_marginTop="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:text="file.pdf"
             app:drawableTint="@color/grey"
             app:drawableStartCompat="@drawable/ic_baseline_attach_file_24" />
@@ -161,8 +211,24 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/custom_rounded_button"
             android:text="@string/kirim"
-            android:visibility="visible"
+            android:visibility="gone"
             android:textAllCaps="false"/>
+
+        <TextView
+            android:id="@+id/btnBatalSubmit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_gravity="center_horizontal"
+            android:paddingVertical="10dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/inter_bold"
+            android:textSize="16sp"
+            android:textColor="@color/purple_500"
+            android:background="@drawable/custom_round_stroke_bg"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            android:text="Batal"/>
 
         <LinearLayout
             android:layout_width="300dp"
@@ -180,6 +246,7 @@
                 android:layout_marginStart="8dp"
                 android:hint="Masukkan pesan Pribadi"/>
             <ImageView
+                android:id="@+id/btnKirimPesan"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="4dp"
