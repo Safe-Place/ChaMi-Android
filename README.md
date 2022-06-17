@@ -8,19 +8,20 @@ Integrated chat application with increased security and capabilities that make i
 ## Main Feature
 This Application have 5 main feature <br/>
 - Live Chat Feature <br/>
-  - Fitur ini dapat dilakukan untuk mengirimkan pesan di grup maupun secara personal
+  - This feature can be done to send messages in groups or personally
 - Schedule Meeting
-  - Menambah jadwal baru
-  - Melihat Detail jadwal
+  - Add new schedule meeting
+  - View Schedule Details
 - Shared File
-  - Berbagi file dengan pegawai satu divisi
+  - Share files with employees of one division
+  - Various kinds of files contained in Android
 - Challenge
-  - Menambah challenge baru yang hanya dapat dilakukan oleh pengguna dengan jabatan supervisor
-  - Melihat detail challenge
-  - Mengirim jawaban challenge yang hanya dapat dilakukan oleh pengguna dengan jabatan agent 
-  - Mendapat point ketika memenangkan challenge
+  - Add new challenges that can only be done by users with the position of supervisor
+  - View challenge details
+  - Send challenge answers that can only be done by users with agent positions 
+  - Get points when winning challenges
 - Store
-  - Menukar point yang didapat ketika memenangkan challenge
+  - Exchange points earned when winning challenges
 
 ## Private System
 - Can't take screenshot or record screen
