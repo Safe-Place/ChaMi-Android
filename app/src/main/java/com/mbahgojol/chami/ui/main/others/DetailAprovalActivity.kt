@@ -9,8 +9,9 @@ import com.mbahgojol.chami.databinding.ActivityDetailAprovalBinding
 import com.mbahgojol.chami.databinding.ActivityDetailParticipantBinding
 import com.mbahgojol.chami.dummyData.Participant
 import com.mbahgojol.chami.dummyData.Validasi
+import com.mbahgojol.chami.utils.BaseActivity
 
-class DetailAprovalActivity : AppCompatActivity() {
+class DetailAprovalActivity : BaseActivity() {
     private lateinit var binding : ActivityDetailAprovalBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

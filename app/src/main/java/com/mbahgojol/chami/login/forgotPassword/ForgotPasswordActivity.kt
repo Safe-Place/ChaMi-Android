@@ -9,10 +9,11 @@ import com.mbahgojol.chami.databinding.ActivityForgotPasswordBinding.*
 import com.mbahgojol.chami.databinding.ActivityLoginBinding
 import com.mbahgojol.chami.databinding.ActivitySignupBinding
 import com.mbahgojol.chami.login.PasswordLoginActivity
+import com.mbahgojol.chami.utils.BaseActivity
 import com.mukesh.OnOtpCompletionListener
 import com.mukesh.OtpView
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity : BaseActivity() {
     private lateinit var binding : ActivityForgotPasswordBinding
 
     var otpView: OtpView? = null

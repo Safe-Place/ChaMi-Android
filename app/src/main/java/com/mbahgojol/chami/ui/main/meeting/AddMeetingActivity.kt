@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityAddMeetingBinding
+import com.mbahgojol.chami.utils.BaseActivity
 
-class AddMeetingActivity : AppCompatActivity() {
+class AddMeetingActivity : BaseActivity() {
     private lateinit var binding : ActivityAddMeetingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -14,6 +14,7 @@ import com.mbahgojol.chami.data.model.ChatRoom
 import com.mbahgojol.chami.data.remote.FirestoreService
 import com.mbahgojol.chami.databinding.FragmentPersonalListBinding
 import com.mbahgojol.chami.ui.main.chat.personal.converse.PersonalChatActivity
+import com.mbahgojol.chami.ui.main.chat.personal.create.CreateChatPersonalActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -56,6 +57,10 @@ class ListPersonalFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireActivity())
                 adapter = listAdapter
                 setHasFixedSize(true)
+            }
+
+            addGroup.setOnClickListener {
+                startActivity(Intent(requireActivity(), CreateChatPersonalActivity::class.java))
             }
         }
 

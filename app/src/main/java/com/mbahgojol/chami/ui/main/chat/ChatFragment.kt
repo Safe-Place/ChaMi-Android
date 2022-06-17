@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
@@ -61,9 +62,9 @@ class ChatFragment : Fragment() {
                     } else {
                         binding.tbHome.getTabAt(0)?.orCreateBadge?.number = size
                         binding.tbHome.getTabAt(0)?.badge?.backgroundColor =
-                            requireActivity().getColor(R.color.white)
+                            ContextCompat.getColor(view.context, R.color.white)
                         binding.tbHome.getTabAt(0)?.badge?.badgeTextColor =
-                            requireActivity().getColor(R.color.oren)
+                            ContextCompat.getColor(view.context, R.color.oren)
 
                         findNavController().getBackStackEntry(R.id.chatFragment)
                             .savedStateHandle["haveCount"] = true
@@ -88,9 +89,9 @@ class ChatFragment : Fragment() {
                     } else {
                         binding.tbHome.getTabAt(1)?.orCreateBadge?.number = size
                         binding.tbHome.getTabAt(1)?.badge?.backgroundColor =
-                            requireActivity().getColor(R.color.white)
+                            ContextCompat.getColor(view.context, R.color.white)
                         binding.tbHome.getTabAt(1)?.badge?.badgeTextColor =
-                            requireActivity().getColor(R.color.oren)
+                            ContextCompat.getColor(view.context, R.color.oren)
 
                         findNavController().getBackStackEntry(R.id.chatFragment)
                             .savedStateHandle["haveCountGroup"] = true

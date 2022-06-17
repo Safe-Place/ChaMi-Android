@@ -7,8 +7,9 @@ import android.widget.Toast
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityUbahSandiBinding
 import com.mbahgojol.chami.ui.main.MainActivity
+import com.mbahgojol.chami.utils.BaseActivity
 
-class UbahSandiActivity : AppCompatActivity() {
+class UbahSandiActivity : BaseActivity() {
     private lateinit var binding : ActivityUbahSandiBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

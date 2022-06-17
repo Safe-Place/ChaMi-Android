@@ -9,8 +9,9 @@ import com.mbahgojol.chami.databinding.ActivityRiwayatChallengeBinding
 import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.HistoryChallenge
 import com.mbahgojol.chami.dummyData.RiwayatChallenge
+import com.mbahgojol.chami.utils.BaseActivity
 
-class RiwayatChallengeActivity : AppCompatActivity() {
+class RiwayatChallengeActivity : BaseActivity() {
     private lateinit var binding : ActivityRiwayatChallengeBinding
     private lateinit var rvChallenge : RecyclerView
     private var list = ArrayList<RiwayatChallenge>()

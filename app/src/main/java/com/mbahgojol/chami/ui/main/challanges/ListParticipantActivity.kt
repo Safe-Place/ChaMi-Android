@@ -15,8 +15,9 @@ import com.mbahgojol.chami.dummyData.Produk
 import com.mbahgojol.chami.ui.main.files.DetailFileActivity
 import com.mbahgojol.chami.ui.main.others.DetailTukarPointActivity
 import com.mbahgojol.chami.ui.main.others.TukarPointAdapter
+import com.mbahgojol.chami.utils.BaseActivity
 
-class ListParticipantActivity : AppCompatActivity() {
+class ListParticipantActivity : BaseActivity() {
     private lateinit var binding : ActivityListParticipantBinding
 
     private lateinit var rvParticipant : RecyclerView

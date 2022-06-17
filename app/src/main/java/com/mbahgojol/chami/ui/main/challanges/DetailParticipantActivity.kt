@@ -9,8 +9,9 @@ import com.mbahgojol.chami.databinding.ActivityDetailParticipantBinding
 import com.mbahgojol.chami.dummyData.Challenge
 import com.mbahgojol.chami.dummyData.Participant
 import com.mbahgojol.chami.dummyData.Produk
+import com.mbahgojol.chami.utils.BaseActivity
 
-class DetailParticipantActivity : AppCompatActivity() {
+class DetailParticipantActivity : BaseActivity() {
     private lateinit var binding : ActivityDetailParticipantBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

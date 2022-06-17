@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import com.mbahgojol.chami.R
 import com.mbahgojol.chami.databinding.ActivityTambahChallengeBinding
+import com.mbahgojol.chami.utils.BaseActivity
 
-class TambahChallengeActivity : AppCompatActivity() {
+class TambahChallengeActivity : BaseActivity() {
     private lateinit var binding : ActivityTambahChallengeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
