@@ -401,17 +401,13 @@ class FirestoreService {
         db.collection("challenge")
             .whereGreaterThanOrEqualTo("due_date", date)
 
-    fun submitChallenge(sub : Submission, challengeId : String?, listen: (String) -> Unit) =
+    fun submitChallenge(sub : Submission, challengeId : String?, id_user : String?) =
         db.collection("challenge")
             .document(challengeId!!)
             .collection("submission")
-            .add(sub)
-            .onSuccessTask { doc ->
-                doc.update("submission_id", doc.id)
-                    .addOnSuccessListener {
-                        listen(doc.id)
-                    }
-            }
+            .document(id_user!!)
+            .set(sub)
+
 
     fun addPeserta(peserta : Peserta, challengeId : String?) =
         db.collection("challenge")
@@ -430,5 +426,11 @@ class FirestoreService {
         db.collection("challenge")
             .document(challengeId!!)
             .collection("peserta")
+
+    fun UpdatePesan(challengeId: String?,userId: String?) =
+        db.collection("challenge")
+            .document(challengeId!!)
+            .collection("submission")
+            .document(userId!!)
 
 }

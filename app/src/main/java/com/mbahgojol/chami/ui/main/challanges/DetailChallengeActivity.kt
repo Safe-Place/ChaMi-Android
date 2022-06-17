@@ -1,6 +1,7 @@
 package com.mbahgojol.chami.ui.main.challanges
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -123,9 +124,20 @@ class DetailChallengeActivity : AppCompatActivity() {
 
 
         binding.btnKirimPesan.setOnClickListener {
-            binding.inputPesan.text = null
-            Toast.makeText(this@DetailChallengeActivity, "Pesan Terkirim", Toast.LENGTH_LONG).show()
+            kirimPesan()
         }
+    }
+
+    private fun kirimPesan(){
+        val pesan = binding.inputPesan.text.toString()
+        val idUser = LoginPref(this).getId()
+        firestoreModule.UpdatePesan(challengeId, idUser)
+            .update("pesan",pesan)
+            .addOnSuccessListener {
+                Timber.d("Sukses update pesan ke firestore")
+                binding.inputPesan.text = null
+                Toast.makeText(this@DetailChallengeActivity, "Pesan Terkirim", Toast.LENGTH_LONG).show()}
+            .addOnFailureListener{ e -> Timber.tag(ContentValues.TAG).w(e, "Gagal update pesan ke firestore") }
 
     }
 
@@ -149,6 +161,7 @@ class DetailChallengeActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun uploadtoStorage (uri: Uri, nameFile: String?){
+        binding.progressBar.isVisible = true
         val storageRef = storage.reference
         val path : String = "submission/"+ UUID.randomUUID()+"/"+nameFile
         val filesRef = storageRef.child(path)
@@ -188,6 +201,7 @@ class DetailChallengeActivity : AppCompatActivity() {
                     }
 
                     binding.tvFile.text = nameFile
+                    binding.btnKirim.isVisible = false
 
                 }.addOnFailureListener {
                     Timber.e("Gagal mendapatkan metadata")
@@ -219,11 +233,10 @@ class DetailChallengeActivity : AppCompatActivity() {
             false
         )
 //                    binding.progressBar.isVisible = false
-        firestoreModule.submitChallenge(submission, challengeId) {
+        firestoreModule.submitChallenge(submission, challengeId, idUser) .addOnSuccessListener {
         }
         firestoreModule.addPeserta(peserta, challengeId).addOnSuccessListener {
             Toast.makeText(this, "Submission terkirim", Toast.LENGTH_LONG).show()
-            binding.btnKirim.isVisible = false
         }
     }
 
