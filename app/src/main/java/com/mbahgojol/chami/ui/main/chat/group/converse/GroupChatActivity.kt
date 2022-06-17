@@ -104,6 +104,7 @@ class GroupChatActivity : AppCompatActivity() {
 
             binding.btnSend.setOnClickListener {
                 val msg = binding.etPesan.text.toString()
+                if (msg == "") return@setOnClickListener
 
                 val data = ChatLog(
                     sharedPref.userId,

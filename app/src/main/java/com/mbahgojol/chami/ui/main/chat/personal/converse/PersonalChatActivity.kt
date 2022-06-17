@@ -94,6 +94,8 @@ class PersonalChatActivity : AppCompatActivity() {
                 val currentDate = DateUtils.getCurrentTime()
 
                 val msg = binding.etPesan.text.toString()
+                if (msg == "") return@setOnClickListener
+
                 val data = ChatLog(
                     senderId,
                     sharedPref.userName,
