@@ -9,40 +9,51 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mbahgojol.chami.R
+import com.mbahgojol.chami.data.model.Challenges
+import com.mbahgojol.chami.data.model.Peserta
+import com.mbahgojol.chami.databinding.ItemListChallengeBinding
+import com.mbahgojol.chami.databinding.ItemListParticipantBinding
 import com.mbahgojol.chami.dummyData.Participant
 import com.mbahgojol.chami.dummyData.Produk
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ListParticipantAdapter(private val listParticipant: ArrayList<Participant>) : RecyclerView.Adapter<ListParticipantAdapter.ListViewHolder>() {
-    private lateinit var onItemClickCallback: OnItemClickCallback
+class ListParticipantAdapter constructor(
+    private val data: MutableList<Peserta> = mutableListOf(),
+    private var listener: (Peserta) -> Unit
+) :
+    RecyclerView.Adapter<ListParticipantAdapter.FileViewHolder>() {
 
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
+    fun setData(data: MutableList<Peserta>) {
+        this.data.clear()
+        this.data.addAll(data)
+        notifyDataSetChanged()
     }
 
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var ivFoto: ImageView = itemView.findViewById(R.id.participantAvatar)
-        var tvNama: TextView = itemView.findViewById(R.id.participantNama)
-    }
+    inner class FileViewHolder(private val binding: ItemListParticipantBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_participant, parent, false)
-        return ListViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (foto,nama) = listParticipant[position]
-        holder.ivFoto.load(foto){
-            transformations(CircleCropTransformation())
+        fun bind(data: Peserta) {
+            binding.participantAvatar.load(data.avatar_url) {
+                transformations(CircleCropTransformation())
+            }
+            binding.participantNama.text = data.nama_user
         }
-        holder.tvNama.text = nama
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listParticipant[holder.adapterPosition]) }
     }
 
-    override fun getItemCount(): Int = listParticipant.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListParticipantAdapter.FileViewHolder =
+        FileViewHolder(
+            ItemListParticipantBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
 
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: Participant)
+    override fun onBindViewHolder(holder: ListParticipantAdapter.FileViewHolder, position: Int) {
+        val item = data[position]
+        holder.bind(item)
+        holder.itemView.setOnClickListener {
+            listener(item)
+        }
     }
+
+    override fun getItemCount(): Int = data.size
+
 }

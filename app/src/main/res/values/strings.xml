@@ -42,9 +42,20 @@
     <string name="tandai_selesai">Tandai Selesai</string>
 
     <string-array name="divisi_list">
-        <item>Divisi Digital Center</item>
         <item>Divisi Customer Relation</item>
-        <item>Divisi Customer Resolution</item>
+        <item>Divisi Digital</item>
+        <item>Divisi Call Center</item>
+        <item>Divisi VIP Services</item>
+        <item>Divisi Retail Customer Experience (Gerai)</item>
+        <item>Divisi Business Process dan Training</item>
+        <item>Divisi Service Quality dan Exp. Assurance</item>
+        <item>Divisi Customer Journey</item>
+        <item>Divisi Collection dan Payment</item>
+        <item>Divisi Billing dan Administration</item>
+        <item>Divisi Verification dan Credit Monitoring</item>
+        <item>Divisi Business Planning dan Project Tracking</item>
+        <item>Divisi Infra, Support dan Tech. Development</item>
+        <item>Divisi CX Reporting Teams</item>
     </string-array>
 
     <string-array name="posisi_list">

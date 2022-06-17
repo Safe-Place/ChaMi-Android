@@ -38,11 +38,12 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etJudulChallenge"
         android:layout_width="wrap_content"
+        android:maxWidth="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="88dp"
         android:background="@null"
         android:fontFamily="@font/inter_bold"
         android:hint="Judul Challenge"
@@ -58,24 +59,25 @@
         android:layout_height="22dp"
         android:layout_marginStart="16dp"
         android:src="@drawable/ic_baseline_short_text_24"
-        app:layout_constraintBottom_toBottomOf="@+id/deskripsi"
+        app:layout_constraintBottom_toBottomOf="@+id/etDeskripsiChallenge"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/deskripsi" />
+        app:layout_constraintTop_toTopOf="@+id/etDeskripsiChallenge" />
 
     <EditText
-        android:id="@+id/deskripsi"
+        android:id="@+id/etDeskripsiChallenge"
         android:layout_width="wrap_content"
+        android:maxWidth="220dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="132dp"
         android:background="@null"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/inter_reguler"
         android:hint="Masukkan deskripsi"
         android:textColor="@color/black"
         android:textColorHint="@color/grey"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etJudulChallenge" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -84,26 +86,28 @@
         android:layout_marginStart="16dp"
         android:src="@drawable/ic_point"
         app:tint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/poin"
+        app:layout_constraintBottom_toBottomOf="@+id/etPointChallenge"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/poin" />
+        app:layout_constraintTop_toTopOf="@+id/etPointChallenge" />
 
     <EditText
-        android:id="@+id/poin"
+        android:id="@+id/etPointChallenge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="160dp"
         android:background="@null"
         android:fontFamily="@font/inter_reguler"
         android:hint="Masukkan poin"
+        android:inputType="phone"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/grey"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etDeskripsiChallenge" />
 
     <ImageView
+        android:id="@+id/imageView7"
         android:layout_width="25dp"
         android:layout_height="15dp"
         android:layout_marginStart="16dp"
@@ -112,20 +116,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tenggat" />
 
-    <EditText
+    <TextView
         android:id="@+id/tenggat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="188dp"
         android:background="@null"
         android:fontFamily="@font/inter_reguler"
-        android:hint="Tenggat waktu"
+        android:text="Tenggat waktu :"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:textColorHint="@color/grey"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etPointChallenge" />
+
+    <DatePicker
+        android:id="@+id/spinnerTenggat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintStart_toStartOf="@+id/tenggat"
+        app:layout_constraintTop_toBottomOf="@+id/tenggat" />
 
     <Button
         android:id="@+id/btnSimpan"
