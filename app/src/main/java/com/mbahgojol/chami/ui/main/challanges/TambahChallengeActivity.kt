@@ -57,6 +57,11 @@ class TambahChallengeActivity : AppCompatActivity() {
         val deskripsi = binding.etDeskripsiChallenge.text.toString()
         val point = binding.etPointChallenge.text
         val user_id = LoginPref(this).getId()
+        val date = Calendar.getInstance().time
+
+        val sdf = SimpleDateFormat("dd-MM-yyyy")
+        val todayString = sdf.format(date)
+        val today = convertDateToLong(todayString)
 
         val challenge = Challenges(
             judul,
@@ -67,6 +72,8 @@ class TambahChallengeActivity : AppCompatActivity() {
         )
         firestoreModule.addChallenge(challenge){
         }
+
+
     }
 
     fun convertDateToLong(date: String): Long {
