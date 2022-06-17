@@ -3,7 +3,7 @@
 ## Background
 Agents and supervisors at Indosat Ooredoo Hutchison still rely on third parties to coordinate messages. They also occasionally run into issues where agents want to provide confidential information that other parties, like message service providers, do not want to know. 
 
-Integrated chat application with increased security and capabilities that make it easier for IOH agents to collaborate online with chat, voice calls, schedule, confidential document exchange, etc.
+Integrated chat application is an integrated chat application used for internal communication only in Indosat Ooredoo Hutchison
 
 ## Main Feature
 This Application have 5 main feature <br/>
